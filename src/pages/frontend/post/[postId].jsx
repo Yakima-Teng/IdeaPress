@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Layout from '../../components/frontend/Layout'
-import { seo } from '../../../site.config'
+import Layout from '../../../components/frontend/Layout'
+import { seo } from '../../../../site.config'
 
-export default class Index extends Component {
+export default class Post extends Component {
     render () {
         return (
             <Layout

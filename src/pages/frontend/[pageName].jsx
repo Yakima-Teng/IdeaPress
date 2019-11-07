@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Layout from '../../components/frontend/Layout'
 import { seo } from '../../../site.config'
 
-export default class Index extends Component {
+export default class Page extends Component {
     render () {
         return (
             <Layout
@@ -62,25 +62,7 @@ export default class Index extends Component {
                         lobortis.</p>
                 </div>
 
-                <nav>
-                    <ul className="pager">
-                        <li><a href="#">Previous</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
-                </nav>
-
                 <style jsx>{`
-                    .pager {
-                        margin-bottom: 60px;
-                        text-align: left;
-                    }
-                    .pager > li > a {
-                        width: 140px;
-                        padding: 10px 20px;
-                        text-align: center;
-                        border-radius: 30px;
-                    }
-
                     .blog-post {
                         margin-bottom: 60px;
                     }
