@@ -19,9 +19,9 @@ module.exports = {
         keywords: ['关键词1', '关键词2'],
         description: '网站描述',
     },
-    homePage: '/blog/index', // 网站首页
-    frontendRoot: '/blog', // 前台目录
-    backendRoot: '/admin', // 后台目录（管理平台目录）
+    homePage: '/blog/index', // 网站首页/index映射的url地址
+    frontendRoot: '/blog', // 前台pages/frontend目录对应的url路径
+    backendRoot: '/admin', // 后台pages/backend目录对应的url路径
     serverPort: '8888', // 服务使用的端口号
     apiDomainUsed,
     apiPrefix: '/apis',

@@ -1,5 +1,4 @@
 import Router from 'next/router'
-import { doPost, imgPrefix } from './fetch'
 import {
     frontendRoot,
     backendRoot,
@@ -204,13 +203,6 @@ const dateToString = (date = new Date()) => {
 // 将时间戳转换为形如"2016-12-15"的字符串
 export const timestampToString = timestamp => {
     return dateToString(new Date(timestamp))
-}
-
-export const sum = arr => {
-    let tempSum = arr.reduce((preVal, curVal) => {
-        return parseFloat(preVal) + parseFloat(curVal || 0)
-    }, 0)
-    return isNaN(tempSum) ? '' : updateNumber(tempSum)
 }
 
 // 以当前日期为参考日期计算指定年月日偏差后的日期，输出格式为"yyyy-mm-dd"

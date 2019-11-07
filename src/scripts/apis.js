@@ -1,8 +1,6 @@
 import { doPost } from './fetch'
 import {
     doAlert,
-    doToast,
-    refreshPage,
 } from './utils'
 
 export const getPost = ({ id }) => {
@@ -10,7 +8,7 @@ export const getPost = ({ id }) => {
         id,
     }).then((data) => {
         if (data.errorCode) {
-            doAlert({ text: data['errorMsg' + l] })
+            doAlert({ text: data.errorMsg })
             return
         }
     })

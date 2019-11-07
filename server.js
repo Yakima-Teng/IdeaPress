@@ -1,19 +1,21 @@
 const express = require('express')
 const next = require('next')
-const os = require('os')
 const proxyMiddleware = require('http-proxy-middleware')
 const {
     homePage,
     serverPort,
     proxyTable,
-} = require('../site.config')
+    frontendRoot,
+    backendRoot,
+} = require('./site.config')
 
 const port = parseInt(process.env.PORT || serverPort, 10) || 8080
 const env = process.env.NODE_ENV
 const dev = env !== 'production'
 const app = next({
-    dir: '.', // base directory where everything is, could move to src later
-    dev
+    dir: './src', // base directory where everything is, could move to src later
+    distDir: '../',
+    dev,
 })
 
 const handle = app.getRequestHandler()
@@ -30,6 +32,15 @@ app
 
         // Default catch-all handler to allow Next.js to handle all other routes
         server.all('*', (req, res) => handle(req, res))
+
+        server.get(`${backendRoot}/:slug`, (req, res) => {
+            return app.render(req, res, '/backend', { slug: req.params.slug })
+        })
+
+        server.get(`${frontendRoot}/:slug`, (req, res) => {
+            console.log('frontend') // eslint-disable-line
+            return app.render(req, res, '/frontend', { slug: req.params.slug })
+        })
 
         server.listen(port, err => {
             if (err) {

@@ -7,8 +7,8 @@
   "private": false,
   "scripts": {
     "eslint": "eslint --fix --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx src",
-    "dev": "npm run eslint && NODE_ENV=development node src/server.js",
-    "start": "npm run eslint && next build && NODE_ENV=production node src/server.js"
+    "dev": "NODE_ENV=development node server.js",
+    "start": "npm run eslint && next build && NODE_ENV=production node server.js"
   },
   "dependencies": {
     "classnames": "^2.2.6",
