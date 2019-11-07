@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
+import Link from 'next/link'
 import { seo } from '../../../site.config'
 
 const headCommentForCompatibility = `
@@ -44,11 +45,12 @@ export default class Layout extends Component {
                     <div className="blog-masthead">
                         <div className="container">
                             <nav className="blog-nav">
-                                <a className="blog-nav-item active" href="#">Home</a>
-                                <a className="blog-nav-item" href="#">New features</a>
-                                <a className="blog-nav-item" href="#">Press</a>
-                                <a className="blog-nav-item" href="#">New hires</a>
-                                <a className="blog-nav-item" href="#">About</a>
+                                <Link href="/frontend/index">
+                                    <a className="blog-nav-item active">首页</a>
+                                </Link>
+                                <Link href="/frontend/[pageName]" as="/frontend/about">
+                                    <a className="blog-nav-item">关于</a>
+                                </Link>
                             </nav>
                         </div>
                     </div>
