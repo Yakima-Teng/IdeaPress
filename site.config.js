@@ -1,10 +1,4 @@
 const os = require('os')
-const domains = {
-    test: domainsConfig.test, // 测试环境地址（在windows或者mac系统电脑上开发时默认连接测试环境）
-    production: domainsConfig.production, // 产线环境地址
-    development: domainsConfig.development, // 本地开发时连接的地址
-    local: 'http://127.0.0.1:8080', // 部署到linux服务器上时使用内网地址，减少不必要的域名解析时间
-}
 const platform = os.platform()
 const isDevelopingInDeveloperComputer = platform === 'darwin' || platform === 'win32' // 是否是开发者在本地开发（当操作系统为mac或windows时，认为是在开发机上开发）
 
@@ -19,6 +13,12 @@ const domains = {
 const apiDomainUsed = isDevelopingInDeveloperComputer ? domains.development : domains.local
 
 module.exports = {
+    seo: {
+        siteMainTitle: 'IdeaPress',
+        siteSubTitle: 'Just another IdeaPress site',
+        keywords: ['关键词1', '关键词2'],
+        description: '网站描述',
+    },
     homePage: '/blog/index', // 网站首页
     frontendRoot: '/blog', // 前台目录
     backendRoot: '/admin', // 后台目录（管理平台目录）
