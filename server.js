@@ -14,7 +14,6 @@ const env = process.env.NODE_ENV
 const dev = env !== 'production'
 const app = next({
     dir: './src', // base directory where everything is, could move to src later
-    distDir: '../',
     dev,
 })
 

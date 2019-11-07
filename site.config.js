@@ -18,6 +18,7 @@ module.exports = {
         siteSubTitle: 'Just another IdeaPress site',
         keywords: ['关键词1', '关键词2'],
         description: '网站描述',
+        author: 'https://github.com/Yakima-Teng/IdeaPress',
     },
     homePage: '/blog/index', // 网站首页/index映射的url地址
     frontendRoot: '/blog', // 前台pages/frontend目录对应的url路径
