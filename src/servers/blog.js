@@ -1,5 +1,5 @@
 const mysql = require('mysql')
-const config = require('../../config.js')
+const config = require('../../site.config')
 const pool = mysql.createPool(config.blogMysql)
 
 const async = require('async')
