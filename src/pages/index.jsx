@@ -14,7 +14,7 @@ if (num > 0) {
 } else {
     return 0
 }
-${'```'}  
+${'```'}
 `
 
 const Page = () => {

@@ -24,6 +24,7 @@
     "qs": "^6.8.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-markdown": "^4.2.2",
     "trim-html": "^0.1.9"
   },
   "devDependencies": {
