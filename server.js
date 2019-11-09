@@ -29,17 +29,32 @@ app
             server.use(proxyMiddleware(context, proxyTable[context]))
         })
 
-        // Default catch-all handler to allow Next.js to handle all other routes
-        server.all('*', (req, res) => handle(req, res))
+        server.get('/', (req, res) => {
+            return app.render(req, res, '/frontend/index', {})
+        })
 
-        server.get(`${backendRoot}/:slug`, (req, res) => {
-            return app.render(req, res, '/backend', { slug: req.params.slug })
+        server.get('/:slug', (req, res) => {
+            return app.render(req, res, '/frontend/[pageName]', { slug: req.params.slug })
+        })
+
+        server.get(`${frontendRoot}`, (req, res) => {
+            return app.render(req, res, '/frontend/index', {})
         })
 
         server.get(`${frontendRoot}/:slug`, (req, res) => {
-            console.log('frontend') // eslint-disable-line
-            return app.render(req, res, '/frontend', { slug: req.params.slug })
+            return app.render(req, res, '/frontend/[pageName]', { slug: req.params.slug })
         })
+
+        server.get(`${backendRoot}`, (req, res) => {
+            return app.render(req, res, '/backend/index', {})
+        })
+
+        server.get(`${backendRoot}/:slug`, (req, res) => {
+            return app.render(req, res, '/backend/[pageName]', { slug: req.params.slug })
+        })
+
+        // Default catch-all handler to allow Next.js to handle all other routes
+        server.all('*', (req, res) => handle(req, res))
 
         server.listen(port, err => {
             if (err) {

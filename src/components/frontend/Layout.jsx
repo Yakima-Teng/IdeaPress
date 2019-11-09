@@ -45,10 +45,10 @@ export default class Layout extends Component {
                     <div className="blog-masthead">
                         <div className="container">
                             <nav className="blog-nav">
-                                <Link href="/frontend/index">
+                                <Link href="/">
                                     <a className="blog-nav-item active">首页</a>
                                 </Link>
-                                <Link href="/frontend/[pageName]" as="/frontend/about">
+                                <Link href="/about">
                                     <a className="blog-nav-item">关于</a>
                                 </Link>
                             </nav>
