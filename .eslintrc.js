@@ -21,7 +21,7 @@ module.exports = {
     "rules": {
         "max-len": ["error", { "code": 300 }],
         "max-lines": ["error", {
-            "max": 888,
+            "max": 1000,
             "skipBlankLines": true,
             "skipComments": true,
         }],
