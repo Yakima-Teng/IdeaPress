@@ -2,9 +2,10 @@ import M from '../../../../servers/blog'
 
 export default async (req, res) => {
     try {
-        const options = {
-            postId: req.params.id
-        }
+        const type = req.query.type || 'id' // `id` or `slug`
+        const options = type === 'id'
+            ? { postId: req.query.id }
+            : { postSlug: req.query.id }
         M.getPost(options, (err, data) => {
             if (err) {
                 return res.json({

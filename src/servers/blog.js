@@ -316,15 +316,30 @@ module.exports = class Methods {
     static getPost (options, cb) {
         const _this = this
 
-        const postId = options.postId || 1
+        const postId = options.postId
 
-        const query = {
-            sql: 'SELECT ID, post_date, post_date_gmt, post_content, post_title, slug, name ' +
-                'FROM wp_posts JOIN wp_term_relationships ON (ID = object_id) JOIN wp_term_taxonomy USING (term_taxonomy_id) JOIN wp_terms USING (term_id) ' +
-                'WHERE ID = ?',
-            params: [postId]
+        const postSlug = options.postSlug
+
+        if (postId) {
+            const query = {
+                sql: 'SELECT ID, post_date, post_date_gmt, post_content, post_title, slug, name ' +
+                    'FROM wp_posts JOIN wp_term_relationships ON (ID = object_id) JOIN wp_term_taxonomy USING (term_taxonomy_id) JOIN wp_terms USING (term_id) ' +
+                    'WHERE ID = ?',
+                params: [postId]
+            }
+            _this.query(query, cb)
+            return
         }
-        _this.query(query, cb)
+
+        if (postSlug) {
+            const query = {
+                sql: 'SELECT ID, post_date, post_date_gmt, post_content, post_title, slug, name, post_name ' +
+                    'FROM wp_posts JOIN wp_term_relationships ON (ID = object_id) JOIN wp_term_taxonomy USING (term_taxonomy_id) JOIN wp_terms USING (term_id) ' +
+                    'WHERE post_name = ?',
+                params: [postSlug]
+            }
+            _this.query(query, cb)
+        }
     }
 
     static getPostExcerpts (options, cb) {
