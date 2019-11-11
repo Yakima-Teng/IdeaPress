@@ -3,7 +3,7 @@ import M from '../../../../servers/blog'
 export default async (req, res) => {
     try {
         const options = {
-            postName: req.params.postName
+            postName: req.query.postName
         }
         M.getPage(options, (err, data) => {
             if (err) {

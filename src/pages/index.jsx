@@ -1,6 +1,5 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
-import fetch from 'isomorphic-fetch'
 import Layout from '../components/frontend/Layout'
 import { seo } from '../../site.config'
 import {
@@ -9,6 +8,7 @@ import {
     trimHtml,
 } from '../scripts/utils'
 import { PageNavigation } from '../components/frontend/PageNavigation'
+import { doGet } from '../scripts/fetch'
 
 const dateParams = getTimeLeft()
 
@@ -98,9 +98,11 @@ Index.propTypes = {
     posts: PropTypes.array.isRequired,
 }
 
-Index.getInitialProps = async ({ req }) => {
-    const baseUrl = req ? `http://${req.headers.host}` : ''
-    const res = await fetch(`${baseUrl}/wp-json/wp/v2/posts?page=1&per_page=10`)
+Index.getInitialProps = async () => {
+    const res = await doGet('/wp-json/wp/v2/posts', {
+        page: '1',
+        per_page: '10',
+    })
     const totalPages = res.headers.get('x-wp-totalpages') * 1
     const total = res.headers.get('x-wp-total') * 1
     const data = await res.json()

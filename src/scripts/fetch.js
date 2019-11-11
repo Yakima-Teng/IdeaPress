@@ -1,9 +1,12 @@
 import fetch from 'isomorphic-fetch'
 import hexMd5 from 'md5-hex'
 import qs from 'qs'
-import { doLoad } from './utils'
 import {
-    apiDomainUsed,
+    doLoad,
+    transferQueryObjectToString,
+} from './utils'
+import {
+    serverPort,
     apiPrefix,
 } from '../../site.config'
 
@@ -33,7 +36,7 @@ export const doPost = (targetUrl, data, options = {}) => {
         }
     }
     if (!/^http/.test(targetUrl)) {
-        targetUrl = (typeof window === 'undefined' ? 'http://localhost:3000' : '') + (apiDomainUsed + apiPrefix) + targetUrl
+        targetUrl = `http://localhost:${serverPort}${apiPrefix}${targetUrl}`
     }
 
     // 对password字段进行加密处理
@@ -100,6 +103,42 @@ export const doPost = (targetUrl, data, options = {}) => {
                 return
             }
             reject(new Error('Server Error with non-200 status'))
+        }).catch((err) => {
+            if (typeof window !== 'undefined') {
+                doAjaxLoad(false)
+            }
+            reject(err)
+        })
+    })
+}
+
+export const doGet = (targetUrl, data, options = {}) => {
+    if (typeof window !== 'undefined') {
+        if (options.hideLoading !== true) {
+            doAjaxLoad(true)
+        }
+    }
+    if (!/^http/.test(targetUrl)) {
+        targetUrl = `http://localhost:${serverPort}${apiPrefix}${targetUrl}`
+    }
+
+    return new Promise((resolve, reject) => {
+        fetch(targetUrl + (Object.keys(data || {}).length === 0 ? '' : `?${transferQueryObjectToString(data)}`), {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+                ...options,
+            },
+        }).then(async (res) => {
+            if (typeof window !== 'undefined') {
+                if (options.hideLoading !== true){
+                    doAjaxLoad(false)
+                }
+            }
+            resolve(res)
         }).catch((err) => {
             if (typeof window !== 'undefined') {
                 doAjaxLoad(false)

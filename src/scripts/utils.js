@@ -309,3 +309,15 @@ export const trimHtml = (htmlContent) => {
         preserveTags: false
     })
 }
+
+// a helper function used to transfer object like { a: 1, b: 2 } to string like 'a=1&b=2'
+export const transferQueryObjectToString = (queryObject = {}) => {
+    let tempArray = []
+    for (let key in queryObject) {
+        if (queryObject.hasOwnProperty(key)) {
+            const value = queryObject[key]
+            tempArray.push(`${key}=${value}`)
+        }
+    }
+    return tempArray.join('&')
+}
