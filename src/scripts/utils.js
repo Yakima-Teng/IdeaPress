@@ -1,4 +1,5 @@
 import Router from 'next/router'
+const toTrimHtml = require('trim-html')
 import {
     frontendRoot,
     backendRoot,
@@ -261,5 +262,50 @@ export const refreshPage = (opts = {}) => {
             ...opts,
             ts: +new Date(),
         },
+    })
+}
+
+export const getTimeLeft = () => {
+    const nowDate = new Date()
+    const year = nowDate.getFullYear()
+    const month = nowDate.getMonth()
+    const date = nowDate.getDate()
+    const hour = nowDate.getHours()
+    const minute = nowDate.getMinutes()
+    const second = nowDate.getSeconds()
+    const day = nowDate.getDay()
+
+    const getTimeLeftString = (targetDate) => {
+        let ts = +targetDate - nowDate.getTime()
+        const d = Math.floor(ts / (24 * 60 * 60 * 1000))
+        ts -= d * 24 * 60 * 60 * 1000
+        const h = Math.floor(ts / (60 * 60 * 1000))
+        ts -= h * 60 * 60 * 1000
+        const m = Math.floor(ts / (60 * 1000))
+        ts -= m * 60 * 1000
+        const s = Math.floor(ts / 1000)
+        return `${d}天${h}时${m}分${s}秒`
+    }
+    const timeLeftThisWeek = getTimeLeftString(new Date(
+        +new Date(year, month, date + 1, 0, 0, 0) +
+        (day === 0 ? 0 : (7 - day) * 24 * 60 * 60 * 1000)
+    ))
+    const timeLeftThisMonth = getTimeLeftString(new Date(year, month + 1, 1, 0, 0, 0))
+    const timeLeftThisYear = getTimeLeftString(new Date(year + 1, 0, 1, 0, 0, 0))
+    return {
+        dateStr: `${year}年${month + 1}月${date}日 ${hour}:${minute}:${second}`,
+        dayStr: `星期${['日', '一', '二', '三', '四', '五', '六'][day]}`,
+        timeLeftThisWeek,
+        timeLeftThisMonth,
+        timeLeftThisYear,
+    }
+}
+
+// 去除html字符串中的标签，以获取纯文本内容
+export const trimHtml = (htmlContent) => {
+    return toTrimHtml(htmlContent, {
+        limit: 150,
+        suffix: '...',
+        preserveTags: false
     })
 }

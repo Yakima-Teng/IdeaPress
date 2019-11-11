@@ -3,50 +3,20 @@ import PropTypes from 'prop-types'
 import fetch from 'isomorphic-fetch'
 import Layout from '../components/frontend/Layout'
 import { seo } from '../../site.config'
-import { getString } from '../scripts/utils'
+import {
+    getString,
+    getTimeLeft,
+    trimHtml,
+} from '../scripts/utils'
 import { PageNavigation } from '../components/frontend/PageNavigation'
 
-const dateParams = (() => {
-    const nowDate = new Date()
-    const year = nowDate.getFullYear()
-    const month = nowDate.getMonth()
-    const date = nowDate.getDate()
-    const hour = nowDate.getHours()
-    const minute = nowDate.getMinutes()
-    const second = nowDate.getSeconds()
-    const day = nowDate.getDay()
-
-    const getTimeLeftString = (targetDate) => {
-        let ts = +targetDate - nowDate.getTime()
-        const d = Math.floor(ts / (24 * 60 * 60 * 1000))
-        ts -= d * 24 * 60 * 60 * 1000
-        const h = Math.floor(ts / (60 * 60 * 1000))
-        ts -= h * 60 * 60 * 1000
-        const m = Math.floor(ts / (60 * 1000))
-        ts -= m * 60 * 1000
-        const s = Math.floor(ts / 1000)
-        return `${d}天${h}时${m}分${s}秒`
-    }
-    const timeLeftThisWeek = getTimeLeftString(new Date(
-        +new Date(year, month, date + 1, 0, 0, 0) +
-        (day === 0 ? 0 : (7 - day) * 24 * 60 * 60 * 1000)
-    ))
-    const timeLeftThisMonth = getTimeLeftString(new Date(year, month + 1, 1, 0, 0, 0))
-    const timeLeftThisYear = getTimeLeftString(new Date(year + 1, 0, 1, 0, 0, 0))
-    return {
-        dateStr: `${year}年${month + 1}月${date}日 ${hour}:${minute}:${second}`,
-        dayStr: `星期${['日', '一', '二', '三', '四', '五', '六'][day]}`,
-        timeLeftThisWeek,
-        timeLeftThisMonth,
-        timeLeftThisYear,
-    }
-})()
+const dateParams = getTimeLeft()
 
 const Index = (props) => {
     return (
         <Layout
             hideSiteMainTitle={true}
-            pageTitle={''}
+            pageTitle={`${seo.siteMainTitle} ${seo.separator} ${seo.siteSubTitle}`}
             keywords={seo.keywords}
             description={seo.description}>
             <p className="bg-warning">{`当前日期：${dateParams.dateStr}。距离本月结束还剩：${dateParams.timeLeftThisMonth}，距离本年结束还剩：${dateParams.timeLeftThisYear}。`}</p>
@@ -150,7 +120,7 @@ Index.getInitialProps = async ({ req }) => {
             link: getString(item.link),
             title: getString(item.title.rendered),
             content: getString(item.content.rendered),
-            excerpt: getString(item.excerpt.rendered),
+            excerpt: trimHtml(getString(item.excerpt.rendered)).html,
             author: getString(item.author),
             featured_media: getString(item.featured_media),
             comment_status: getString(item.comment_status),

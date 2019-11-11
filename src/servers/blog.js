@@ -5,8 +5,9 @@ const pool = mysql.createPool(config.blogMysql)
 const async = require('async')
 
 const md = require('markdown-it')()
-const trimHtml = require('trim-html')
 const crypto = require('crypto')
+
+import { trimHtml } from '../scripts/utils'
 
 module.exports = class Methods {
     // get time in format like '2015-05-06 12:03:45'
@@ -76,15 +77,6 @@ module.exports = class Methods {
     static sha1 (password) {
         const sha1 = crypto.createHash('sha1')
         return sha1.update(password).digest('hex')
-    }
-
-    // 去除html字符串中的标签，以获取纯文本内容
-    static trimHtml (htmlContent) {
-        return trimHtml(htmlContent, {
-            limit: 150,
-            suffix: '...',
-            preserveTags: false
-        })
     }
 
     static getMenus () {
@@ -780,7 +772,7 @@ module.exports = class Methods {
                                 post_id: item.ID,
                                 post_name: item.post_name,
                                 post_date: _this.formatDate(item.post_date),
-                                post_excerpt: _this.trimHtml(item.post_excerpt).html,
+                                post_excerpt: trimHtml(item.post_excerpt).html,
                                 post_title: item.post_title
                             }
                         }))
@@ -804,7 +796,7 @@ module.exports = class Methods {
                                 post_id: item.ID,
                                 post_date: _this.formatDate(item.post_date),
                                 post_modified_date: _this.formatDate(item.post_modified),
-                                post_excerpt: item.post_excerpt || _this.trimHtml(item.post_excerpt).html,
+                                post_excerpt: item.post_excerpt || trimHtml(item.post_excerpt).html,
                                 post_title: item.post_title,
                                 post_name: item.post_name,
                                 author_name: item.display_name,

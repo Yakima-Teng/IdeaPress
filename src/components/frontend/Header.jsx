@@ -27,7 +27,7 @@ const Header = (props) => (
             <meta name="keywords" content={props.keywords.join(',')} />
             <meta name="description" content={props.description} />
             <link rel="icon" href="/favicon.ico" />
-            <title>{props.hideSiteMainTitle ? props.pageTitle : `${props.pageTitle} - ${seo.siteMainTitle}`}</title>
+            <title>{props.hideSiteMainTitle ? props.pageTitle : `${props.pageTitle} ${seo.separator} ${seo.siteMainTitle}`}</title>
 
             <link href="//cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
             <link href="//cdn.bootcss.com/layer/2.3/skin/layer.css" rel="stylesheet" />
