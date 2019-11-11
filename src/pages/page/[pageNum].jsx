@@ -67,7 +67,6 @@ const Index = (props) => {
             <PageNavigation
                 currentPage={props.pageNum}
                 totalPages={props.totalPages}
-                onClickPage={() => {}}
             />
 
             <style jsx>{`

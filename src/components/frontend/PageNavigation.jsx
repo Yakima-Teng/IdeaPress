@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import Link from 'next/link'
 
 export const PageNavigation = (props) => {
@@ -19,15 +18,11 @@ export const PageNavigation = (props) => {
            return [1, 2, 3, 4, 5, 6, 7, 8, 9, totalPages]
         }
 
-        if (currentPage - 3 > 1 && currentPage + 4 < totalPages) {
+        if (currentPage + 4 < totalPages) {
             return [1, currentPage - 3, currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, currentPage + 3, currentPage + 4, totalPages]
         }
 
-        if (currentPage + 4 < totalPages) {
-            return [1, totalPages - 8, totalPages - 7, totalPages - 6, totalPages - 5, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
-        }
-
-        return []
+        return [1, totalPages - 8, totalPages - 7, totalPages - 6, totalPages - 5, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
     })()
     return (
         <nav aria-label="Page navigation">
@@ -40,9 +35,53 @@ export const PageNavigation = (props) => {
                     </Link>
                 </li>
                 {
-                    pageNums.map((num, numIdx) => (
+                    pageNums.slice(0, 1).map((num, numIdx) => (
                         <li
-                            key={numIdx}
+                            key={`first-${numIdx}`}
+                            className={currentPage === num ? 'active' : ''}>
+                            <Link href={num > 1 ? `/page/${num}` : '/'}>
+                                <a>{num}</a>
+                            </Link>
+                        </li>
+                    ))
+                }
+                {
+                    pageNums[1] - pageNums[0] !== 1 && (
+                        <li
+                            key={'ellipsis-before'}
+                            className={'disabled'}>
+                            <Link href={'javascript:void(0);'}>
+                                <a>...</a>
+                            </Link>
+                        </li>
+                    )
+                }
+                {
+                    pageNums.slice(1, -1).map((num, numIdx) => (
+                        <li
+                            key={`middle-${numIdx}`}
+                            className={currentPage === num ? 'active' : ''}>
+                            <Link href={num > 1 ? `/page/${num}` : '/'}>
+                                <a>{num}</a>
+                            </Link>
+                        </li>
+                    ))
+                }
+                {
+                    pageNums.slice(-1)[0] - pageNums.slice(-2, -1)[0] !== 1 && (
+                        <li
+                            key={'ellipsis-after'}
+                            className={'disabled'}>
+                            <Link href={'javascript:void(0);'}>
+                                <a>...</a>
+                            </Link>
+                        </li>
+                    )
+                }
+                {
+                    pageNums.slice(-1).map((num, numIdx) => (
+                        <li
+                            key={`last-${numIdx}`}
                             className={currentPage === num ? 'active' : ''}>
                             <Link href={num > 1 ? `/page/${num}` : '/'}>
                                 <a>{num}</a>
@@ -65,5 +104,4 @@ export const PageNavigation = (props) => {
 PageNavigation.propTypes = {
     currentPage: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
-    onClickPage: PropTypes.func.isRequired,
 }
