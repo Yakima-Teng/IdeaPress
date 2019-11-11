@@ -1,9 +1,14 @@
 import React from 'react'
+import { seo } from '../../../site.config'
 const Footer = () => (
     <div>
         <span>&copy; {new Date().getFullYear()}</span>
         <span className="siteName">峰间的云</span>
-        <a href="http://www.miitbeian.gov.cn/" className="beian" target="_blank" rel="nofollow noopener noreferrer">浙ICP备18053953号</a>
+        {
+            !!seo.beian && (
+                <a href="http://www.miitbeian.gov.cn/" className="beian" target="_blank" rel="nofollow noopener noreferrer">{seo.beian}</a>
+            )
+        }
         <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js" />
         <script src="//cdn.bootcss.com/layer/2.3/layer.js" />
         <script src="//cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js" />
