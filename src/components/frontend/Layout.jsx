@@ -11,7 +11,7 @@ const Layout = (props) => (
             description={props.description}
             hideSiteMainTitle={props.hideSiteMainTitle}
         />
-        {props.children}
+        <div className="siteMain">{props.children}</div>
         <Footer />
         <style jsx global>{`
             body {
@@ -29,6 +29,10 @@ const Layout = (props) => (
                 max-width: 960px;
                 background-color: #e4eaed;
                 border-radius: 8px;
+            }
+            .siteMain {
+                display: block;
+                margin-top: 10px;
             }
         `}</style>
     </div>

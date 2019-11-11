@@ -1,9 +1,10 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
 import fetch from 'isomorphic-fetch'
-import Layout from '../components/frontend/Layout'
-import { seo } from '../../site.config'
-import { getString } from '../scripts/utils'
+import Layout from '../../components/frontend/Layout'
+import { seo } from '../../../site.config'
+import { getString } from '../../scripts/utils'
+import { PageNavigation } from '../../components/frontend/PageNavigation'
 
 const dateParams = (() => {
     const nowDate = new Date()
@@ -62,11 +63,12 @@ const Index = (props) => {
                     ))
                 }
             </ul>
-            <nav>
-                <ul className="pager">
-                    <li><a href="/page/2">下一页</a></li>
-                </ul>
-            </nav>
+
+            <PageNavigation
+                currentPage={props.pageNum}
+                totalPages={props.totalPages}
+                onClickPage={() => {}}
+            />
 
             <style jsx>{`
                 .bg-warning {
@@ -121,14 +123,23 @@ const Index = (props) => {
 }
 
 Index.propTypes = {
+    pageNum: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
     posts: PropTypes.array.isRequired,
 }
 
-Index.getInitialProps = async ({ req }) => {
+Index.getInitialProps = async ({ req, query }) => {
+    const pageNum = query.pageNum * 1
     const baseUrl = req ? `http://${req.headers.host}` : ''
-    const res = await fetch(`${baseUrl}/wp-json/wp/v2/posts?page=1&per_page=10`)
+    const res = await fetch(`${baseUrl}/wp-json/wp/v2/posts?page=${pageNum}&per_page=10`)
+    const totalPages = res.headers.get('x-wp-totalpages') * 1
+    const total = res.headers.get('x-wp-total') * 1
     const data = await res.json()
     return {
+        pageNum,
+        totalPages,
+        total,
         posts: data.map((item) => ({
             id: getString(item.id),
             date: getString(item.date),
