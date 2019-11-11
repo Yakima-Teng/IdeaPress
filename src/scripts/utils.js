@@ -248,11 +248,11 @@ const replacePage = (opts, projectRoot) => {
     })
 }
 
-export const goFrontendPage = (opts) => goPage(opts, frontendRoot)
-export const replaceFrontendPage = (opts) => replacePage(opts, frontendRoot)
+export const goFrontendPage = (opts) => goPage(opts, '/blog')
+export const replaceFrontendPage = (opts) => replacePage(opts, '/blog')
 
-export const goBackendPage = (opts) => goPage(opts, backendRoot)
-export const replaceBackendPage = (opts) => replacePage(opts, backendRoot)
+export const goBackendPage = (opts) => goPage(opts, '/admin')
+export const replaceBackendPage = (opts) => replacePage(opts, '/admin')
 
 export const refreshPage = (opts = {}) => {
     replacePage({

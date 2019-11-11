@@ -7,8 +7,6 @@ module.exports = {
         description: '网站描述', // 网站描述
         author: 'https://github.com/Yakima-Teng/IdeaPress',
     },
-    frontendRoot: '/blog', // 前台pages/frontend目录对应的url路径
-    backendRoot: '/admin', // 后台pages/backend目录对应的url路径
     serverPort: '8888', // 服务使用的端口号
     apiPrefix: '/apis',
     // 静态资源（不包括图片）地址前缀
