@@ -4,14 +4,14 @@ import Header from './Header'
 import Footer from './Footer'
 
 const Layout = (props) => (
-    <div className="siteContainer">
+    <div className="container siteContainer">
         <Header
             pageTitle={props.pageTitle}
             keywords={props.keywords}
             description={props.description}
             hideSiteMainTitle={props.hideSiteMainTitle}
         />
-        <div className="siteMain">{props.children}</div>
+        <div className="container-fluid siteMain">{props.children}</div>
         <Footer />
         <style jsx global>{`
             body {

@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 import Link from 'next/link'
+import {
+    goPage,
+    refreshPage,
+} from '../../scripts/utils'
 
 export const PageNavigation = (props) => {
     const currentPage = props.currentPage
@@ -24,24 +29,36 @@ export const PageNavigation = (props) => {
 
         return [1, totalPages - 8, totalPages - 7, totalPages - 6, totalPages - 5, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
     })()
+
+    const jumpPage = (e, targetPageNum) => {
+        e.preventDefault()
+        if (targetPageNum === null || targetPageNum < 1 || targetPageNum > totalPages) {
+            return
+        }
+        if (currentPage === targetPageNum) {
+            refreshPage({})
+            return
+        }
+        goPage({
+            pathname: targetPageNum !== 1 ? `/page/${targetPageNum}` : '/',
+            query: {},
+        })
+    }
+
     return (
         <nav aria-label="Page navigation">
             <ul className="pagination">
                 <li className={currentPage === 1 ? 'disabled' : ''}>
-                    <Link href={currentPage === 1 ? 'javascript:void(0);' : `/page/${currentPage - 1}`}>
-                        <a aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </Link>
+                    <a onClick={(e) => jumpPage(e, currentPage - 1)} href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
                 </li>
                 {
                     pageNums.slice(0, 1).map((num, numIdx) => (
                         <li
                             key={`first-${numIdx}`}
                             className={currentPage === num ? 'active' : ''}>
-                            <Link href={num > 1 ? `/page/${num}` : '/'}>
-                                <a>{num}</a>
-                            </Link>
+                            <a onClick={(e) => jumpPage(e, num)} href="">{num}</a>
                         </li>
                     ))
                 }
@@ -50,9 +67,7 @@ export const PageNavigation = (props) => {
                         <li
                             key={'ellipsis-before'}
                             className={'disabled'}>
-                            <Link href={'javascript:void(0);'}>
-                                <a>...</a>
-                            </Link>
+                            <a onClick={(e) => jumpPage(e, null)} href="">...</a>
                         </li>
                     )
                 }
@@ -61,9 +76,7 @@ export const PageNavigation = (props) => {
                         <li
                             key={`middle-${numIdx}`}
                             className={currentPage === num ? 'active' : ''}>
-                            <Link href={num > 1 ? `/page/${num}` : '/'}>
-                                <a>{num}</a>
-                            </Link>
+                            <a onClick={(e) => jumpPage(e, num)} href="">{num}</a>
                         </li>
                     ))
                 }
@@ -72,9 +85,7 @@ export const PageNavigation = (props) => {
                         <li
                             key={'ellipsis-after'}
                             className={'disabled'}>
-                            <Link href={'javascript:void(0);'}>
-                                <a>...</a>
-                            </Link>
+                            <a onClick={(e) => jumpPage(e, null)} href="">...</a>
                         </li>
                     )
                 }
@@ -83,18 +94,14 @@ export const PageNavigation = (props) => {
                         <li
                             key={`last-${numIdx}`}
                             className={currentPage === num ? 'active' : ''}>
-                            <Link href={num > 1 ? `/page/${num}` : '/'}>
-                                <a>{num}</a>
-                            </Link>
+                            <a onClick={(e) => jumpPage(e, num)} href="">{num}</a>
                         </li>
                     ))
                 }
                 <li className={currentPage === totalPages ? 'disabled' : ''}>
-                    <Link href={currentPage === totalPages ? 'javascript:void(0);' : `/page/${currentPage + 1}`}>
-                        <a aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </Link>
+                    <a onClick={(e) => jumpPage(e, currentPage + 1)} href="" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </nav>

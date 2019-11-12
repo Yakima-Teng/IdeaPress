@@ -218,28 +218,20 @@ export const getRelativeDateStr = (yDiff = 0, mDiff = 0, dDiff = 0) => {
     return `${y}-${toDouble(m)}-${toDouble(d)}`
 }
 
-const goPage = (opts, projectRoot) => {
+export const goPage = (opts, projectRoot) => {
     let pathname = typeof opts === 'string' ? opts : (opts.pathname || '')
     const query = typeof opts === 'string' ? {} : (opts.query || {})
-    const reg = new RegExp(`^${projectRoot}`)
-    if (!reg.test(pathname)) {
-        pathname = projectRoot + (pathname || '')
-    }
     Router.push({
         pathname: pathname || '',
         query: query || {},
     }).then(() => {
-        window.scrollTo(0, 0)
+        // window.scrollTo(0, 0)
     })
 }
 
-const replacePage = (opts, projectRoot) => {
+export const replacePage = (opts, projectRoot) => {
     let pathname = typeof opts === 'string' ? opts : (opts.pathname || '')
     const query = typeof opts === 'string' ? {} : (opts.query || {})
-    const reg = new RegExp(`^${projectRoot}`)
-    if (!reg.test(pathname)) {
-        pathname = projectRoot + (pathname || '')
-    }
     Router.replace({
         pathname: pathname || '',
         query: query || {},
@@ -247,12 +239,6 @@ const replacePage = (opts, projectRoot) => {
         window.scrollTo(0, 0)
     })
 }
-
-export const goFrontendPage = (opts) => goPage(opts, '/blog')
-export const replaceFrontendPage = (opts) => replacePage(opts, '/blog')
-
-export const goBackendPage = (opts) => goPage(opts, '/admin')
-export const replaceBackendPage = (opts) => replacePage(opts, '/admin')
 
 export const refreshPage = (opts = {}) => {
     replacePage({

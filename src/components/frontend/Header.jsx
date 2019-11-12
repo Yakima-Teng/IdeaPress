@@ -4,11 +4,6 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { seo } from '../../../site.config'
 
-const Menus = [
-    { title: '首页', href: '/' },
-    { title: '关于', href: '/about' },
-]
-
 const headCommentForCompatibility = `
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -18,7 +13,7 @@ const headCommentForCompatibility = `
 `
 
 const Header = (props) => (
-    <div>
+    <div className="container-fluid">
         <Head>
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -33,13 +28,22 @@ const Header = (props) => (
             <link href="//cdn.bootcss.com/layer/2.3/skin/layer.css" rel="stylesheet" />
         </Head>
         <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
-        {
-            Menus.map((item, idx) => (
-                <Link key={idx} href={item.href}>
-                    <a className="menuLink">{item.title}</a>
+        <nav className="row">
+            <div className="col-xs-6 text-left">
+                <Link href="/">
+                    <a className="menuLink">首页</a>
                 </Link>
-            ))
-        }
+                <Link href="/about">
+                    <a className="menuLink">关于</a>
+                </Link>
+            </div>
+            <div className="col-xs-6 text-right">
+                <Link href="/admin">
+                    <a className="menuLink">管理</a>
+                </Link>
+            </div>
+        </nav>
+
         <style jsx>{`
             .menuLink {
                 margin-right: 15px;
