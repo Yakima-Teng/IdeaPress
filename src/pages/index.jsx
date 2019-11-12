@@ -9,6 +9,8 @@ import {
 } from '../scripts/utils'
 import { PageNavigation } from '../components/frontend/PageNavigation'
 import { doGet } from '../scripts/fetch'
+import { PostList } from '../components/frontend/PostList'
+import { TimeLeft } from '../components/frontend/TimeLeft'
 
 const dateParams = getTimeLeft()
 
@@ -19,74 +21,15 @@ const Index = (props) => {
             pageTitle={`${seo.siteMainTitle} ${seo.separator} ${seo.siteSubTitle}`}
             keywords={seo.keywords}
             description={seo.description}>
-            <p className="bg-warning">{`当前日期：${dateParams.dateStr}。距离本月结束还剩：${dateParams.timeLeftThisMonth}，距离本年结束还剩：${dateParams.timeLeftThisYear}。`}</p>
-            <ul className="posts">
-                {
-                    props.posts.map((item) => (
-                        <li key={item.id} className="post">
-                            <header className="postHeader">
-                                <a href={`/${item.slug}.html`} className="postTitle">{item.title}</a>
-                                <small className="postDate">{(item.modified || item.date).replace(/T.*$/, '')}</small>
-                            </header>
-                            <article className="postExcerpt" dangerouslySetInnerHTML={{ __html: item.excerpt || item.content }} />
-                        </li>
-                    ))
-                }
-            </ul>
+
+            <TimeLeft />
+
+            <PostList posts={props.posts} />
 
             <PageNavigation
                 currentPage={props.pageNum}
                 totalPages={props.totalPages}
             />
-
-            <style jsx>{`
-                .bg-warning {
-                    padding: 10px;
-                    border-radius: 6px;
-                }
-
-                .posts {
-                    padding-left: 0;
-                }
-                .post {
-                    display: block;
-                    padding-top: 10px;
-                    padding-bottom: 10px;
-                }
-                .post:nth-of-type(n+2) {
-                    border-top: 1px dashed #7797a2;
-                    margin-top: 10px;
-                }
-                .postHeader {
-                    display: block;
-                }
-                .postHeader .postDate {
-                    display: inline;
-                    margin-left: 1em;
-                }
-
-                .pager {
-                    margin-bottom: 60px;
-                    text-align: left;
-                }
-                .pager > li:nth-of-type(n+2) {
-                    margin-left: 6px;
-                }
-                .pager > li > a {
-                    width: 140px;
-                    padding: 10px 20px;
-                    text-align: center;
-                    border-radius: 30px;
-                }
-            `}</style>
-            <style jsx global>{`
-                .crayon-plain-wrap {
-                    display: none;
-                }
-                p:nth-last-of-type(1) {
-                    margin-bottom: 0;
-                }
-            `}</style>
         </Layout>
     )
 }
