@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {
     goPage,
     refreshPage,
-} from '../../scripts/utils'
+} from '../scripts/utils'
 
 export const PageNavigation = (props) => {
     const currentPage = props.currentPage

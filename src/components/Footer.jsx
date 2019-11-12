@@ -1,5 +1,5 @@
 import React from 'react'
-import { seo } from '../../../site.config'
+import { seo } from '../../site.config'
 const Footer = () => (
     <div>
         <span>&copy; {new Date().getFullYear()}</span>

@@ -1,16 +1,16 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
-import Layout from '../components/frontend/Layout'
+import Layout from '../components/Layout'
 import { seo } from '../../site.config'
 import {
     getString,
     getTimeLeft,
     trimHtml,
 } from '../scripts/utils'
-import { PageNavigation } from '../components/frontend/PageNavigation'
+import { PageNavigation } from '../components/PageNavigation'
 import { doGet } from '../scripts/fetch'
-import { PostList } from '../components/frontend/PostList'
-import { TimeLeft } from '../components/frontend/TimeLeft'
+import { PostList } from '../components/PostList'
+import { TimeLeft } from '../components/TimeLeft'
 
 const dateParams = getTimeLeft()
 

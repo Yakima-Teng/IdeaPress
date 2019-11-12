@@ -1,6 +1,6 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
-import Layout from '../components/frontend/Layout'
+import Layout from '../components/Layout'
 import { seo } from '../../site.config'
 import { doGet } from '../scripts/fetch'
 

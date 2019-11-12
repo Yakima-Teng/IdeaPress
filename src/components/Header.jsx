@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Head from 'next/head'
-import { seo } from '../../../site.config'
+import { seo } from '../../site.config'
 
 const headCommentForCompatibility = `
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -29,17 +29,12 @@ const Header = (props) => (
         </Head>
         <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
         <nav className="row">
-            <div className="col-xs-6 text-left">
+            <div className="col-xs-12 text-left">
                 <Link href="/">
                     <a className="menuLink">首页</a>
                 </Link>
                 <Link href="/about">
                     <a className="menuLink">关于</a>
-                </Link>
-            </div>
-            <div className="col-xs-6 text-right">
-                <Link href="/admin">
-                    <a className="menuLink">管理</a>
                 </Link>
             </div>
         </nav>

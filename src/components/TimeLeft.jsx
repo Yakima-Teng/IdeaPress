@@ -1,5 +1,5 @@
 import React from 'react'
-import { getTimeLeft } from '../../scripts/utils'
+import { getTimeLeft } from '../scripts/utils'
 
 const dateParams = getTimeLeft()
 
