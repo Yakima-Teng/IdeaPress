@@ -139,7 +139,7 @@ module.exports = class Methods {
             if (err) {
                 return cb(err, null)
             }
-            connection.query({ sql, timeout: 40000 }, params, (err, result, fields) => {
+            connection.query({ sql, timeout: 40000 }, params, (err, result) => {
                 connection.release()
                 if (err) {
                     return cb(err, null)
@@ -198,7 +198,7 @@ module.exports = class Methods {
                     }
                 })
             }
-        }, (err, results) => {
+        }, (err) => {
             if (err) {
                 return cb(err, null)
             }
@@ -574,7 +574,7 @@ module.exports = class Methods {
                     }
                 })
             }
-        }, (err, results) => {
+        }, (err) => {
             if (err) {
                 cb(err, null)
             } else {
@@ -921,48 +921,48 @@ module.exports = class Methods {
         let version = ''
         // firefox UA demo: 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0'
         if (/firefox/.test(ua) && !/seamonkey/.test(ua)) {
-            version = ua.match(/firefox\/([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/firefox\/([0-9.]+)/)[1].split('.')[0]
             return 'Firefox' + '@' + version
         }
         // Edge UA demo：'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586'
         if (ua.indexOf('edge') > -1) {
-            version = ua.match(/edge\/([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/edge\/([0-9.]+)/)[1].split('.')[0]
             return 'Edge' + '@' + version
         }
         // Opera 12-
         if (ua.indexOf('opera') > -1) {
-            version = ua.match(/opera\/([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/opera\/([0-9.]+)/)[1].split('.')[0]
             return 'Opera' + '@' + version
         }
         // Opera 15+
         if (ua.indexOf('opr') > -1) {
-            version = ua.match(/opr\/([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/opr\/([0-9.]+)/)[1].split('.')[0]
             return 'Opera' + '@' + version
         }
         // Seamonkey
         if (ua.indexOf('seamonkey') > -1) {
-            version = ua.match(/seamonkey\/([0-9\.]+)/)
+            version = ua.match(/seamonkey\/([0-9.]+)/)
             return 'Seamonkey' + '@' + version
         }
         // Chromium
         if (ua.indexOf('chromium') > -1) {
-            version = ua.match(/chromium\/([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/chromium\/([0-9.]+)/)[1].split('.')[0]
             return 'Chromium' + '@' + version
         }
         // chrome UA demo: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
         if (ua.indexOf('chrome') > -1 && !/chromium|edge/.test(ua)) {
-            version = ua.match(/chrome\/([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/chrome\/([0-9.]+)/)[1].split('.')[0]
             return 'chrome' + '@' + version
         }
         // safari
         if (ua.indexOf('safari') > -1 && !/(chrome|chromium|edge)/.test(ua)) {
-            version = ua.match(/safari\/([0-9\.])+/)[1].split('.')[0]
+            version = ua.match(/safari\/([0-9.])+/)[1].split('.')[0]
             return 'Safari' + '@' + version
         }
         // IE11
         // IE11浏览器UA示例：'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko'
         if (/window.*trident.*rv:11\.0/.test(ua)) {
-            version = ua.match(/rv:([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/rv:([0-9.]+)/)[1].split('.')[0]
             return 'Internet Explorer' + '@' + version
         }
         // IE6-10
@@ -972,7 +972,7 @@ module.exports = class Methods {
         // IE7: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3)'
         // IE6: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)'
         if (/; msie/.test(ua)) {
-            version = ua.match(/msie\s([0-9\.]+)/)[1].split('.')[0]
+            version = ua.match(/msie\s([0-9.]+)/)[1].split('.')[0]
             return 'Internet Explorer' + '@' + version
         }
         // 其他情况下返回未知浏览器

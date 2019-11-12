@@ -1,9 +1,5 @@
 import Router from 'next/router'
 const toTrimHtml = require('trim-html')
-import {
-    frontendRoot,
-    backendRoot,
-} from '../../site.config'
 
 // typeOf, return 'array', 'object', 'function', 'null', 'undefined', 'string', 'number'
 export const typeOf = input => ({}).toString.call(input).slice(8, -1).toLowerCase()
@@ -218,7 +214,7 @@ export const getRelativeDateStr = (yDiff = 0, mDiff = 0, dDiff = 0) => {
     return `${y}-${toDouble(m)}-${toDouble(d)}`
 }
 
-export const goPage = (opts, projectRoot) => {
+export const goPage = (opts) => {
     let pathname = typeof opts === 'string' ? opts : (opts.pathname || '')
     const query = typeof opts === 'string' ? {} : (opts.query || {})
     Router.push({
@@ -229,14 +225,14 @@ export const goPage = (opts, projectRoot) => {
     })
 }
 
-export const replacePage = (opts, projectRoot) => {
+export const replacePage = (opts) => {
     let pathname = typeof opts === 'string' ? opts : (opts.pathname || '')
     const query = typeof opts === 'string' ? {} : (opts.query || {})
     Router.replace({
         pathname: pathname || '',
         query: query || {},
     }).then(() => {
-        window.scrollTo(0, 0)
+        // window.scrollTo(0, 0)
     })
 }
 

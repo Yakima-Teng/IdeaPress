@@ -4,15 +4,12 @@ import Layout from '../components/Layout'
 import { seo } from '../../site.config'
 import {
     getString,
-    getTimeLeft,
     trimHtml,
 } from '../scripts/utils'
 import { PageNavigation } from '../components/PageNavigation'
 import { doGet } from '../scripts/fetch'
 import { PostList } from '../components/PostList'
 import { TimeLeft } from '../components/TimeLeft'
-
-const dateParams = getTimeLeft()
 
 const Index = (props) => {
     return (
