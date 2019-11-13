@@ -2,13 +2,14 @@
   "name": "idea-press",
   "version": "0.0.0",
   "main": "src/server.js",
-  "repository": "https://github.com/Yakima-Teng/IdeaPress.git ",
+  "repository": "https://github.com/Yakima-Teng/IdeaPress.git",
   "author": "Yakima <cleveryun@163.com>",
   "private": false,
   "scripts": {
     "eslint": "eslint --fix --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx src",
     "dev": "NODE_ENV=development node server.js",
-    "start": "npm run eslint && next build src && NODE_ENV=production node server.js"
+    "build": "next build src",
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "async": "^3.1.0",

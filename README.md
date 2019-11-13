@@ -25,11 +25,35 @@ npm i
 # 开发
 npm run dev
 
-# 构建/部署
+# 构建
 npm run start
 ```
 
-注：建议使用pm2进行项目的启动与维护。
+## 项目部署
+
+***建议使用`pm2`进行项目的启动与维护。***
+
+1、全局安装pm2依赖
+
+```bash
+npm i -g pm2
+```
+
+2、启动项目
+
+在项目根目录下执行：
+
+```bash
+pm2 start ecosystem.config.js
+```
+
+3、开启自启动
+
+执行下述命令，pm2会给出一串脚本命令，在终端中复制粘贴该命令并回车执行即可。
+
+```bash
+pm2 startup
+```
 
 ## TODO
 
