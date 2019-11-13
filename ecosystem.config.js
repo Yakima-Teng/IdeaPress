@@ -10,11 +10,9 @@ module.exports = {
         watch: false,
         max_memory_restart: '200M',
         env: { // pm2 start ecosystem.config.js
-            PORT: 8888,
             NODE_ENV: 'development',
         },
         env_production: { // pm2 start ecosystem.config.js --env production
-            PORT: 8888,
             NODE_ENV: 'production',
         },
     }],

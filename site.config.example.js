@@ -20,9 +20,4 @@ module.exports = {
         password: 'password',
         database: 'database'
     },
-    wechat: {
-        token: 'token',
-        appid: 'appid',
-        appSecret: 'appSecret'
-    },
 }

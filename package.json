@@ -8,8 +8,13 @@
   "scripts": {
     "eslint": "eslint --fix --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx src",
     "dev": "NODE_ENV=development node server.js",
-    "build": "next build src",
-    "start": "NODE_ENV=production node server.js"
+    "devProduction": "next build src && NODE_ENV=production node server.js",
+    "start": "next build src && pm2 start ecosystem.config.js --env production",
+    "stop": "pm2 stop IdeaPress",
+    "restart": "next build src && pm2 restart IdeaPress",
+    "delete": "pm2 delete IdeaPress",
+    "getShellUsedToStartProjectAfterReboot": "pm2 startup",
+    "log": "pm2 log"
   },
   "dependencies": {
     "async": "^3.1.0",
