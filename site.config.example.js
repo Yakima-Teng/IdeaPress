@@ -20,7 +20,7 @@ module.exports = {
     serverPort: '8888', // 服务使用的端口号
     apiPrefix: '/apis',
     proxyTable: {
-        '/test/api': { target: 'http://www.baidu.com', changeOrigin: true },
+        '/wp-json': { target: 'http://www.baidu.com', changeOrigin: true },
     },
     blogMysql: {
         host: '123.456.789.012',

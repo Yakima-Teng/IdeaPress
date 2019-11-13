@@ -8,7 +8,6 @@ const Post = (props) => {
     const post = props.post
     return (
         <Layout
-            hideSiteMainTitle={true}
             pageTitle={post.post_title || ''}
             keywords={seo.keywords}
             description={seo.description}>
