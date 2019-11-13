@@ -26,6 +26,11 @@ const Header = (props) => (
 
             <link href="//cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
             <link href="//cdn.bootcss.com/layer/2.3/skin/layer.css" rel="stylesheet" />
+            {
+                !!seo.baiduStatistics && (
+                    <script>{seo.baiduStatistics}</script>
+                )
+            }
         </Head>
         <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
         <nav className="row">
