@@ -44,7 +44,7 @@ npm i -g pm2
 在项目根目录下执行：
 
 ```bash
-pm2 start ecosystem.config.js
+pm2 start ecosystem.config.js --env production
 ```
 
 3、开启自启动
