@@ -1,7 +1,6 @@
 import { promiseQuery } from '../../../scripts/sql'
 import {
     getString,
-    trimHtml,
 } from '../../../scripts/utils'
 import { numOfPostsPerPage } from '../../../scripts/data'
 
@@ -34,11 +33,15 @@ export default async (req, res) => {
             `WHERE tt.taxonomy IN ('category', 'post_tag', 'post_format') AND tr.object_id IN (${postIds.join(',')}) ` +
             'ORDER BY t.name ASC'
         )).map((item) => ({ ...item }))
-        const postMetas = (await promiseQuery(
-            'SELECT post_id, meta_key, meta_value ' +
-            'FROM wp_postmeta ' +
-            `WHERE post_id IN (${postIds.join(',')}) ORDER BY meta_id ASC`
-        )).map((item) => ({ ...item }))
+        posts.forEach((post, idx) => {
+            const postId = post.ID
+            const relatedTaxonomies = taxonomies.filter((item) => item.object_id === postId)
+            post.category = relatedTaxonomies.filter((item) => item.taxonomy === 'category')
+            post.post_tag = relatedTaxonomies.filter((item) => item.taxonomy === 'post_tag')
+            post.post_format = relatedTaxonomies.filter((item) => item.taxonomy === 'post_format')
+        })
+        // console.log(taxonomies)
+        console.log(posts[0])
         return res.json({
             code: '200',
             message: 'Success',
@@ -49,7 +52,6 @@ export default async (req, res) => {
                 postIds,
                 posts,
                 taxonomies,
-                postMetas,
             },
         })
     } catch (err) {

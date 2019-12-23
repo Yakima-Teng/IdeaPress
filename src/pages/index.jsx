@@ -28,7 +28,7 @@ const Index = (props) => {
                     title: item.post_title,
                     modified: item.post_modified,
                     date: item.post_date,
-                    excerpt: item.post_excerpt || item.post_content,
+                    excerpt: item.post_excerpt || trimHtml(item.post_content).html,
                     content: item.post_content,
                 }))}
             />
