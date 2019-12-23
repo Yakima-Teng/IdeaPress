@@ -6,7 +6,7 @@ const Footer = () => (
         <span className="siteName">{seo.siteMainTitle}</span>
         {
             !!seo.beian && (
-                <a href="http://www.miitbeian.gov.cn/" className="beian" target="_blank" rel="nofollow noopener noreferrer">{seo.beian}</a>
+                <a href="http://www.beian.miit.gov.cn/" className="beian" target="_blank" rel="nofollow noopener noreferrer">{seo.beian}</a>
             )
         }
         <span className="poweredBy">Powered by <a href="http://www.orzzone.com" target="_blank" rel="noopener noreferrer">IdeaPress</a></span>
