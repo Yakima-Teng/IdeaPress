@@ -11,3 +11,5 @@ export const PostStatus = [
 ]
 
 export const imgPrefix = imageDomainUsed + imagePrefix
+
+export const numOfPostsPerPage = 10

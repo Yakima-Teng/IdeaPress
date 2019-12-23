@@ -21,7 +21,17 @@ const Index = (props) => {
 
             <TimeLeft />
 
-            <PostList posts={props.posts} />
+            <PostList
+                posts={props.posts.map((item) => ({
+                    id: getString(item.ID),
+                    slug: item.post_name,
+                    title: item.post_title,
+                    modified: item.post_modified,
+                    date: item.post_date,
+                    excerpt: item.post_excerpt || item.post_content,
+                    content: item.post_content,
+                }))}
+            />
 
             <PageNavigation
                 currentPage={props.pageNum}
@@ -39,39 +49,14 @@ Index.propTypes = {
 }
 
 Index.getInitialProps = async () => {
-    const res = await doGet('/wp-json/wp/v2/posts', {
-        page: '1',
-        per_page: '10',
-    })
-    const totalPages = res.headers.get('x-wp-totalpages') * 1
-    const total = res.headers.get('x-wp-total') * 1
+    const res = await doGet('/api/v2/postsList')
     const data = await res.json()
+    const body = data.body
     return {
-        pageNum: 1,
-        totalPages,
-        total,
-        posts: data.map((item) => ({
-            id: getString(item.id),
-            date: getString(item.date),
-            date_gmt: getString(item.date_gmt),
-            modified: getString(item.modified),
-            modified_gmt: getString(item.modified_gmt),
-            slug:  getString(item.slug),
-            status: getString(item.status),
-            type: getString(item.type),
-            link: getString(item.link),
-            title: getString(item.title.rendered),
-            content: getString(item.content.rendered),
-            excerpt: trimHtml(getString(item.excerpt.rendered)).html,
-            author: getString(item.author),
-            featured_media: getString(item.featured_media),
-            comment_status: getString(item.comment_status),
-            ping_status: getString(item.ping_status),
-            sticky: getString(item.sticky),
-            format: getString(item.format),
-            categories: item.categories.map((d) => getString(d)),
-            tags: item.tags.map((d) => getString(d)),
-        })),
+        pageNum: body.curNumOfPage,
+        totalPages: body.totalNumOfPages,
+        total: body.totalNumOfPosts,
+        posts: body.posts,
     }
 }
 
