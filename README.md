@@ -6,15 +6,26 @@ NodeJS构建的博客，使用next.js9+，为同构项目，同时支持服务�
 
 兼容到IE8。
 
-## 项目截图
+## 项目表结构
 
-文章首页/列表页（为了显示完整信息，特意将页面显示文章数量调整为3篇）：
+本项目用的是WordPress程序生成的数据库。不涉及视图、存储过程，涉及12张表：
 
-![文章首页/列表页](./docs/homepage.png)
+- wp_commentmeta
+- wp_comments
+- wp_links
+- wp_options
+- wp_postmeta
+- wp_posts
+- wp_term_relationships
+- wp_term_taxonomy
+- wp_termmeta
+- wp_terms
+- wp_usermeta
+- wp_users
 
-文章详情页（选了一篇短的）：
+相关ER图（实体关系图，entity-relationship diagram）如下：
 
-![文章详情页](./docs/post.png)
+![实体关系图](./docs/ER.png)
 
 ## 常用命令
 
