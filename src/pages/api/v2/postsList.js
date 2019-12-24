@@ -2,22 +2,22 @@ import { promiseQuery } from '../../../scripts/sql'
 import {
     getString,
 } from '../../../scripts/utils'
-import { numOfPostsPerPage } from '../../../scripts/data'
 
 export default async (req, res) => {
     try {
+        const pageNum = req.query.pageNum * 1 || 1
+        const pageSize = req.query.pageSize * 1 || 10
         const totalNumOfPosts = (await promiseQuery(
             'SELECT COUNT( * ) as total ' +
             'FROM wp_posts ' +
             `WHERE wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private') `
         ))[0].total
-        const curNumOfPage = 1
-        const totalNumOfPages = Math.ceil(totalNumOfPosts / numOfPostsPerPage)
+        const totalNumOfPages = Math.ceil(totalNumOfPosts / pageSize)
         const postIds = (await promiseQuery(
             'SELECT wp_posts.ID ' +
             'FROM wp_posts ' +
             `WHERE wp_posts.post_type = 'post' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'private') ` +
-            'ORDER BY wp_posts.post_date DESC LIMIT 0, 10;'
+            `ORDER BY wp_posts.post_date DESC LIMIT ${(pageNum - 1) * pageSize}, ${pageSize};`
         )).map((item) => getString(item.ID))
         const posts = (await promiseQuery(
             'SELECT wp_posts.* ' +
@@ -40,18 +40,15 @@ export default async (req, res) => {
             post.post_tag = relatedTaxonomies.filter((item) => item.taxonomy === 'post_tag')
             post.post_format = relatedTaxonomies.filter((item) => item.taxonomy === 'post_format')
         })
-        // console.log(taxonomies)
-        console.log(posts[0])
         return res.json({
             code: '200',
             message: 'Success',
             body: {
-                curNumOfPage,
+                curNumOfPage: pageNum,
                 totalNumOfPages,
                 totalNumOfPosts,
                 postIds,
                 posts,
-                taxonomies,
             },
         })
     } catch (err) {

@@ -34,6 +34,8 @@ const Layout = (props) => (
                 display: block;
                 margin-top: 10px;
             }
+
+            .ml1em { margin-left: 1em; }
         `}</style>
     </div>
 )
