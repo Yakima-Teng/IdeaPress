@@ -31,7 +31,7 @@ export const PageNavigation = (props) => {
         }
     }
     return (
-        <nav aria-label="Page navigation">
+        <nav aria-label="Page navigation" className="text-center">
             <ul className="pagination">
                 <li className={currentPage === 1 ? 'disabled' : ''}>
                     <Link href={currentPage > 2 ? `/page/${currentPage - 1}` : '/'}>
