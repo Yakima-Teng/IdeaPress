@@ -13,7 +13,10 @@ const Post = (props) => {
             description={seo.description}>
             <div className="blog-post">
                 <h1 className="blog-post-title">
-                    <a href={`/${props.postSlug}${props.isPost === true ? '.html' : ''}`}>{post.post_title}</a>
+                    <a
+                        className="h3"
+                        href={`/${props.postSlug}${props.isPost === true ? '.html' : ''}`}
+                    >{post.post_title}</a>
                 </h1>
                 <p className="blog-post-meta">
                     发布时间：{post.post_date.replace(/T.*$/, '')}
