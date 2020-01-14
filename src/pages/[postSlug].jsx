@@ -56,17 +56,18 @@ Post.getInitialProps = async ({ query }) => {
     const isPost = /\.html$/.test(query.postSlug) // .html结尾的是文章，不带.html的是页面
     const postSlug = query.postSlug.replace(/\.html$/, '')
 
-    const res = await doGet(`/api/v1/${isPost ? 'posts' : 'pages'}/${postSlug}`, {
-        type: 'slug',
+    const res = await doGet('/api/v2/getPostData', {
+        postName: postSlug,
+        postType: isPost ? 'post' : 'page',
     })
     const data = await res.json()
     const post = ((body) => ({
-        cat_name: body.cat_name,
-        cat_slug: body.cat_slug,
-        post_content: body.post_content,
-        post_date: body.post_date,
-        post_id: body.post_id,
-        post_title: body.post_title,
+        cat_name: body.post.category[0].name,
+        cat_slug: body.post.category[0].slug,
+        post_content: body.post.post_content,
+        post_date: body.post.post_date,
+        post_id: body.post.ID,
+        post_title: body.post.post_title,
     }))(data.body)
 
     return {
