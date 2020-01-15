@@ -5,7 +5,6 @@ import { seo } from '../../site.config'
 import { getString } from '../scripts/utils'
 import { PageNavigation } from '../components/PageNavigation'
 import { doGet } from '../scripts/fetch'
-import { TimeLeft } from '../components/TimeLeft'
 import { ExcerptList } from '../components/ExcerptList'
 
 const Index = (props) => {
@@ -14,10 +13,9 @@ const Index = (props) => {
             hideSiteMainTitle={true}
             pageTitle={`${seo.siteMainTitle} ${seo.separator} ${seo.siteSubTitle}`}
             keywords={seo.keywords}
-            description={seo.description}>
-
-            <TimeLeft />
-
+            description={seo.description}
+            categoryList={props.categoryList}
+        >
             <ExcerptList
                 posts={props.posts.map((item) => ({
                     id: getString(item.ID),
@@ -48,19 +46,76 @@ Index.propTypes = {
     pageNum: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
     posts: PropTypes.array.isRequired,
+    categoryList: PropTypes.array.isRequired,
 }
 
 Index.getInitialProps = async () => {
-    const res = await doGet('/api/v2/postsList', {
+    const resForPostsList = await doGet('/api/v2/postsList', {
         pageNum: 1,
         pageSize: 10,
     })
-    const data = await res.json()
-    const body = data.body
+    const dataForPostsList = await resForPostsList.json()
+    const pageNum = dataForPostsList.body.curNumOfPage
+    const totalPages = dataForPostsList.body.totalNumOfPages
+    const posts = dataForPostsList.body.posts
+
+    const resForCategoryList = await doGet('/api/v2/categoryList')
+    const dataForCategoryList = await resForCategoryList.json()
+    const categoryList = (() => {
+        const list = dataForCategoryList.body.categoryList
+        const objRoots = {}
+        const traverseNode = (node, item) => { // 遍历节点
+            if (!node) { return false }
+            if (node.term_id === item.parent) {
+                if (!node.next) { node.next = {} }
+                node.next[`t${item.term_id}`] = item
+                return true // 表示成功找到父元素并将item挂载到父元素上
+            }
+            if (!node.next) { return false }
+            const keys = Object.keys(node.next)
+            for (let i = 0, len = keys.length; i < len; i++) {
+                if (traverseNode(node.next[keys[i]], item)) {
+                    return true
+                }
+            }
+            return false
+        }
+        let count = 0
+        while (list.length > 0) {
+            for (let i = list.length - 1; i >= 0; i--) {
+                count++
+                if (count > 1000) {
+                    throw new Error('Too many times')
+                }
+                const item = list[i]
+                const parent = item.parent
+                const term_id = item.term_id
+                if (item.traverseCounter === void 0) {
+                    item.traverseCounter = 0
+                }
+                item.traverseCounter++
+                if (parent === 0) {
+                    item.next = {}
+                    objRoots[`t${term_id}`] = item
+                    list.splice(i, 1)
+                } else if (item.traverseCounter > 100) { // 如果一个节点被遍历了100次还没找到父节点，就认为是原始数据有问题，直接将其作为根节点之一绑到objRoots上
+                    item.next = {}
+                    objRoots[`t${term_id}`] = item
+                    list.splice(i, 1)
+                } else if (Object.keys(objRoots).filter((key) => traverseNode(objRoots[key], item)).length > 0) {
+                    list.splice(i, 1)
+                }
+            }
+        }
+        return objRoots
+    })()
+
+    console.log(JSON.stringify(categoryList))
     return {
-        pageNum: body.curNumOfPage,
-        totalPages: body.totalNumOfPages,
-        posts: body.posts,
+        pageNum,
+        totalPages,
+        posts,
+        categoryList,
     }
 }
 

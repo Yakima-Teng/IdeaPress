@@ -33,25 +33,64 @@ const Header = (props) => (
             }
         </Head>
         <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
-        <nav className="row">
-            <div className="col-xs-12 text-left">
-                <Link href="/">
-                    <a className="menuLink">首页</a>
-                </Link>
-                <Link href="/about">
-                    <a className="menuLink">关于</a>
-                </Link>
+
+        <div className="siteHeader">
+            <h1>The Bootstrap Blog</h1>
+            <p className="lead">The official example template of creating a blog with Bootstrap.</p>
+        </div>
+
+        <div className="siteNav">
+            <div className="container">
+                <nav className="blog-nav">
+                    <Link href="/">
+                        <a className="blog-nav-item active">首页</a>
+                    </Link>
+                    <Link href="/about">
+                        <a className="blog-nav-item">关于</a>
+                    </Link>
+                </nav>
             </div>
-        </nav>
+        </div>
 
         <style jsx>{`
-            .menuLink {
-                margin-right: 15px;
-                text-decoration: none;
-                color: inherit;
+            .siteHeader {
+                margin-left: -15px;
+                margin-right: -15px;
             }
-            .menuLink:visited {
-                text-decoration: underline;
+            .siteNav {
+                margin-top: 15px;
+                background-color: #428bca;
+                -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
+                box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+            .blog-nav-item {
+                position: relative;
+                display: inline-block;
+                padding: 10px;
+                font-weight: 500;
+                color: #cdddeb;
+            }
+            .blog-nav-item:hover, .blog-nav-item:focus {
+                color: #fff;
+                text-decoration: none;
+            }
+            .blog-nav .active {
+                color: #fff;
+            }
+            .blog-nav .active:after {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 0;
+                margin-left: -5px;
+                vertical-align: middle;
+                content: " ";
+                border-right: 5px solid transparent;
+                border-bottom: 5px solid;
+                border-left: 5px solid transparent;
             }
         `}</style>
     </div>
