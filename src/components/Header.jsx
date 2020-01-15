@@ -14,56 +14,53 @@ const headCommentForCompatibility = `
 
 const Header = (props) => (
     <div className="container-fluid">
-        <Head>
-            <meta charSet="utf-8" />
-            <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <meta name="author" content={seo.author} />
-            <meta name="keywords" content={props.keywords.join(',')} />
-            <meta name="description" content={props.description} />
-            <link rel="icon" href="/favicon.ico" />
-            <title>{props.hideSiteMainTitle ? props.pageTitle : `${props.pageTitle} ${seo.separator} ${seo.siteMainTitle}`}</title>
+        <div className="row">
+            <Head>
+                <meta charSet="utf-8" />
+                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="author" content={seo.author} />
+                <meta name="keywords" content={props.keywords.join(',')} />
+                <meta name="description" content={props.description} />
+                <link rel="icon" href="/favicon.ico" />
+                <title>{props.hideSiteMainTitle ? props.pageTitle : `${props.pageTitle} ${seo.separator} ${seo.siteMainTitle}`}</title>
 
-            <link href="//cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
-            <link href="//cdn.bootcss.com/layer/2.3/skin/layer.css" rel="stylesheet" />
-            {
-                !!seo.baiduStatistics && (
-                    <script>{seo.baiduStatistics}</script>
-                )
-            }
-        </Head>
-        <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
+                <link href="//cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+                <link href="//cdn.bootcss.com/layer/2.3/skin/layer.css" rel="stylesheet" />
+                {
+                    !!seo.baiduStatistics && (
+                        <script>{seo.baiduStatistics}</script>
+                    )
+                }
+            </Head>
+            <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
 
-        <div className="siteHeader">
-            <h1>The Bootstrap Blog</h1>
-            <p className="lead">The official example template of creating a blog with Bootstrap.</p>
-        </div>
+            <div className="siteHeader">
+                <h1>The Bootstrap Blog</h1>
+                <p className="lead">The official example template of creating a blog with Bootstrap.</p>
+            </div>
 
-        <div className="siteNav">
-            <div className="container">
-                <nav className="blog-nav">
-                    <Link href="/">
-                        <a className="blog-nav-item active">首页</a>
-                    </Link>
-                    <Link href="/about">
-                        <a className="blog-nav-item">关于</a>
-                    </Link>
-                </nav>
+            <div className="siteNav">
+                <div className="container">
+                    <nav className="blog-nav">
+                        <Link href="/">
+                            <a className="blog-nav-item active">首页</a>
+                        </Link>
+                        <Link href="/about">
+                            <a className="blog-nav-item">关于</a>
+                        </Link>
+                    </nav>
+                </div>
             </div>
         </div>
 
         <style jsx>{`
-            .siteHeader {
-                margin-left: -15px;
-                margin-right: -15px;
-            }
+            .siteHeader {}
             .siteNav {
                 margin-top: 15px;
                 background-color: #428bca;
                 -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
                 box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
-                margin-left: -15px;
-                margin-right: -15px;
             }
             .blog-nav-item {
                 position: relative;
