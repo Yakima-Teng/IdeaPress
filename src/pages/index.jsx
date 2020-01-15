@@ -95,11 +95,9 @@ Index.getInitialProps = async () => {
                 }
                 item.traverseCounter++
                 if (parent === 0) {
-                    item.next = {}
                     objRoots[`t${term_id}`] = item
                     list.splice(i, 1)
                 } else if (item.traverseCounter > 100) { // 如果一个节点被遍历了100次还没找到父节点，就认为是原始数据有问题，直接将其作为根节点之一绑到objRoots上
-                    item.next = {}
                     objRoots[`t${term_id}`] = item
                     list.splice(i, 1)
                 } else if (Object.keys(objRoots).filter((key) => traverseNode(objRoots[key], item)).length > 0) {
@@ -107,10 +105,22 @@ Index.getInitialProps = async () => {
                 }
             }
         }
-        return objRoots
+        const visitNode = (node) => {
+            delete node.traverseCounter
+            if (!node.next) {
+                node.childs = []
+                delete node.next
+                return node
+            }
+            const childs = Object.keys(node.next).map((key) => node.next[key])
+            delete node.next
+            node.childs = childs.map((child) => visitNode(child))
+            return node
+        }
+        return Object.keys(objRoots).map((key) => visitNode(objRoots[key]))
     })()
 
-    console.log(JSON.stringify(categoryList))
+    console.log(JSON.stringify(categoryList, null, 2))
     return {
         pageNum,
         totalPages,

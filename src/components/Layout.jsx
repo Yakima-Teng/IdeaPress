@@ -15,7 +15,9 @@ const Layout = (props) => (
         <div className="container-fluid siteMain">
             <div className="row">
                 <div className="col-sm-8">{props.children}</div>
-                <Sidebar />
+                <Sidebar
+                    categoryList={props.categoryList}
+                />
             </div>
         </div>
         <Footer />

@@ -99,9 +99,6 @@ export class Excerpt extends Component {
                         padding-top: 10px;
                         padding-bottom: 10px;
                     }
-                    .post:nth-of-type(n+1) {
-                        padding-top: 0;
-                    }
                     .post:nth-of-type(n+2) {
                         border-top: 1px dashed #7797a2;
                         margin-top: 10px;
