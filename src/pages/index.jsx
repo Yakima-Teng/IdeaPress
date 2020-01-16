@@ -18,6 +18,7 @@ const Index = (props) => {
             description={seo.description}
             categoryList={props.categoryList}
             months={props.months}
+            links={props.links}
         >
             <ExcerptList
                 posts={props.posts.map((item) => ({
@@ -50,6 +51,8 @@ Index.propTypes = {
     totalPages: PropTypes.number.isRequired,
     posts: PropTypes.array.isRequired,
     categoryList: PropTypes.array.isRequired,
+    months: PropTypes.array.isRequired,
+    links: PropTypes.array.isRequired,
 }
 
 Index.getInitialProps = async () => {
@@ -132,6 +135,11 @@ Index.getInitialProps = async () => {
     const dataForMonths = await resForMonths.json()
     const months = dataForMonths.body.months
 
+    const resForLinks = await doGet('/api/v2/getLinks')
+    const dataForLinks = await resForLinks.json()
+    const links = dataForLinks.body.links
+    console.log(JSON.stringify(links, null, 2))
+
     return {
         blogName,
         blogDescription,
@@ -140,6 +148,7 @@ Index.getInitialProps = async () => {
         posts,
         categoryList,
         months,
+        links,
     }
 }
 

@@ -20,7 +20,11 @@ export const Sidebar = (props) => (
             )
         }
 
-        <WidgetLinks />
+        {
+            props.links && props.links.length > 0 && (
+                <WidgetLinks links={props.links} />
+            )
+        }
 
         <style jsx global>{`
             .siteSidebar {
@@ -36,4 +40,5 @@ export const Sidebar = (props) => (
 Sidebar.propTypes = {
     categoryList: PropTypes.array,
     months: PropTypes.array,
+    links: PropTypes.array,
 }
