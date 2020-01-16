@@ -7,6 +7,8 @@ import { Sidebar } from './Sidebar'
 const Layout = (props) => (
     <div className="container siteContainer">
         <Header
+            blogName={props.blogName}
+            blogDescription={props.blogDescription}
             pageTitle={props.pageTitle}
             keywords={props.keywords}
             description={props.description}
@@ -47,6 +49,8 @@ const Layout = (props) => (
 )
 
 Layout.propTypes = {
+    blogName: PropTypes.string.isRequired,
+    blogDescription: PropTypes.string.isRequired,
     hideSiteMainTitle: PropTypes.bool,
     pageTitle: PropTypes.string.isRequired,
     keywords: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -36,8 +36,8 @@ const Header = (props) => (
             <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
 
             <div className="siteHeader">
-                <h1>The Bootstrap Blog</h1>
-                <p className="lead">The official example template of creating a blog with Bootstrap.</p>
+                <h1>{props.blogName}</h1>
+                <p className="lead">{props.blogDescription}</p>
             </div>
 
             <div className="siteNav">
@@ -94,6 +94,8 @@ const Header = (props) => (
 )
 
 Header.propTypes = {
+    blogName: PropTypes.string.isRequired,
+    blogDescription: PropTypes.string.isRequired,
     hideSiteMainTitle: PropTypes.bool,
     pageTitle: PropTypes.string.isRequired,
     keywords: PropTypes.arrayOf(PropTypes.string).isRequired,

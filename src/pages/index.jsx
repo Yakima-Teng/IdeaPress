@@ -10,6 +10,8 @@ import { ExcerptList } from '../components/ExcerptList'
 const Index = (props) => {
     return (
         <Layout
+            blogName={props.blogName}
+            blogDescription={props.blogDescription}
             hideSiteMainTitle={true}
             pageTitle={`${seo.siteMainTitle} ${seo.separator} ${seo.siteSubTitle}`}
             keywords={seo.keywords}
@@ -120,7 +122,14 @@ Index.getInitialProps = async () => {
         return Object.keys(objRoots).map((key) => visitNode(objRoots[key]))
     })()
 
+    const resForBlogInfo = await doGet('/api/v2/getBlogInfo')
+    const dataForBlogInfo = await resForBlogInfo.json()
+    const blogName = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogname').option_value
+    const blogDescription = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogdescription').option_value
+
     return {
+        blogName,
+        blogDescription,
         pageNum,
         totalPages,
         posts,
