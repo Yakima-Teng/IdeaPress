@@ -10,7 +10,10 @@ export const WidgetLinks = (props) => (
                 props.links.map((item, idx) => (
                     <li key={idx}>
                         <Link href={item.link_url}>
-                            <a rel={item.link_rel} target={item.link_target}>{item.link_name}</a>
+                            <a
+                                title={item.link_description || item.link_name}
+                                rel={item.link_rel}
+                                target={item.link_target}>{item.link_name}</a>
                         </Link>
                     </li>
                 ))
