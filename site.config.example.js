@@ -6,7 +6,6 @@ module.exports = {
         keywords: ['关键词1', '关键词2'], // 关键词
         description: '网站描述', // 网站描述
         author: 'https://github.com/Yakima-Teng/IdeaPress',
-        beian: '备案文案', // 备案文案
         baiduStatistics: ` // 统计代码（放于script标签内的js代码片段，不含script标签部分）
             var _hmt = _hmt || [];
             (function() {

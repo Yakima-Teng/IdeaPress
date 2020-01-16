@@ -1,12 +1,13 @@
 import React from 'react'
-import { seo } from '../../site.config'
-const Footer = () => (
+import PropTypes from 'prop-types'
+
+const Footer = (props) => (
     <div>
         <span>&copy; {new Date().getFullYear()}</span>
-        <span className="siteName">{seo.siteMainTitle}</span>
+        <span className="siteName">{props.blogName}</span>
         {
-            !!seo.beian && (
-                <a href="http://www.beian.miit.gov.cn/" className="beian" target="_blank" rel="nofollow noopener noreferrer">{seo.beian}</a>
+            !!props.beianCode && (
+                <a href="http://www.beian.miit.gov.cn/" className="beian" target="_blank" rel="nofollow noopener noreferrer">{props.beianCode}</a>
             )
         }
         <span className="poweredBy">Powered by <a href="http://www.orzzone.com" target="_blank" rel="noopener noreferrer">IdeaPress</a></span>
@@ -35,5 +36,10 @@ const Footer = () => (
         `}</style>
     </div>
 )
+
+Footer.propTypes = {
+    blogName: PropTypes.string.isRequired,
+    beianCode: PropTypes.string.isRequired,
+}
 
 export default Footer

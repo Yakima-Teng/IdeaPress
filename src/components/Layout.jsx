@@ -24,7 +24,10 @@ const Layout = (props) => (
                 />
             </div>
         </div>
-        <Footer />
+        <Footer
+            blogName={props.blogName}
+            beianCode={props.beianCode}
+        />
         <style jsx global>{`
             body {
                 padding: 20px;
@@ -53,6 +56,7 @@ const Layout = (props) => (
 Layout.propTypes = {
     blogName: PropTypes.string.isRequired,
     blogDescription: PropTypes.string.isRequired,
+    beianCode: PropTypes.string.isRequired,
     hideSiteMainTitle: PropTypes.bool,
     pageTitle: PropTypes.string.isRequired,
     keywords: PropTypes.arrayOf(PropTypes.string).isRequired,

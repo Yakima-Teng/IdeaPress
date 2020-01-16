@@ -12,6 +12,7 @@ const Index = (props) => {
         <Layout
             blogName={props.blogName}
             blogDescription={props.blogDescription}
+            beianCode={props.beianCode}
             hideSiteMainTitle={true}
             pageTitle={`${seo.siteMainTitle} ${seo.separator} ${seo.siteSubTitle}`}
             keywords={seo.keywords}
@@ -128,8 +129,10 @@ Index.getInitialProps = async () => {
 
     const resForBlogInfo = await doGet('/api/v2/getBlogInfo')
     const dataForBlogInfo = await resForBlogInfo.json()
+    console.log(JSON.stringify(dataForBlogInfo))
     const blogName = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogname').option_value
     const blogDescription = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogdescription').option_value
+    const beianCode = dataForBlogInfo.body.options.find((item) => item.option_name === 'zh_cn_l10n_icp_num').option_value // 备案码（国内主机需要）
 
     const resForMonths = await doGet('/api/v2/getMonths')
     const dataForMonths = await resForMonths.json()
@@ -138,11 +141,11 @@ Index.getInitialProps = async () => {
     const resForLinks = await doGet('/api/v2/getLinks')
     const dataForLinks = await resForLinks.json()
     const links = dataForLinks.body.links
-    console.log(JSON.stringify(links, null, 2))
 
     return {
         blogName,
         blogDescription,
+        beianCode,
         pageNum,
         totalPages,
         posts,
