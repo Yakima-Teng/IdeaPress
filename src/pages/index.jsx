@@ -56,9 +56,9 @@ Index.propTypes = {
     links: PropTypes.array.isRequired,
 }
 
-Index.getInitialProps = async () => {
+Index.getInitialProps = async ({ query }) => {
     const resForPostsList = await doGet('/api/v2/postsList', {
-        pageNum: 1,
+        pageNum: query.pageNum * 1 || 1,
         pageSize: 10,
     })
     const dataForPostsList = await resForPostsList.json()
@@ -129,7 +129,6 @@ Index.getInitialProps = async () => {
 
     const resForBlogInfo = await doGet('/api/v2/getBlogInfo')
     const dataForBlogInfo = await resForBlogInfo.json()
-    console.log(JSON.stringify(dataForBlogInfo))
     const blogName = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogname').option_value
     const blogDescription = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogdescription').option_value
     const beianCode = dataForBlogInfo.body.options.find((item) => item.option_name === 'zh_cn_l10n_icp_num').option_value // 备案码（国内主机需要）
