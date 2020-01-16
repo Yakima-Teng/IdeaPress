@@ -108,6 +108,9 @@ export class Excerpt extends Component {
                         margin-top: 0.5em;
                         word-break: break-word;
                     }
+                    .ml1em {
+                        margin-left: 1em;
+                    }
                 `}</style>
                 <style jsx global>{`
                     .crayon-plain-wrap {

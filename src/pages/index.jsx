@@ -57,9 +57,16 @@ Index.propTypes = {
 }
 
 Index.getInitialProps = async ({ query }) => {
+    const resForBlogInfo = await doGet('/api/v2/getBlogInfo')
+    const dataForBlogInfo = await resForBlogInfo.json()
+    const blogName = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogname').option_value
+    const blogDescription = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogdescription').option_value
+    const beianCode = dataForBlogInfo.body.options.find((item) => item.option_name === 'zh_cn_l10n_icp_num').option_value // 备案码（国内主机需要）
+    const pageSize = dataForBlogInfo.body.options.find((item) => item.option_name === 'posts_per_page').option_value
+
     const resForPostsList = await doGet('/api/v2/postsList', {
         pageNum: query.pageNum * 1 || 1,
-        pageSize: 10,
+        pageSize,
     })
     const dataForPostsList = await resForPostsList.json()
     const pageNum = dataForPostsList.body.curNumOfPage
@@ -126,12 +133,6 @@ Index.getInitialProps = async ({ query }) => {
         }
         return Object.keys(objRoots).map((key) => visitNode(objRoots[key]))
     })()
-
-    const resForBlogInfo = await doGet('/api/v2/getBlogInfo')
-    const dataForBlogInfo = await resForBlogInfo.json()
-    const blogName = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogname').option_value
-    const blogDescription = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogdescription').option_value
-    const beianCode = dataForBlogInfo.body.options.find((item) => item.option_name === 'zh_cn_l10n_icp_num').option_value // 备案码（国内主机需要）
 
     const resForMonths = await doGet('/api/v2/getMonths')
     const dataForMonths = await resForMonths.json()
