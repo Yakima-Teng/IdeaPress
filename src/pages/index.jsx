@@ -120,7 +120,6 @@ Index.getInitialProps = async () => {
         return Object.keys(objRoots).map((key) => visitNode(objRoots[key]))
     })()
 
-    console.log(JSON.stringify(categoryList, null, 2))
     return {
         pageNum,
         totalPages,

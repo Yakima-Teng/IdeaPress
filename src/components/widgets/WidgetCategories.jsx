@@ -1,22 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
 export const WidgetCategories = (props) => (
     <div className="row sidebarWidget">
-        <h4>Categories</h4>
+        <h4>分类目录</h4>
         <ol className="list-unstyled">
-            <li><a href="#">March 2014</a></li>
-            <li><a href="#">February 2014</a></li>
-            <li><a href="#">January 2014</a></li>
-            <li><a href="#">December 2013</a></li>
-            <li><a href="#">November 2013</a></li>
-            <li><a href="#">October 2013</a></li>
-            <li><a href="#">September 2013</a></li>
-            <li><a href="#">August 2013</a></li>
-            <li><a href="#">July 2013</a></li>
-            <li><a href="#">June 2013</a></li>
-            <li><a href="#">May 2013</a></li>
-            <li><a href="#">April 2013</a></li>
+            {
+                props.categoryList.filter((item) => {
+                    const sumOfChildsCount = (item.childs || []).reduce((preVal, curVal) => (preVal + curVal.count), 0)
+                    item.sumOfChildsCount = sumOfChildsCount
+                    return item.count + item.sumOfChildsCount > 0
+                }).map((item, idx) => (
+                    <li key={idx}>
+                        <header className="liHeader">
+                            <Link href={`/category/${item.slug}`}>
+                                <a>{item.name}({item.count}{item.sumOfChildsCount > 0 ? `+${item.sumOfChildsCount}` : ''})</a>
+                            </Link>
+                        </header>
+                        {
+                            item.childs && item.childs.length > 0 && (
+                                <ul>
+                                    {
+                                        item.childs.filter((d) => d.count > 0).map((d, dIdx) => (
+                                            <li key={dIdx}>
+                                                <header className="liHeader">
+                                                    <Link href={`/category/${item.slug}/${d.slug}`}>
+                                                        <a>{d.name}({d.count})</a>
+                                                    </Link>
+                                                </header>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            )
+                        }
+                    </li>
+                ))
+            }
         </ol>
     </div>
 )

@@ -58,7 +58,7 @@ const Header = (props) => (
             .siteHeader {}
             .siteNav {
                 margin-top: 15px;
-                background-color: #428bca;
+                background-color: #7798a3;
                 -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
                 box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
             }
