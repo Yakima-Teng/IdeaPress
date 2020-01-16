@@ -17,6 +17,7 @@ const Index = (props) => {
             keywords={seo.keywords}
             description={seo.description}
             categoryList={props.categoryList}
+            months={props.months}
         >
             <ExcerptList
                 posts={props.posts.map((item) => ({
@@ -127,6 +128,10 @@ Index.getInitialProps = async () => {
     const blogName = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogname').option_value
     const blogDescription = dataForBlogInfo.body.options.find((item) => item.option_name === 'blogdescription').option_value
 
+    const resForMonths = await doGet('/api/v2/getMonths')
+    const dataForMonths = await resForMonths.json()
+    const months = dataForMonths.body.months
+
     return {
         blogName,
         blogDescription,
@@ -134,6 +139,7 @@ Index.getInitialProps = async () => {
         totalPages,
         posts,
         categoryList,
+        months,
     }
 }
 

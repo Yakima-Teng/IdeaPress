@@ -19,6 +19,7 @@ const Layout = (props) => (
                 <div className="col-sm-8">{props.children}</div>
                 <Sidebar
                     categoryList={props.categoryList}
+                    months={props.months}
                 />
             </div>
         </div>
@@ -57,6 +58,7 @@ Layout.propTypes = {
     children: PropTypes.any.isRequired,
     description: PropTypes.string.isRequired,
     categoryList: PropTypes.array,
+    months: PropTypes.array,
 }
 
 export default Layout

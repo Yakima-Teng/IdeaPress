@@ -9,7 +9,7 @@ export default async (req, res) => {
             'FROM wp_posts ' +
             `WHERE wp_posts.post_name = '${postName}' ` +
             `AND wp_posts.post_type = '${postType}' ` +
-            'ORDER BY wp_posts.post_date DESC'
+            'ORDER BY wp_posts.post_date DESC;'
         )).map((item) => ({ ...item }))
 
         const taxonomies = (await promiseQuery(
@@ -18,7 +18,7 @@ export default async (req, res) => {
             'INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id ' +
             'INNER JOIN wp_term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id ' +
             `WHERE tt.taxonomy IN ('category', 'post_tag', 'post_format') AND tr.object_id IN (${posts[0].ID}) ` +
-            'ORDER BY t.name ASC'
+            'ORDER BY t.name ASC;'
         )).map((item) => ({ ...item }))
 
         posts.forEach((post, idx) => {

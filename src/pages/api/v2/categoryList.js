@@ -7,7 +7,7 @@ export default async (req, res) => {
             'FROM wp_terms AS t ' +
             'INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id ' +
             'WHERE tt.taxonomy IN (\'category\') ' +
-            'ORDER BY t.name ASC'
+            'ORDER BY t.name ASC;'
         )).map((item) => ({ ...item }))
 
         return res.json({

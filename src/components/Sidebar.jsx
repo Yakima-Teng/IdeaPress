@@ -13,7 +13,13 @@ export const Sidebar = (props) => (
                 <WidgetCategories categoryList={props.categoryList} />
             )
         }
-        <WidgetArchives />
+
+        {
+            props.months && props.months.length > 0 && (
+                <WidgetArchives months={props.months} />
+            )
+        }
+
         <WidgetLinks />
 
         <style jsx global>{`
@@ -29,4 +35,5 @@ export const Sidebar = (props) => (
 
 Sidebar.propTypes = {
     categoryList: PropTypes.array,
+    months: PropTypes.array,
 }

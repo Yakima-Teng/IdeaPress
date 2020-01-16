@@ -15,7 +15,7 @@ export const WidgetCategories = (props) => (
                     <li key={idx}>
                         <header className="liHeader">
                             <Link href={`/category/${item.slug}`}>
-                                <a>{item.name}({item.count}{item.sumOfChildsCount > 0 ? `+${item.sumOfChildsCount}` : ''})</a>
+                                <a>{item.name} ({item.count}{item.sumOfChildsCount > 0 ? `+${item.sumOfChildsCount}` : ''})</a>
                             </Link>
                         </header>
                         {
@@ -26,7 +26,7 @@ export const WidgetCategories = (props) => (
                                             <li key={dIdx}>
                                                 <header className="liHeader">
                                                     <Link href={`/category/${item.slug}/${d.slug}`}>
-                                                        <a>{d.name}({d.count})</a>
+                                                        <a>{d.name} ({d.count})</a>
                                                     </Link>
                                                 </header>
                                             </li>

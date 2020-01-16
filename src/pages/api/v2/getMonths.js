@@ -2,18 +2,19 @@ import { promiseQuery } from '../../../scripts/sql'
 
 export default async (req, res) => {
     try {
-        const options = (await promiseQuery(
-            'SELECT option_name, option_value ' +
-            'FROM wp_options ' +
-            `WHERE wp_options.option_name IN ('siteurl', 'home', 'blogname', 'blogdescription', 'users_can_register', 'admin_email') ` +
-            'ORDER BY wp_options.option_id DESC;'
+        const months = (await promiseQuery(
+            'SELECT DATE_FORMAT(post_date, "%Y") AS "year", DATE_FORMAT(post_date, "%m") AS "month", count(ID) AS numOfPosts ' +
+            'FROM wp_posts ' +
+            'WHERE post_status = "publish" AND post_type = "post" ' +
+            'GROUP BY year, month ' +
+            'ORDER BY year DESC, month DESC;'
         )).map((item) => ({ ...item }))
 
         return res.json({
             code: '200',
             message: 'Success',
             body: {
-                options,
+                months,
             },
         })
     } catch (err) {

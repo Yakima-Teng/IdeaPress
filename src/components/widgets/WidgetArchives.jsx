@@ -1,21 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import Link from 'next/link'
 
-export const WidgetArchives = () => (
+export const WidgetArchives = (props) => (
     <div className="row sidebarWidget">
-        <h4>Archives</h4>
+        <h4>月度存档</h4>
         <ol className="list-unstyled">
-            <li><a href="#">March 2014</a></li>
-            <li><a href="#">February 2014</a></li>
-            <li><a href="#">January 2014</a></li>
-            <li><a href="#">December 2013</a></li>
-            <li><a href="#">November 2013</a></li>
-            <li><a href="#">October 2013</a></li>
-            <li><a href="#">September 2013</a></li>
-            <li><a href="#">August 2013</a></li>
-            <li><a href="#">July 2013</a></li>
-            <li><a href="#">June 2013</a></li>
-            <li><a href="#">May 2013</a></li>
-            <li><a href="#">April 2013</a></li>
+            {
+                props.months.map((item, idx) => (
+                    <li>
+                        <Link href={`/${item.year}/${item.month}`}>
+                            <a>{item.year}-{item.month} ({item.numOfPosts})</a>
+                        </Link>
+                    </li>
+                ))
+            }
         </ol>
     </div>
 )
+
+WidgetArchives.propTypes = {
+    months: PropTypes.arrayOf(PropTypes.shape({
+        year: PropTypes.string.isRequired,
+        month: PropTypes.string.isRequired,
+        numOfPosts: PropTypes.number.isRequired,
+    })).isRequired,
+}
