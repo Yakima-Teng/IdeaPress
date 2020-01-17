@@ -10,7 +10,12 @@ const Post = (props) => {
         <Layout
             pageTitle={post.post_title || ''}
             keywords={seo.keywords}
-            description={seo.description}>
+            description={seo.description}
+            blogInfo={props.blogInfo}
+            categoryList={props.categoryList}
+            months={props.months}
+            links={props.links}
+        >
             <div className="blog-post">
                 <h1 className="blog-post-title">
                     <a
@@ -53,6 +58,12 @@ Post.propTypes = {
 }
 
 Post.getInitialProps = async ({ query }) => {
+    const resForBasicInfo = await doGet('/api/v2/getBasicInfo')
+    const dataForBasicInfo = await resForBasicInfo.json()
+    const {
+        blogInfo, categoryList, months, links,
+    } = dataForBasicInfo.body
+
     const isPost = /\.html$/.test(query.postSlug) // .html结尾的是文章，不带.html的是页面
     const postSlug = query.postSlug.replace(/\.html$/, '')
 
@@ -71,6 +82,10 @@ Post.getInitialProps = async ({ query }) => {
     }))(data.body)
 
     return {
+        blogInfo,
+        categoryList,
+        months,
+        links,
         isPost,
         postSlug,
         post,

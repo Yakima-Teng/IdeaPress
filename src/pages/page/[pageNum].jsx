@@ -59,7 +59,10 @@ Index.propTypes = {
 Index.getInitialProps = async ({ query }) => {
     const resForBasicInfo = await doGet('/api/v2/getBasicInfo')
     const dataForBasicInfo = await resForBasicInfo.json()
-    const pageSize = dataForBasicInfo.body.blogInfo.posts_per_page
+    const {
+        blogInfo, categoryList, months, links,
+    } = dataForBasicInfo.body
+    const pageSize = blogInfo.posts_per_page
 
     const resForPostsList = await doGet('/api/v2/getPostsList', {
         pageNum: query.pageNum * 1 || 1,
@@ -71,10 +74,10 @@ Index.getInitialProps = async ({ query }) => {
     const posts = dataForPostsList.body.posts
 
     return {
-        blogInfo: dataForBasicInfo.body.blogInfo,
-        categoryList: dataForBasicInfo.body.categoryList,
-        months: dataForBasicInfo.body.months,
-        links: dataForBasicInfo.body.links,
+        blogInfo,
+        categoryList,
+        months,
+        links,
         pageNum,
         totalPages,
         posts,
