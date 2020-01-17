@@ -62,8 +62,8 @@ Post.getInitialProps = async ({ query }) => {
     })
     const data = await res.json()
     const post = ((body) => ({
-        cat_name: body.post.category[0].name,
-        cat_slug: body.post.category[0].slug,
+        cat_name: body.post.category.length > 0 ? body.post.category[0].name : '',
+        cat_slug: body.post.category.length > 0 ? body.post.category[0].slug : '',
         post_content: body.post.post_content,
         post_date: body.post.post_date,
         post_id: body.post.ID,
