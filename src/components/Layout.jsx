@@ -7,8 +7,8 @@ import { Sidebar } from './Sidebar'
 const Layout = (props) => (
     <div className="container siteContainer">
         <Header
-            blogName={props.blogName}
-            blogDescription={props.blogDescription}
+            blogName={props.blogInfo.blogname}
+            blogDescription={props.blogInfo.blogdescription}
             pageTitle={props.pageTitle}
             keywords={props.keywords}
             description={props.description}
@@ -25,8 +25,8 @@ const Layout = (props) => (
             </div>
         </div>
         <Footer
-            blogName={props.blogName}
-            beianCode={props.beianCode}
+            blogName={props.blogInfo.blogname}
+            beianCode={props.blogInfo.zh_cn_l10n_icp_num}
         />
         <style jsx global>{`
             body {
