@@ -1,21 +1,18 @@
 import { promiseQuery } from '../../scripts/sql'
+import { getCatsTagsAndFormatsByPostIds } from './getCatsTagsAndFormatsByPostIds'
 
-export const getPostsWithSpecificPostIds = async ({ postIds }) => {
+export const getPostDataByPostName = async ({ postName, postType }) => {
     const posts = (await promiseQuery(
         'SELECT wp_posts.* ' +
         'FROM wp_posts ' +
-        `WHERE ID IN (${postIds.join(',')}) ` +
+        `WHERE wp_posts.post_name = '${postName}' ` +
+        `AND wp_posts.post_type = '${postType}' ` +
         'ORDER BY wp_posts.post_date DESC;'
     )).map((item) => ({ ...item }))
 
-    const taxonomies = (await promiseQuery(
-        'SELECT  t.*, tt.*, tr.object_id ' +
-        'FROM wp_terms AS t ' +
-        'INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id ' +
-        'INNER JOIN wp_term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id ' +
-        `WHERE tt.taxonomy IN ('category', 'post_tag', 'post_format') AND tr.object_id IN (${postIds.join(',')}) ` +
-        'ORDER BY t.name ASC;'
-    )).map((item) => ({ ...item }))
+    const taxonomies = await getCatsTagsAndFormatsByPostIds({
+        postIds: posts.map((item) => item.ID),
+    })
 
     posts.forEach((post, idx) => {
         const postId = post.ID
@@ -25,5 +22,5 @@ export const getPostsWithSpecificPostIds = async ({ postIds }) => {
         post.post_format = relatedTaxonomies.filter((item) => item.taxonomy === 'post_format')
     })
 
-    return posts
+    return posts[0]
 }

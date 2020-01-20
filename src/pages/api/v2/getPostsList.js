@@ -1,5 +1,5 @@
 import { getTotalNumOfPosts } from '../../../servers/v2/getTotalNumOfPosts'
-import { getPostsWithSpecificPostIds } from '../../../servers/v2/getPostsWithSpecificPostIds'
+import { getPostsByPostIds } from '../../../servers/v2/getPostsByPostIds'
 import { getPostIds } from '../../../servers/v2/getPostIds'
 
 export default async (req, res) => {
@@ -13,7 +13,7 @@ export default async (req, res) => {
             offset: (pageNum - 1) * pageSize,
             limit: pageSize,
         })
-        const posts = await getPostsWithSpecificPostIds({ postIds })
+        const posts = await getPostsByPostIds({ postIds })
 
         return res.json({
             code: '200',
