@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 
 export const WidgetLinks = (props) => (
     <div className="row sidebarWidget">
@@ -9,12 +8,11 @@ export const WidgetLinks = (props) => (
             {
                 props.links.map((item, idx) => (
                     <li key={idx}>
-                        <Link href={item.link_url}>
-                            <a
-                                title={item.link_description || item.link_name}
-                                rel={item.link_rel}
-                                target={item.link_target}>{item.link_name}</a>
-                        </Link>
+                        <a
+                            href={item.link_url}
+                            title={item.link_description || item.link_name}
+                            rel={item.link_rel}
+                            target={item.link_target}>{item.link_name}</a>
                     </li>
                 ))
             }

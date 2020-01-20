@@ -8,7 +8,7 @@ export const WidgetArchives = (props) => (
         <ol className="list-unstyled">
             {
                 props.months.map((item, idx) => (
-                    <li>
+                    <li key={idx}>
                         <Link href={`/${item.year}/${item.month}`}>
                             <a>{item.year}-{item.month} ({item.numOfPosts})</a>
                         </Link>

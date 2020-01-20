@@ -54,17 +54,15 @@ const Layout = (props) => (
 )
 
 Layout.propTypes = {
-    blogName: PropTypes.string.isRequired,
-    blogDescription: PropTypes.string.isRequired,
-    beianCode: PropTypes.string.isRequired,
     hideSiteMainTitle: PropTypes.bool,
     pageTitle: PropTypes.string.isRequired,
     keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
     children: PropTypes.any.isRequired,
     description: PropTypes.string.isRequired,
-    categoryList: PropTypes.array,
-    months: PropTypes.array,
-    links: PropTypes.array,
+    blogInfo: PropTypes.object.isRequired,
+    categoryList: PropTypes.array.isRequired,
+    months: PropTypes.array.isRequired,
+    links: PropTypes.array.isRequired,
 }
 
 export default Layout
