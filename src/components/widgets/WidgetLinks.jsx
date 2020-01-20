@@ -4,10 +4,15 @@ import PropTypes from 'prop-types'
 export const WidgetLinks = (props) => (
     <div className="row sidebarWidget">
         <h4>链接</h4>
-        <ol className="list-unstyled">
+        <ol className="list-unstyled clearfix">
             {
                 props.links.map((item, idx) => (
-                    <li key={idx}>
+                    <li className="link" key={idx}>
+                        {
+                            idx > 0 && (
+                                <span>、</span>
+                            )
+                        }
                         <a
                             href={item.link_url}
                             title={item.link_description || item.link_name}
@@ -17,6 +22,12 @@ export const WidgetLinks = (props) => (
                 ))
             }
         </ol>
+
+        <style jsx>{`
+            .link {
+                float: left;
+            }
+        `}</style>
     </div>
 )
 

@@ -5,10 +5,10 @@ import Link from 'next/link'
 export const WidgetArchives = (props) => (
     <div className="row sidebarWidget">
         <h4>月度存档</h4>
-        <ol className="list-unstyled">
+        <ol className="list-unstyled clearfix">
             {
                 props.months.map((item, idx) => (
-                    <li key={idx}>
+                    <li className="archive" key={idx}>
                         <Link href={`/${item.year}/${item.month}`}>
                             <a>{item.year}-{item.month} ({item.numOfPosts})</a>
                         </Link>
@@ -16,6 +16,13 @@ export const WidgetArchives = (props) => (
                 ))
             }
         </ol>
+
+        <style jsx>{`
+            .archive {
+                float: left;
+                min-width: 50%;
+            }
+        `}</style>
     </div>
 )
 
