@@ -64,10 +64,19 @@ Index.getInitialProps = async ({ query }) => {
     } = dataForBasicInfo.body
     const pageSize = blogInfo.posts_per_page
 
-    const resForPostsList = await doGet('/api/v2/getPostsList', {
+    const params = {
+        type: query.type || 'post',
         pageNum: query.pageNum * 1 || 1,
         pageSize,
-    })
+    }
+    if (query.type === 'category') {
+        params.cats = query.cats
+    }
+    if (query.type === 'archive') {
+        params.year = query.year
+        params.month = query.month
+    }
+    const resForPostsList = await doGet('/api/v2/getPostsList', params)
     const dataForPostsList = await resForPostsList.json()
     const pageNum = dataForPostsList.body.curNumOfPage
     const totalPages = dataForPostsList.body.totalNumOfPages

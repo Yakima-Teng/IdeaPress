@@ -34,9 +34,53 @@ app
             const parsedUrl = parse(req.url, true)
             const { pathname, query } = parsedUrl
 
-            if (/^\/category\/.+$/.test(pathname)) { // TODO: 尚未处理
-                console.log(pathname, JSON.stringify(query))
-                app.render(req, res, '/index', query)
+            if (pathname === '/') { // 首页
+                app.render(req, res, '/templates/postList', {
+                    ...query,
+                    type: 'post',
+                    pageNum: '1',
+                })
+                return
+            }
+
+            if (/^\/page\/[0-9]+$/.test(pathname)) { // 首页之后的页面
+                const pageNum = pathname.match(/(?<=^\/page\/)[0-9]+$/)[0]
+                app.render(req, res, '/templates/postList', {
+                    ...query,
+                    type: 'post',
+                    pageNum,
+                })
+                return
+            }
+
+            if (/^\/category\/.+$/.test(pathname)) { // 指定目录下的文章
+                const cats = pathname.replace('/category/', '').split('/')
+                const pageNum = (() => {
+                    if (/^[0-9]$/.test(cats[cats.length - 1])) {
+                        return cats.splice(cats.length - 1, 1)
+                    }
+                    return '1'
+                })()
+                app.render(req, res, '/templates/postList', {
+                    ...query,
+                    type: 'category',
+                    cats,
+                    pageNum,
+                })
+                return
+            }
+
+            if (/^\/[0-9]{4}\/[0-9]{2}(\/[0-9]+)?$/.test(pathname)) { // 指定月份的文章
+                const year = pathname.split('/')[1]
+                const month = pathname.split('/')[2]
+                const pageNum = pathname.split('/')[3] || '1'
+                app.render(req, res, '/templates/postList', {
+                    ...query,
+                    type: 'archive',
+                    year,
+                    month,
+                    pageNum,
+                })
                 return
             }
 
