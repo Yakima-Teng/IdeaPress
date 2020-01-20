@@ -1,5 +1,6 @@
 const express = require('express')
 const next = require('next')
+const { parse } = require('url')
 const proxyMiddleware = require('http-proxy-middleware')
 const {
     serverPort,
@@ -27,7 +28,20 @@ app
         })
 
         // Default catch-all handler to allow Next.js to handle all other routes
-        server.all('*', (req, res) => handle(req, res))
+        server.all('*', (req, res) => {
+            // Be sure to pass `true` as the second argument to `url.parse`.
+            // This tells it to parse the query portion of the URL.
+            const parsedUrl = parse(req.url, true)
+            const { pathname, query } = parsedUrl
+
+            if (/^\/category\/.+$/.test(pathname)) { // TODO: 尚未处理
+                console.log(pathname, JSON.stringify(query))
+                app.render(req, res, '/index', query)
+                return
+            }
+
+            handle(req, res, parsedUrl)
+        })
 
         server.listen(port, err => {
             if (err) {
