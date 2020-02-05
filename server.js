@@ -84,6 +84,28 @@ app
                 return
             }
 
+            if (/^\/[^./\\]+\.html$/.test(pathname)) { // 文章详情页（url以.html结尾）
+                const postName = pathname.match(/(?<=^\/).+(?=\.html$)/)[0]
+                const postType = 'post'
+                app.render(req, res, '/templates/post', {
+                    ...query,
+                    postName,
+                    postType,
+                })
+                return
+            }
+
+            if (/^\/[^./\\]+$/.test(pathname)) { // 页面详情页(url不含"."、"\"和"/"——除了最开头的根路径斜杠)
+                const postName = pathname.match(/(?<=^\/).+$/)[0]
+                const postType = 'page'
+                app.render(req, res, '/templates/post', {
+                    ...query,
+                    postName,
+                    postType,
+                })
+                return
+            }
+
             handle(req, res, parsedUrl)
         })
 

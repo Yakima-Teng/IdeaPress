@@ -1,4 +1,3 @@
-import { promiseQuery } from '../../../scripts/sql'
 import { getPostDataByPostName } from '../../../servers/v2/getPostDataByPostName'
 
 export default async (req, res) => {

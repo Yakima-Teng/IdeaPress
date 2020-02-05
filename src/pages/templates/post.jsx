@@ -1,8 +1,8 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
-import Layout from '../components/Layout'
-import { seo } from '../../site.config'
-import { doGet } from '../scripts/fetch'
+import Layout from '../../components/Layout'
+import { seo } from '../../../site.config'
+import { doGet } from '../../scripts/fetch'
 
 const Post = (props) => {
     const post = props.post
@@ -52,6 +52,11 @@ const Post = (props) => {
 }
 
 Post.propTypes = {
+    blogInfo: PropTypes.object.isRequired,
+    categoryList: PropTypes.array.isRequired,
+    months: PropTypes.array.isRequired,
+    links: PropTypes.array.isRequired,
+
     isPost: PropTypes.bool.isRequired,
     postSlug: PropTypes.string.isRequired,
     post: PropTypes.object.isRequired,
@@ -64,12 +69,13 @@ Post.getInitialProps = async ({ query }) => {
         blogInfo, categoryList, months, links,
     } = dataForBasicInfo.body
 
-    const isPost = /\.html$/.test(query.postSlug) // .html结尾的是文章，不带.html的是页面
-    const postSlug = query.postSlug.replace(/\.html$/, '')
+    const postName = query.postName
+    const postType = query.postType
+    const isPost = postType === 'post'
 
     const res = await doGet('/api/v2/getPostData', {
-        postName: postSlug,
-        postType: isPost ? 'post' : 'page',
+        postName,
+        postType,
     })
     const data = await res.json()
     const post = ((body) => ({
@@ -87,7 +93,7 @@ Post.getInitialProps = async ({ query }) => {
         months,
         links,
         isPost,
-        postSlug,
+        postSlug: postName,
         post,
     }
 }

@@ -7,7 +7,7 @@ import { PageNavigation } from '../../components/PageNavigation'
 import { doGet } from '../../scripts/fetch'
 import { ExcerptList } from '../../components/ExcerptList'
 
-const Index = (props) => {
+const PostList = (props) => {
     return (
         <Layout
             hideSiteMainTitle={true}
@@ -45,7 +45,7 @@ const Index = (props) => {
     )
 }
 
-Index.propTypes = {
+PostList.propTypes = {
     blogInfo: PropTypes.object.isRequired,
     categoryList: PropTypes.array.isRequired,
     months: PropTypes.array.isRequired,
@@ -56,7 +56,7 @@ Index.propTypes = {
     posts: PropTypes.array.isRequired,
 }
 
-Index.getInitialProps = async ({ query }) => {
+PostList.getInitialProps = async ({ query }) => {
     const resForBasicInfo = await doGet('/api/v2/getBasicInfo')
     const dataForBasicInfo = await resForBasicInfo.json()
     const {
@@ -94,4 +94,4 @@ Index.getInitialProps = async ({ query }) => {
     }
 }
 
-export default Index
+export default PostList

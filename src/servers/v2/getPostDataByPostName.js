@@ -14,7 +14,7 @@ export const getPostDataByPostName = async ({ postName, postType }) => {
         postIds: posts.map((item) => item.ID),
     })
 
-    posts.forEach((post, idx) => {
+    posts.forEach((post) => {
         const postId = post.ID
         const relatedTaxonomies = taxonomies.filter((item) => item.object_id === postId)
         post.category = relatedTaxonomies.filter((item) => item.taxonomy === 'category')
