@@ -6,7 +6,7 @@ export const getRandomPosts = async () => {
         'SELECT wp_posts.* ' +
         'FROM wp_posts ' +
         'WHERE post_status = "publish" AND post_type = "post" ' +
-        'ORDER BY RAND() LIMIT 10;'
+        'ORDER BY RAND() LIMIT 8;'
     )).map((item) => ({ ...item }))
 
     const taxonomies = await getCatsTagsAndFormatsByPostIds({ postIds: posts.map((item) => item.ID) })

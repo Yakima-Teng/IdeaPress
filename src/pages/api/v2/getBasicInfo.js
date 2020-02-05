@@ -3,6 +3,7 @@ import { getCategoryList } from '../../../servers/v2/getCategoryList'
 import { getLinks } from '../../../servers/v2/getLinks'
 import { getMonths } from '../../../servers/v2/getMonths'
 import { getRandomPosts } from '../../../servers/v2/getRandomPosts'
+import { getRandomComments } from '../../../servers/v2/getRandomComments'
 
 export default async (req, res) => {
     try {
@@ -11,6 +12,7 @@ export default async (req, res) => {
         const links = await getLinks()
         const months = await getMonths()
         const randomPosts = await getRandomPosts()
+        const randomComments = await getRandomComments()
 
         return res.json({
             code: '200',
@@ -21,6 +23,7 @@ export default async (req, res) => {
                 links,
                 months,
                 randomPosts,
+                randomComments,
             }
         })
     } catch (err) {

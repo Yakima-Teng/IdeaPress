@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { WidgetLinks } from './widgets/WidgetLinks'
 import { WidgetRandomPosts } from './widgets/WidgetRandomPosts'
+import { WidgetRandomComments } from './widgets/WidgetRandomComments'
 
 const Footer = (props) => (
     <div className="siteFooter">
@@ -9,11 +10,18 @@ const Footer = (props) => (
             <div className="col-sm-4">
                 {
                     props.links && props.links.length > 0 && (
-                        <WidgetLinks links={props.links} />
+                        <WidgetRandomComments
+                            commentList={props.randomComments.map((item) => ({
+                                href: `/${encodeURIComponent(item.post_name)}.html#comment-${item.comment_ID}`,
+                                title: item.comment_date.replace(/T.+$/, ''),
+                                contentPrefix: `${item.comment_author} (${item.comment_date.replace(/T.+$/, '')}): `,
+                                contentDetail: item.comment_content,
+                            }))}
+                        />
                     )
                 }
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-3 col-sm-offset-1">
                 {
                     props.links && props.links.length > 0 && (
                         <WidgetRandomPosts
@@ -26,7 +34,7 @@ const Footer = (props) => (
                     )
                 }
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-3 col-sm-offset-1">
                 {
                     props.links && props.links.length > 0 && (
                         <WidgetLinks links={props.links} />
@@ -85,6 +93,7 @@ Footer.propTypes = {
     blogName: PropTypes.string.isRequired,
     beianCode: PropTypes.string.isRequired,
     randomPosts: PropTypes.array.isRequired,
+    randomComments: PropTypes.array.isRequired,
     links: PropTypes.array,
 }
 

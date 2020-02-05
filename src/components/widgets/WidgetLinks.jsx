@@ -7,7 +7,7 @@ export const WidgetLinks = (props) => (
         <ol className="list-unstyled">
             {
                 props.links.map((item, idx) => (
-                    <li key={idx}>
+                    <li className="linkWrapper" key={idx}>
                         <a
                             href={item.link_url}
                             title={item.link_description || item.link_name}
@@ -17,6 +17,12 @@ export const WidgetLinks = (props) => (
                 ))
             }
         </ol>
+
+        <style jsx>{`
+            .linkWrapper:nth-of-type(n+2) {
+                margin-top: 6px;
+            }
+        `}</style>
     </div>
 )
 

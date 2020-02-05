@@ -27,6 +27,7 @@ const Layout = (props) => (
             blogName={props.blogInfo.blogname}
             beianCode={props.blogInfo.zh_cn_l10n_icp_num}
             randomPosts={props.randomPosts}
+            randomComments={props.randomComments}
             links={props.links}
         />
         <style jsx global>{`
@@ -65,6 +66,7 @@ Layout.propTypes = {
     months: PropTypes.array.isRequired,
     links: PropTypes.array.isRequired,
     randomPosts: PropTypes.array.isRequired,
+    randomComments: PropTypes.array.isRequired,
 }
 
 export default Layout
