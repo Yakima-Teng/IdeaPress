@@ -1,15 +1,15 @@
 import { promiseQuery } from '../../scripts/sql'
 import { getCatsTagsAndFormatsByPostIds } from './getCatsTagsAndFormatsByPostIds'
 
-export const getPostsByPostIds = async ({ postIds }) => {
+export const getRandomPosts = async () => {
     const posts = (await promiseQuery(
         'SELECT wp_posts.* ' +
         'FROM wp_posts ' +
-        `WHERE ID IN (${postIds.join(',')}) ` +
-        'ORDER BY wp_posts.post_date DESC;'
+        'WHERE post_status = "publish" AND post_type = "post" ' +
+        'ORDER BY RAND() LIMIT 10;'
     )).map((item) => ({ ...item }))
 
-    const taxonomies = await getCatsTagsAndFormatsByPostIds({ postIds })
+    const taxonomies = await getCatsTagsAndFormatsByPostIds({ postIds: posts.map((item) => item.ID) })
 
     posts.forEach((post) => {
         const postId = post.ID

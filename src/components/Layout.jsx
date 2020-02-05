@@ -26,6 +26,7 @@ const Layout = (props) => (
         <Footer
             blogName={props.blogInfo.blogname}
             beianCode={props.blogInfo.zh_cn_l10n_icp_num}
+            randomPosts={props.randomPosts}
             links={props.links}
         />
         <style jsx global>{`
@@ -63,6 +64,7 @@ Layout.propTypes = {
     categoryList: PropTypes.array.isRequired,
     months: PropTypes.array.isRequired,
     links: PropTypes.array.isRequired,
+    randomPosts: PropTypes.array.isRequired,
 }
 
 export default Layout

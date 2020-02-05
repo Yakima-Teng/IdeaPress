@@ -15,6 +15,7 @@ const Post = (props) => {
             categoryList={props.categoryList}
             months={props.months}
             links={props.links}
+            randomPosts={props.randomPosts}
         >
             <div className="blog-post">
                 <h1 className="blog-post-title">
@@ -56,6 +57,7 @@ Post.propTypes = {
     categoryList: PropTypes.array.isRequired,
     months: PropTypes.array.isRequired,
     links: PropTypes.array.isRequired,
+    randomPosts: PropTypes.array.isRequired,
 
     isPost: PropTypes.bool.isRequired,
     postSlug: PropTypes.string.isRequired,
@@ -66,7 +68,7 @@ Post.getInitialProps = async ({ query }) => {
     const resForBasicInfo = await doGet('/api/v2/getBasicInfo')
     const dataForBasicInfo = await resForBasicInfo.json()
     const {
-        blogInfo, categoryList, months, links,
+        blogInfo, categoryList, months, links, randomPosts,
     } = dataForBasicInfo.body
 
     const postName = query.postName
@@ -92,6 +94,7 @@ Post.getInitialProps = async ({ query }) => {
         categoryList,
         months,
         links,
+        randomPosts,
         isPost,
         postSlug: postName,
         post,

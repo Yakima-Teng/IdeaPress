@@ -18,6 +18,7 @@ const PostList = (props) => {
             categoryList={props.categoryList}
             months={props.months}
             links={props.links}
+            randomPosts={props.randomPosts}
         >
             <ExcerptList
                 posts={props.posts.map((item) => ({
@@ -50,6 +51,7 @@ PostList.propTypes = {
     categoryList: PropTypes.array.isRequired,
     months: PropTypes.array.isRequired,
     links: PropTypes.array.isRequired,
+    randomPosts: PropTypes.array.isRequired,
 
     pageNum: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
@@ -60,7 +62,7 @@ PostList.getInitialProps = async ({ query }) => {
     const resForBasicInfo = await doGet('/api/v2/getBasicInfo')
     const dataForBasicInfo = await resForBasicInfo.json()
     const {
-        blogInfo, categoryList, months, links,
+        blogInfo, categoryList, months, links, randomPosts,
     } = dataForBasicInfo.body
     const pageSize = blogInfo.posts_per_page
 
@@ -87,6 +89,8 @@ PostList.getInitialProps = async ({ query }) => {
         categoryList,
         months,
         links,
+        randomPosts,
+
         pageNum,
         totalPages,
         posts,

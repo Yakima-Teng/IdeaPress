@@ -14,6 +14,7 @@ export default async (req, res) => {
             },
         })
     } catch (err) {
+        console.log(err) // eslint-disable-line
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 500;
         res.end(JSON.stringify({

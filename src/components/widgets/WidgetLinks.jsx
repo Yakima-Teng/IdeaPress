@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export const WidgetLinks = (props) => (
     <div className="row sidebarWidget">
         <h4>链接</h4>
-        <ol className="list-unstyled clearfix">
+        <ol className="list-unstyled">
             {
                 props.links.map((item, idx) => (
                     <li key={idx}>

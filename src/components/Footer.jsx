@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { WidgetLinks } from './widgets/WidgetLinks'
+import { WidgetRandomPosts } from './widgets/WidgetRandomPosts'
 
 const Footer = (props) => (
     <div className="siteFooter">
@@ -15,7 +16,13 @@ const Footer = (props) => (
             <div className="col-sm-4">
                 {
                     props.links && props.links.length > 0 && (
-                        <WidgetLinks links={props.links} />
+                        <WidgetRandomPosts
+                            postList={props.randomPosts.map((item) => ({
+                                href: `/${encodeURIComponent(item.post_name)}.html`,
+                                title: item.post_title,
+                                name: item.post_title,
+                            }))}
+                        />
                     )
                 }
             </div>
@@ -77,6 +84,7 @@ const Footer = (props) => (
 Footer.propTypes = {
     blogName: PropTypes.string.isRequired,
     beianCode: PropTypes.string.isRequired,
+    randomPosts: PropTypes.array.isRequired,
     links: PropTypes.array,
 }
 
