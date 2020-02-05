@@ -64,7 +64,7 @@ const Header = (props) => (
         <style jsx>{`
             .siteHeaderTop {
                 position: relative;
-                padding: 15px 5px;
+                padding: 15px 0;
             }
             .siteHeaderTop h1 {
                 margin: 0 auto;

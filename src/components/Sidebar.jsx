@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { WidgetAbout } from './widgets/WidgetAbout'
 import { WidgetArchives } from './widgets/WidgetArchives'
-import { WidgetLinks } from './widgets/WidgetLinks'
 import { WidgetCategories } from './widgets/WidgetCategories'
 
 export const Sidebar = (props) => (
@@ -20,12 +19,6 @@ export const Sidebar = (props) => (
             )
         }
 
-        {
-            props.links && props.links.length > 0 && (
-                <WidgetLinks links={props.links} />
-            )
-        }
-
         <style jsx global>{`
             .siteSidebar {
                 padding-top: 10px;
@@ -40,5 +33,4 @@ export const Sidebar = (props) => (
 Sidebar.propTypes = {
     categoryList: PropTypes.array,
     months: PropTypes.array,
-    links: PropTypes.array,
 }

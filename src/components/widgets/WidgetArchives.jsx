@@ -10,7 +10,7 @@ export const WidgetArchives = (props) => (
                 props.months.map((item, idx) => (
                     <li className="archive" key={idx}>
                         <Link href={`/${item.year}/${item.month}`}>
-                            <a>{item.year}-{item.month} ({item.numOfPosts})</a>
+                            <a>{item.year}年{item.month * 1}月({item.numOfPosts})</a>
                         </Link>
                     </li>
                 ))

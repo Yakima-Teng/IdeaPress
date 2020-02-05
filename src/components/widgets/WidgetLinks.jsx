@@ -7,12 +7,7 @@ export const WidgetLinks = (props) => (
         <ol className="list-unstyled clearfix">
             {
                 props.links.map((item, idx) => (
-                    <li className="link" key={idx}>
-                        {
-                            idx > 0 && (
-                                <span>、</span>
-                            )
-                        }
+                    <li key={idx}>
                         <a
                             href={item.link_url}
                             title={item.link_description || item.link_name}
@@ -22,12 +17,6 @@ export const WidgetLinks = (props) => (
                 ))
             }
         </ol>
-
-        <style jsx>{`
-            .link {
-                float: left;
-            }
-        `}</style>
     </div>
 )
 

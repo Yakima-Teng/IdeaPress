@@ -20,13 +20,13 @@ const Layout = (props) => (
                 <Sidebar
                     categoryList={props.categoryList}
                     months={props.months}
-                    links={props.links}
                 />
             </div>
         </div>
         <Footer
             blogName={props.blogInfo.blogname}
             beianCode={props.blogInfo.zh_cn_l10n_icp_num}
+            links={props.links}
         />
         <style jsx global>{`
             body {
