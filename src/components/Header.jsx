@@ -36,8 +36,15 @@ const Header = (props) => (
             <div dangerouslySetInnerHTML={{ __html: headCommentForCompatibility }} />
 
             <div className="siteHeader">
-                <h1>{props.blogName}</h1>
-                <p className="lead">{props.blogDescription}</p>
+                <div className="siteHeaderTop">
+                    <h1>{props.blogName}</h1>
+                    <p className="lead">{props.blogDescription}</p>
+                </div>
+                <Link href="/">
+                    <a className="bannerWrapper">
+                        <img src="/forest.png" alt="" className="imgBanner" />
+                    </a>
+                </Link>
             </div>
 
             <div className="siteNav">
@@ -55,9 +62,29 @@ const Header = (props) => (
         </div>
 
         <style jsx>{`
-            .siteHeader {}
+            .siteHeaderTop {
+                position: relative;
+                padding: 15px 5px;
+            }
+            .siteHeaderTop h1 {
+                margin: 0 auto;
+            }
+            .siteHeaderTop .lead {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translate(0, -50%);
+            }
+            .bannerWrapper {
+                display: block;
+            }
+            .bannerWrapper .imgBanner {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
             .siteNav {
-                margin-top: 15px;
+                margin-top: 0px;
                 background-color: #7798a3;
                 -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
                 box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
