@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
 import { seo } from '../../../site.config'
 import { doGet } from '../../scripts/fetch'
+import { Siblings } from '../../components/post/Siblings'
 
 const Post = (props) => {
     const post = props.post
@@ -36,19 +37,30 @@ const Post = (props) => {
                 <article className="postContent" dangerouslySetInnerHTML={{ __html: post.post_content }} />
             </div>
 
+            {
+                props.isPost === true && (
+                    <Siblings
+                        nextText={props.post.nextPost ? props.post.nextPost.post_title : ''}
+                        nextLink={props.post.nextPost ? `/${encodeURIComponent(props.post.nextPost.post_name)}.html` : ''}
+                        prevText={props.post.prevPost ? props.post.prevPost.post_title : ''}
+                        prevLink={props.post.prevPost ? `/${encodeURIComponent(props.post.prevPost.post_name)}.html` : ''}
+                    />
+                )
+            }
+
             <style jsx>{`
-                    .blog-post {
-                        margin-bottom: 60px;
-                    }
-                    .blog-post-title {
-                        margin-bottom: 5px;
-                        font-size: 40px;
-                    }
-                    .blog-post-meta {
-                        margin-bottom: 20px;
-                        color: #999;
-                    }
-                `}</style>
+                .blog-post {
+                    margin-bottom: 60px;
+                }
+                .blog-post-title {
+                    margin-bottom: 5px;
+                    font-size: 40px;
+                }
+                .blog-post-meta {
+                    margin-bottom: 20px;
+                    color: #999;
+                }
+            `}</style>
         </Layout>
     )
 }
@@ -89,6 +101,8 @@ Post.getInitialProps = async ({ query }) => {
         post_date: body.post.post_date,
         post_id: body.post.ID,
         post_title: body.post.post_title,
+        prevPost: body.prevPost,
+        nextPost: body.nextPost,
     }))(data.body)
 
     return {
