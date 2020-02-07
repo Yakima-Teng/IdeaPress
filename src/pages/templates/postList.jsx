@@ -77,7 +77,14 @@ PostList.getInitialProps = async ({ query, asPath }) => {
         pageSize,
     }
     if (query.type === POST_LIST_TYPE.CATEGORY) {
-        params.cats = query.cats.join(',')
+        const lastCatSlug = query.cats.reverse()[0]
+        const lastCat = categoryList.find((item) => item.slug === lastCatSlug)
+        const lastCatId = getString(lastCat.term_id)
+        const categoryIds = [lastCatId]
+        if (lastCat.childs && lastCat.childs.length > 0) {
+            lastCat.childs.forEach((item) => categoryIds.push(getString(item.term_id)))
+        }
+        params.categoryIds = categoryIds.join(',')
     }
     if (query.type === POST_LIST_TYPE.ARCHIVE) {
         params.year = query.year
