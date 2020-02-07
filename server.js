@@ -6,6 +6,7 @@ const {
     serverPort,
     proxyTable,
 } = require('./site.config')
+const { POST_LIST_TYPE } = require('./src/scripts/data')
 
 const port = parseInt(process.env.PORT || serverPort, 10) || 8080
 const env = process.env.NODE_ENV
@@ -37,7 +38,7 @@ app
             if (pathname === '/') { // 首页
                 app.render(req, res, '/templates/postList', {
                     ...query,
-                    type: 'global',
+                    type: POST_LIST_TYPE.GLOBAL,
                     pageNum: '1',
                 })
                 return
@@ -47,31 +48,31 @@ app
                 const pageNum = pathname.match(/(?<=^\/page\/)[0-9]+$/)[0]
                 app.render(req, res, '/templates/postList', {
                     ...query,
-                    type: 'global',
+                    type: POST_LIST_TYPE.GLOBAL,
                     pageNum,
                 })
                 return
             }
 
-            if (/^\/category\/[^.]+$/.test(pathname)) { // 指定目录下的文章
+            if (/^\/category\/[^.]+(\/page\/[0-9]+)?$/.test(pathname)) { // 指定目录下的文章
                 const cats = pathname.split('/page/')[0].replace('/category/', '').split('/')
                 const pageNum = pathname.split('/page/')[1] || '1'
                 app.render(req, res, '/templates/postList', {
                     ...query,
-                    type: 'category',
+                    type: POST_LIST_TYPE.CATEGORY,
                     cats,
                     pageNum,
                 })
                 return
             }
 
-            if (/^\/[0-9]{4}\/[0-9]{2}(\/[0-9]+)?$/.test(pathname)) { // 指定月份的文章
+            if (/^\/[0-9]{4}\/[0-9]{2}(\/page\/[0-9]+)?$/.test(pathname)) { // 指定月份的文章
                 const year = pathname.split('/')[1]
                 const month = pathname.split('/')[2]
-                const pageNum = pathname.split('/')[3] || '1'
+                const pageNum = pathname.split('/page/')[1] || '1'
                 app.render(req, res, '/templates/postList', {
                     ...query,
-                    type: 'archive',
+                    type: POST_LIST_TYPE.ARCHIVE,
                     year,
                     month,
                     pageNum,

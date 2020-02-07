@@ -41,7 +41,7 @@ const PostList = (props) => {
             />
 
             <PageNavigation
-                basePath={props.basePath}
+                basePath={props.basePath === '/' ? '' : props.basePath}
                 currentPage={props.pageNum}
                 totalPages={props.totalPages}
             />
