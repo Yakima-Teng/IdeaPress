@@ -37,7 +37,11 @@ const Header = (props) => (
 
             <div className="siteHeader">
                 <div className="siteHeaderTop">
-                    <h1>{props.blogName}</h1>
+                    <h1>
+                        <Link href="/">
+                            <a>{props.blogName}</a>
+                        </Link>
+                    </h1>
                     <p className="lead">{props.blogDescription}</p>
                 </div>
                 <Link href="/">

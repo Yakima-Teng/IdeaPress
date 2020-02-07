@@ -68,13 +68,14 @@ PostList.getInitialProps = async ({ query }) => {
     } = dataForBasicInfo.body
     const pageSize = blogInfo.posts_per_page
 
+    console.log(query)
     const params = {
-        type: query.type || 'post',
+        type: query.type || 'global',
         pageNum: query.pageNum * 1 || 1,
         pageSize,
     }
     if (query.type === 'category') {
-        params.cats = query.cats
+        params.cats = query.cats.join(',')
     }
     if (query.type === 'archive') {
         params.year = query.year

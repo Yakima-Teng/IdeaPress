@@ -6,13 +6,18 @@ export default async (req, res) => {
     try {
         const pageNum = req.query.pageNum * 1 || 1
         const pageSize = req.query.pageSize * 1 || 10
-        const totalNumOfPosts = await getTotalNumOfPosts({ type: 'post' })
+        const type = req.query.type || 'global'
+        const totalNumOfPosts = await getTotalNumOfPosts({ type })
         const totalNumOfPages = Math.ceil(totalNumOfPosts / pageSize)
-        const postIds = await getPostIds({
-            type: 'post',
+        const params = {
+            type,
             offset: (pageNum - 1) * pageSize,
             limit: pageSize,
-        })
+        }
+        if (type === 'category') {
+            params.cats = req.query.cats
+        }
+        const postIds = await getPostIds(params)
         const posts = await getPostsByPostIds({ postIds })
 
         return res.json({

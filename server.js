@@ -37,7 +37,7 @@ app
             if (pathname === '/') { // 首页
                 app.render(req, res, '/templates/postList', {
                     ...query,
-                    type: 'post',
+                    type: 'global',
                     pageNum: '1',
                 })
                 return
@@ -47,13 +47,13 @@ app
                 const pageNum = pathname.match(/(?<=^\/page\/)[0-9]+$/)[0]
                 app.render(req, res, '/templates/postList', {
                     ...query,
-                    type: 'post',
+                    type: 'global',
                     pageNum,
                 })
                 return
             }
 
-            if (/^\/category\/.+$/.test(pathname)) { // 指定目录下的文章
+            if (/^\/category\/[^.]+$/.test(pathname)) { // 指定目录下的文章
                 const cats = pathname.replace('/category/', '').split('/')
                 const pageNum = (() => {
                     if (/^[0-9]$/.test(cats[cats.length - 1])) {
