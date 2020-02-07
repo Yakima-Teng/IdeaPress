@@ -61,6 +61,12 @@ const Post = (props) => {
                     color: #999;
                 }
             `}</style>
+            <style jsx global>{`
+                .postContent img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            `}</style>
         </Layout>
     )
 }
