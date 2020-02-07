@@ -54,13 +54,8 @@ app
             }
 
             if (/^\/category\/[^.]+$/.test(pathname)) { // 指定目录下的文章
-                const cats = pathname.replace('/category/', '').split('/')
-                const pageNum = (() => {
-                    if (/^[0-9]$/.test(cats[cats.length - 1])) {
-                        return cats.splice(cats.length - 1, 1)
-                    }
-                    return '1'
-                })()
+                const cats = pathname.split('/page/')[0].replace('/category/', '').split('/')
+                const pageNum = pathname.split('/page/')[1] || '1'
                 app.render(req, res, '/templates/postList', {
                     ...query,
                     type: 'category',

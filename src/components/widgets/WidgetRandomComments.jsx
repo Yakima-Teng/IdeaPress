@@ -30,7 +30,7 @@ export const WidgetRandomComments = (props) => (
 
 WidgetRandomComments.propTypes = {
     commentList: PropTypes.arrayOf(PropTypes.shape({
-        href: PropTypes.number.isRequired,
+        href: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         contentPrefix: PropTypes.string.isRequired,
         contentDetail: PropTypes.string.isRequired,

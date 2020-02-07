@@ -6,6 +6,7 @@ import { getString } from '../../scripts/utils'
 import { PageNavigation } from '../../components/PageNavigation'
 import { doGet } from '../../scripts/fetch'
 import { ExcerptList } from '../../components/ExcerptList'
+import { POST_LIST_TYPE } from '../../scripts/data'
 
 const PostList = (props) => {
     return (
@@ -40,6 +41,7 @@ const PostList = (props) => {
             />
 
             <PageNavigation
+                basePath={props.basePath}
                 currentPage={props.pageNum}
                 totalPages={props.totalPages}
             />
@@ -58,9 +60,10 @@ PostList.propTypes = {
     pageNum: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
     posts: PropTypes.array.isRequired,
+    basePath: PropTypes.string.isRequired,
 }
 
-PostList.getInitialProps = async ({ query }) => {
+PostList.getInitialProps = async ({ query, asPath }) => {
     const resForBasicInfo = await doGet('/api/v2/getBasicInfo')
     const dataForBasicInfo = await resForBasicInfo.json()
     const {
@@ -68,16 +71,15 @@ PostList.getInitialProps = async ({ query }) => {
     } = dataForBasicInfo.body
     const pageSize = blogInfo.posts_per_page
 
-    console.log(query)
     const params = {
-        type: query.type || 'global',
+        type: query.type || POST_LIST_TYPE.GLOBAL,
         pageNum: query.pageNum * 1 || 1,
         pageSize,
     }
-    if (query.type === 'category') {
+    if (query.type === POST_LIST_TYPE.CATEGORY) {
         params.cats = query.cats.join(',')
     }
-    if (query.type === 'archive') {
+    if (query.type === POST_LIST_TYPE.ARCHIVE) {
         params.year = query.year
         params.month = query.month
     }
@@ -86,6 +88,7 @@ PostList.getInitialProps = async ({ query }) => {
     const pageNum = dataForPostsList.body.curNumOfPage
     const totalPages = dataForPostsList.body.totalNumOfPages
     const posts = dataForPostsList.body.posts
+    const basePath = asPath.split('/page/')[0]
 
     return {
         blogInfo,
@@ -98,7 +101,7 @@ PostList.getInitialProps = async ({ query }) => {
         pageNum,
         totalPages,
         posts,
-
+        basePath,
     }
 }
 

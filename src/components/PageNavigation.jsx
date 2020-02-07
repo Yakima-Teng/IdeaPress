@@ -30,11 +30,12 @@ export const PageNavigation = (props) => {
             e.preventDefault()
         }
     }
+    const basePath = props.basePath || ''
     return (
         <nav aria-label="Page navigation" className="text-center">
             <ul className="pagination">
                 <li className={currentPage === 1 ? 'disabled' : ''}>
-                    <Link href={currentPage > 2 ? `/page/${currentPage - 1}` : '/'}>
+                    <Link href={currentPage > 2 ? `${basePath}/page/${currentPage - 1}` : `${basePath}/`}>
                         <a onClick={(e) => preventDefault(e, currentPage === 1)} aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -45,7 +46,7 @@ export const PageNavigation = (props) => {
                         <li
                             key={`first-${numIdx}`}
                             className={currentPage === num ? 'active' : ''}>
-                            <Link href={num > 1 ? `/page/${num}` : '/'}>
+                            <Link href={num > 1 ? `${basePath}/page/${num}` : `${basePath}/`}>
                                 <a>{num}</a>
                             </Link>
                         </li>
@@ -67,7 +68,7 @@ export const PageNavigation = (props) => {
                         <li
                             key={`middle-${numIdx}`}
                             className={currentPage === num ? 'active' : ''}>
-                            <Link href={num > 1 ? `/page/${num}` : '/'}>
+                            <Link href={num > 1 ? `${basePath}/page/${num}` : `${basePath}/`}>
                                 <a>{num}</a>
                             </Link>
                         </li>
@@ -89,14 +90,14 @@ export const PageNavigation = (props) => {
                         <li
                             key={`last-${numIdx}`}
                             className={currentPage === num ? 'active' : ''}>
-                            <Link href={num > 1 ? `/page/${num}` : '/'}>
+                            <Link href={num > 1 ? `${basePath}/page/${num}` : `${basePath}/`}>
                                 <a>{num}</a>
                             </Link>
                         </li>
                     ))
                 }
                 <li className={currentPage === totalPages ? 'disabled' : ''}>
-                    <Link href={currentPage === totalPages ? '' : `/page/${currentPage + 1}`}>
+                    <Link href={currentPage === totalPages ? '' : `${basePath}/page/${currentPage + 1}`}>
                         <a onClick={(e) => preventDefault(e, currentPage === totalPages)} aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -108,6 +109,7 @@ export const PageNavigation = (props) => {
 }
 
 PageNavigation.propTypes = {
+    basePath: PropTypes.string.isRequired,
     currentPage: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
 }

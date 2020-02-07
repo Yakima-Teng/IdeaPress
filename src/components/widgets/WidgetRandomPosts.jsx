@@ -35,7 +35,7 @@ export const WidgetRandomPosts = (props) => (
 
 WidgetRandomPosts.propTypes = {
     postList: PropTypes.arrayOf(PropTypes.shape({
-        href: PropTypes.number.isRequired,
+        href: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     })).isRequired,

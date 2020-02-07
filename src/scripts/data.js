@@ -11,3 +11,9 @@ export const PostStatus = [
 ]
 
 export const imgPrefix = imageDomainUsed + imagePrefix
+
+export const POST_LIST_TYPE = {
+    GLOBAL: 'global',
+    CATEGORY: 'category',
+    ARCHIVE: 'archive',
+}

@@ -1,12 +1,13 @@
 import { getTotalNumOfPosts } from '../../../servers/v2/getTotalNumOfPosts'
 import { getPostsByPostIds } from '../../../servers/v2/getPostsByPostIds'
 import { getPostIds } from '../../../servers/v2/getPostIds'
+import { POST_LIST_TYPE } from '../../../scripts/data'
 
 export default async (req, res) => {
     try {
         const pageNum = req.query.pageNum * 1 || 1
         const pageSize = req.query.pageSize * 1 || 10
-        const type = req.query.type || 'global'
+        const type = req.query.type || POST_LIST_TYPE.GLOBAL
         const totalNumOfPosts = await getTotalNumOfPosts({ type })
         const totalNumOfPages = Math.ceil(totalNumOfPosts / pageSize)
         const params = {
@@ -14,7 +15,7 @@ export default async (req, res) => {
             offset: (pageNum - 1) * pageSize,
             limit: pageSize,
         }
-        if (type === 'category') {
+        if (type === POST_LIST_TYPE.CATEGORY) {
             params.cats = req.query.cats
         }
         const postIds = await getPostIds(params)
