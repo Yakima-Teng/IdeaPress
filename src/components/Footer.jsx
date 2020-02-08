@@ -50,7 +50,13 @@ const Footer = (props) => (
                     <a href="http://www.beian.miit.gov.cn/" className="beian" target="_blank" rel="nofollow noopener noreferrer">{props.beianCode}</a>
                 )
             }
-            <span className="poweredBy">Powered by <a href="http://www.orzzone.com" target="_blank" rel="noopener noreferrer">IdeaPress</a></span>
+            <span className="poweredBy">
+                Powered by &nbsp;
+                <a
+                    href="https://github.com/Yakima-Teng/IdeaPress"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow">IdeaPress</a>
+            </span>
         </div>
         <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js" />
         <script src="//cdn.bootcss.com/layer/2.3/layer.js" />
