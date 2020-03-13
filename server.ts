@@ -1,12 +1,13 @@
-const express = require('express')
-const next = require('next')
-const { parse } = require('url')
-const proxyMiddleware = require('http-proxy-middleware')
-const {
+import express from 'express'
+import next from 'next'
+import { parse }  from 'url'
+import proxyMiddleware from 'http-proxy-middleware'
+import {
     serverPort,
     proxyTable,
-} = require('./site.config')
-const { POST_LIST_TYPE } = require('./src/scripts/data')
+} from './site.config'
+import { POST_LIST_TYPE } from './src/scripts/data'
+import nextConfig from './next.config'
 
 const port = parseInt(process.env.PORT || serverPort, 10) || 8080
 const env = process.env.NODE_ENV
@@ -15,7 +16,7 @@ const app = next({
     dir: './src', // base directory where everything is, could move to src later
     dev,
     quiet: !dev,
-    conf: require('./next.config'),
+    conf: nextConfig,
 })
 
 const handle = app.getRequestHandler()
@@ -47,11 +48,12 @@ app
             }
 
             if (/^\/page\/[0-9]+$/.test(pathname)) { // 首页之后的页面
-                const pageNum = pathname.match(/(?<=^\/page\/)[0-9]+$/)[0]
+                // const pageNum = pathname.match(/(?<=^\/page\/)[0-9]+$/)[0]
+                const pageNum = pathname.match(/[0-9]+/)
                 app.render(req, res, '/templates/postList', {
                     ...query,
                     type: POST_LIST_TYPE.GLOBAL,
-                    pageNum,
+                    pageNum: pageNum ? pageNum[0] : 1,
                 })
                 return
             }
