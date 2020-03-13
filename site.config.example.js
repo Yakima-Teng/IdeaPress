@@ -17,7 +17,7 @@ module.exports = {
         `,
     },
     serverPort: '8888', // 服务使用的端口号
-    apiPrefix: '/apis',
+    apiPrefix: '', // api请求通用前缀，如不需要直接留空即可
     proxyTable: {
         '/wp-json': { target: 'http://www.baidu.com', changeOrigin: true },
     },

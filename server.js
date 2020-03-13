@@ -14,15 +14,17 @@ const dev = env !== 'production'
 const app = next({
     dir: './src', // base directory where everything is, could move to src later
     dev,
+    quiet: !dev,
+    conf: require('./next.config'),
 })
 
 const handle = app.getRequestHandler()
 
-let server
 app
     .prepare()
     .then(() => {
-        server = express()
+        const server = express()
+
         // Set up the proxy.
         Object.keys(proxyTable).forEach(function (context) {
             server.use(proxyMiddleware(context, proxyTable[context]))
