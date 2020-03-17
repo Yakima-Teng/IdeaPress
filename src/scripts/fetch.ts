@@ -22,7 +22,13 @@ const doAjaxLoad = (bool) => {
     }
 }
 
-export const doPost = (targetUrl, data, options = {}) => {
+type TYPE_REQUEST_OPTIONS = {
+    [index: string]: string | boolean,
+    useRawData?: boolean,
+    hideLoading?: boolean,
+}
+
+export const doPost = (targetUrl, data, options: TYPE_REQUEST_OPTIONS = {}) => {
     const useRawData = 'useRawData' in options
     if (useRawData === true) {
         delete options.useRawData
@@ -109,7 +115,7 @@ export const doPost = (targetUrl, data, options = {}) => {
     })
 }
 
-export const doGet = (targetUrl, data, options = {}) => {
+export const doGet = (targetUrl, data, options: TYPE_REQUEST_OPTIONS = {}) => {
     if (typeof window !== 'undefined') {
         if (options.hideLoading !== true) {
             doAjaxLoad(true)
