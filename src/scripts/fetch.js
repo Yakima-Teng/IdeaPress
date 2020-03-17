@@ -5,10 +5,7 @@ import {
     doLoad,
     transferQueryObjectToString,
 } from './utils'
-import {
-    serverPort,
-    apiPrefix,
-} from '../../site.config'
+import { SERVER_PORT, API_PREFIX } from '../site.config'
 
 let ajaxCounter = 0
 const doAjaxLoad = (bool) => {
@@ -36,7 +33,7 @@ export const doPost = (targetUrl, data, options = {}) => {
         }
     }
     if (!/^http/.test(targetUrl)) {
-        targetUrl = `http://localhost:${serverPort}${apiPrefix}${targetUrl}`
+        targetUrl = `http://localhost:${SERVER_PORT}${API_PREFIX}${targetUrl}`
     }
 
     // 对password字段进行加密处理
@@ -119,7 +116,7 @@ export const doGet = (targetUrl, data, options = {}) => {
         }
     }
     if (!/^http/.test(targetUrl)) {
-        targetUrl = `http://localhost:${serverPort}${apiPrefix}${targetUrl}`
+        targetUrl = `http://localhost:${SERVER_PORT}${API_PREFIX}${targetUrl}`
     }
 
     return new Promise((resolve, reject) => {

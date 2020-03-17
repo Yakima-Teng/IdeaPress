@@ -61,4 +61,4 @@ typings/
 .next
 
 .idea
-site.config.ts
+src/site.config.ts

@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Head from 'next/head'
-import { seo } from '../../site.config'
+import {
+    SITE_AUTHOR, SITE_SEPARATOR, SITE_MAIN_TITLE, SITE_STATISTICS,
+} from '../site.config'
 
 const headCommentForCompatibility = `
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -19,17 +21,17 @@ const Header = (props) => (
                 <meta charSet="utf-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="author" content={seo.author} />
+                <meta name="author" content={SITE_AUTHOR} />
                 <meta name="keywords" content={props.keywords.join(',')} />
                 <meta name="description" content={props.description} />
                 <link rel="icon" href="/favicon.ico" />
-                <title>{props.hideSiteMainTitle ? props.pageTitle : `${props.pageTitle} ${seo.separator} ${seo.siteMainTitle}`}</title>
+                <title>{props.hideSiteMainTitle ? props.pageTitle : `${props.pageTitle} ${SITE_SEPARATOR} ${SITE_MAIN_TITLE}`}</title>
 
                 <link href="//cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
                 <link href="//cdn.bootcss.com/layer/2.3/skin/layer.css" rel="stylesheet" />
                 {
-                    !!seo.baiduStatistics && (
-                        <script>{seo.baiduStatistics}</script>
+                    !!SITE_STATISTICS && (
+                        <script>{SITE_STATISTICS}</script>
                     )
                 }
             </Head>

@@ -3,13 +3,12 @@ import next from 'next'
 import { parse }  from 'url'
 import proxyMiddleware from 'http-proxy-middleware'
 import {
-    serverPort,
-    proxyTable,
-} from './site.config'
+    SERVER_PORT, PROXY_TABLE,
+} from './src/site.config'
 import { POST_LIST_TYPE } from './src/scripts/data'
 import nextConfig from './next.config'
 
-const port = parseInt(process.env.PORT || serverPort, 10) || 8080
+const port = parseInt(process.env.PORT || SERVER_PORT, 10) || 8080
 const env = process.env.NODE_ENV
 const dev = env !== 'production'
 const app = next({
@@ -27,8 +26,8 @@ app
         const server = express()
 
         // Set up the proxy.
-        Object.keys(proxyTable).forEach(function (context: string) {
-            server.use(proxyMiddleware(context, proxyTable[context]))
+        Object.keys(PROXY_TABLE).forEach(function (context: string) {
+            server.use(proxyMiddleware(context, PROXY_TABLE[context]))
         })
 
         // Default catch-all handler to allow Next.js to handle all other routes
@@ -58,7 +57,7 @@ app
                 return
             }
 
-            if (/^\/category\/[^.]+(\/page\/[0-9]+)?$/.test(pathname)) { // 指定目录下的文章
+            if (pathname !== null && /^\/category\/[^.]+(\/page\/[0-9]+)?$/.test(pathname)) { // 指定目录下的文章
                 const cats = pathname.split('/page/')[0].replace('/category/', '').split('/')
                 const pageNum = pathname.split('/page/')[1] || '1'
                 app.render(req, res, '/templates/postList', {
@@ -70,7 +69,7 @@ app
                 return
             }
 
-            if (/^\/[0-9]{4}\/[0-9]{2}(\/page\/[0-9]+)?$/.test(pathname)) { // 指定月份的文章
+            if (pathname !== null && /^\/[0-9]{4}\/[0-9]{2}(\/page\/[0-9]+)?$/.test(pathname)) { // 指定月份的文章
                 const year = pathname.split('/')[1]
                 const month = pathname.split('/')[2]
                 const pageNum = pathname.split('/page/')[1] || '1'
@@ -84,8 +83,8 @@ app
                 return
             }
 
-            if (/^\/[^./\\]+\.html$/.test(pathname)) { // 文章详情页（url以.html结尾）
-                const postName = pathname.match(/(?<=^\/).+(?=\.html$)/)[0]
+            if (pathname !== null && /^\/[^./\\]+\.html$/.test(pathname)) { // 文章详情页（url以.html结尾）
+                const postName = ((p) => (p === null ? '' : p[0]))(pathname.match(/(?<=^\/).+(?=\.html$)/))
                 const postType = 'post'
                 app.render(req, res, '/templates/post', {
                     ...query,
@@ -95,8 +94,8 @@ app
                 return
             }
 
-            if (/^\/[^./\\]+$/.test(pathname)) { // 页面详情页(url不含"."、"\"和"/"——除了最开头的根路径斜杠)
-                const postName = pathname.match(/(?<=^\/).+$/)[0]
+            if (pathname !== null && /^\/[^./\\]+$/.test(pathname)) { // 页面详情页(url不含"."、"\"和"/"——除了最开头的根路径斜杠)
+                const postName = ((p) => (p === null ? '' : p[0]))(pathname.match(/(?<=^\/).+$/))
                 const postType = 'page'
                 app.render(req, res, '/templates/post', {
                     ...query,

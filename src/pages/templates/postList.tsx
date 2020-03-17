@@ -1,7 +1,9 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
-import { seo } from '../../../site.config'
+import {
+    SITE_MAIN_TITLE, SITE_SUB_TITLE, SITE_SEPARATOR, SITE_KEYWORDS, SITE_DESCRIPTION,
+} from '../../site.config'
 import { getString } from '../../scripts/utils'
 import { PageNavigation } from '../../components/PageNavigation'
 import { doGet } from '../../scripts/fetch'
@@ -12,9 +14,9 @@ const PostList = (props) => {
     return (
         <Layout
             hideSiteMainTitle={true}
-            pageTitle={`${seo.siteMainTitle} ${seo.separator} ${seo.siteSubTitle}`}
-            keywords={seo.keywords}
-            description={seo.description}
+            pageTitle={`${'SITE_MAIN_TITLE'} ${'SITE_SEPARATOR'} ${'SITE_SUB_TITLE'}`}
+            keywords={['SITE_KEYWORDS']}
+            description={'SITE_DESCRIPTION'}
             blogInfo={props.blogInfo}
             categoryList={props.categoryList}
             months={props.months}
@@ -71,7 +73,14 @@ PostList.getInitialProps = async ({ query, asPath }) => {
     } = dataForBasicInfo.body
     const pageSize = blogInfo.posts_per_page
 
-    const params = {
+    const params: {
+        type: string,
+        pageNum: number,
+        pageSize: number,
+        categoryIds?: string,
+        year?: string,
+        month?: string,
+    } = {
         type: query.type || POST_LIST_TYPE.GLOBAL,
         pageNum: query.pageNum * 1 || 1,
         pageSize,

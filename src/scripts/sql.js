@@ -1,6 +1,15 @@
 const mysql = require('mysql')
-const config = require('../../site.config')
-const pool = mysql.createPool(config.blogMysql)
+import {
+    DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_SCHEME_NAME,
+} from '../site.config'
+
+const pool = mysql.createPool({
+    host: DB_HOST,
+    port: DB_PORT,
+    user: DB_USERNAME,
+    password: DB_PASSWORD,
+    database: DB_SCHEME_NAME,
+})
 
 export const promiseQuery = (options) => new Promise((resolve, reject) => {
     const sql = typeof options === 'string' ? options : options.sql
