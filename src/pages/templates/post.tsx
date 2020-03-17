@@ -1,7 +1,9 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
-import { seo } from '../../../site.config'
+import {
+    SITE_KEYWORDS, SITE_DESCRIPTION,
+} from '../../site.config'
 import { doGet } from '../../scripts/fetch'
 import { Siblings } from '../../components/post/Siblings'
 
@@ -10,8 +12,8 @@ const Post = (props) => {
     return (
         <Layout
             pageTitle={post.post_title || ''}
-            keywords={seo.keywords}
-            description={seo.description}
+            keywords={SITE_KEYWORDS}
+            description={SITE_DESCRIPTION}
             blogInfo={props.blogInfo}
             categoryList={props.categoryList}
             months={props.months}
