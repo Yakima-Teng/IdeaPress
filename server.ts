@@ -27,7 +27,7 @@ app
         const server = express()
 
         // Set up the proxy.
-        Object.keys(proxyTable).forEach(function (context) {
+        Object.keys(proxyTable).forEach(function (context: string) {
             server.use(proxyMiddleware(context, proxyTable[context]))
         })
 
@@ -47,13 +47,13 @@ app
                 return
             }
 
-            if (/^\/page\/[0-9]+$/.test(pathname)) { // 首页之后的页面
+            if (pathname !== null && /^\/page\/[0-9]+$/.test(pathname)) { // 首页之后的页面
                 // const pageNum = pathname.match(/(?<=^\/page\/)[0-9]+$/)[0]
                 const pageNum = pathname.match(/[0-9]+/)
                 app.render(req, res, '/templates/postList', {
                     ...query,
                     type: POST_LIST_TYPE.GLOBAL,
-                    pageNum: pageNum ? pageNum[0] : 1,
+                    pageNum: pageNum ? pageNum[0] : '1',
                 })
                 return
             }
