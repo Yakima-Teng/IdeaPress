@@ -133,7 +133,7 @@ export const hasValue = val => (
 )
 
 export const doAlert = ({ text, callback, okCaption }) => {
-    window.updateGlobalState && window.updateGlobalState({
+    (window as any).updateGlobalState && (window as any).updateGlobalState({
         isAlerting: true,
         alertText: text || '',
         alertOkCallback: callback || function () {},
@@ -144,7 +144,7 @@ export const doAlert = ({ text, callback, okCaption }) => {
 }
 
 export const doConfirm = ({ text, okCallback, cancelCallback, okCaption, cancelCaption }) => {
-    window.updateGlobalState && window.updateGlobalState({
+    (window as any).updateGlobalState && (window as any).updateGlobalState({
         isAlerting: true,
         alertText: text || '',
         alertOkCallback: okCallback || function () {},
@@ -156,7 +156,7 @@ export const doConfirm = ({ text, okCallback, cancelCallback, okCaption, cancelC
 
 let timerForToasting = null
 export const doToast = ({ text }) => {
-    window.updateGlobalState && window.updateGlobalState({
+    (window as any).updateGlobalState && (window as any).updateGlobalState({
         isToasting: true,
         toastingText: text,
     })
@@ -164,7 +164,7 @@ export const doToast = ({ text }) => {
         clearTimeout(timerForToasting)
     }
     timerForToasting = setTimeout(() => {
-        window.updateGlobalState && window.updateGlobalState({
+        (window as any).updateGlobalState && (window as any).updateGlobalState({
             isToasting: false,
             toastingText: '',
         })
@@ -173,12 +173,12 @@ export const doToast = ({ text }) => {
 
 export const doLoad = (bool) => {
     if (bool) {
-        window.updateGlobalState && window.updateGlobalState({
+        (window as any).updateGlobalState && (window as any).updateGlobalState({
             isLoading: true,
         })
         return
     }
-    window.updateGlobalState && window.updateGlobalState({
+    (window as any).updateGlobalState && (window as any).updateGlobalState({
         isLoading: false,
     })
 }
