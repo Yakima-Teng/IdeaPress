@@ -75,14 +75,14 @@ PostList.getInitialProps = async ({ query, asPath }) => {
 
     const params: {
         type: string,
-        pageNum: number,
-        pageSize: number,
+        pageNum: string,
+        pageSize: string,
         categoryIds?: string,
         year?: string,
         month?: string,
     } = {
         type: query.type || POST_LIST_TYPE.GLOBAL,
-        pageNum: query.pageNum * 1 || 1,
+        pageNum: getString(query.pageNum * 1 || 1),
         pageSize,
     }
     if (query.type === POST_LIST_TYPE.CATEGORY) {
