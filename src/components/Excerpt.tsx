@@ -3,7 +3,28 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import { trimHtml } from '../scripts/utils'
 
-export class Excerpt extends Component {
+type TypeCategoryItem = {
+    term_id: string,
+    name: string,
+    slug: string,
+}
+type TypePostTagItem = {
+    name: string,
+}
+type TypeExcerptProps = {
+    id: string,
+    slug: string,
+    title: string,
+    modified: string,
+    date: string,
+    excerpt: string,
+    category: TypeCategoryItem[],
+    post_tag: TypePostTagItem[],
+    post_format: string,
+}
+type TypeExcerptState = {}
+
+export class Excerpt extends Component<TypeExcerptProps, TypeExcerptState> {
     static propTypes = {
         id: PropTypes.string.isRequired,
         slug: PropTypes.string.isRequired,
