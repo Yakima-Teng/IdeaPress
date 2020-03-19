@@ -31,7 +31,7 @@ const Header = (props) => (
                 <link href="//cdn.bootcss.com/layer/2.3/skin/layer.css" rel="stylesheet" />
                 {
                     !!SITE_STATISTICS && (
-                        <script>{SITE_STATISTICS}</script>
+                        <script dangerouslySetInnerHTML={{ __html: SITE_STATISTICS }} />
                     )
                 }
             </Head>

@@ -37,12 +37,17 @@ app
             const parsedUrl = parse(req.url, true)
             const { pathname, query } = parsedUrl
 
-            if (pathname === '/') { // 首页
+            if (pathname === '/') { // 前台首页
                 app.render(req, res, '/templates/postList', {
                     ...query,
                     type: POST_LIST_TYPE.GLOBAL,
                     pageNum: '1',
                 })
+                return
+            }
+
+            if (pathname === '/admin') { // 后台首页
+                app.render(req, res, '/templates/admin/index', {})
                 return
             }
 
