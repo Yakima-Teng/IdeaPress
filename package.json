@@ -1,10 +1,11 @@
 {
   "name": "idea-press",
   "version": "0.0.0",
-  "main": "src/server.js",
+  "main": "server.js",
   "repository": "https://github.com/Yakima-Teng/IdeaPress.git",
   "author": "Yakima <cleveryun@163.com>",
   "private": false,
+  "license": "MIT",
   "scripts": {
     "eslint": "eslint --fix --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx src",
     "dev": "nodemon",
