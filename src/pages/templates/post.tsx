@@ -2,7 +2,7 @@ import React  from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
 import {
-    SITE_KEYWORDS, SITE_DESCRIPTION,
+    SITE_KEYWORDS,
 } from '../../site.config'
 import { doGet } from '../../scripts/fetch'
 import { Siblings } from '../../components/post/Siblings'
