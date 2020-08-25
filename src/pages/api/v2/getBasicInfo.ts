@@ -4,6 +4,7 @@ import { getLinks } from '../../../servers/v2/getLinks'
 import { getMonths } from '../../../servers/v2/getMonths'
 import { getRandomPosts } from '../../../servers/v2/getRandomPosts'
 import { getRandomComments } from '../../../servers/v2/getRandomComments'
+import { getUserInfo } from '../../../servers/v2/getUserInfo'
 
 export default async (req, res) => {
     try {
@@ -13,12 +14,14 @@ export default async (req, res) => {
         const months = await getMonths()
         const randomPosts = await getRandomPosts()
         const randomComments = await getRandomComments()
+        const userInfo = await getUserInfo()
 
         return res.json({
             code: '200',
             message: 'Success',
             body: {
                 blogInfo,
+                userInfo,
                 categoryList,
                 links,
                 months,

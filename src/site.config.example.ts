@@ -3,7 +3,6 @@
  */
 export const SITE_SEPARATOR: string = '|' // 分隔符
 export const SITE_KEYWORDS: string[] = ['关键词1', '关键词2'] // 关键词
-export const SITE_AUTHOR: string = 'https://github.com/Yakima-Teng/IdeaPress'
 export const SITE_STATISTICS: string = ` // 统计代码（放于script标签内的js代码片段，不含script标签部分）
     var _hmt = _hmt || [];
     (function() {

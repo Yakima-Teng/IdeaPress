@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Head from 'next/head'
 import {
-    SITE_AUTHOR, SITE_SEPARATOR, SITE_STATISTICS,
+    SITE_SEPARATOR, SITE_STATISTICS,
 } from '../site.config'
 
 const headCommentForCompatibility = `
@@ -21,7 +21,7 @@ const Header = (props) => (
                 <meta charSet="utf-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="author" content={SITE_AUTHOR} />
+                <meta name="author" content={props.authorName} />
                 <meta name="keywords" content={props.keywords.join(',')} />
                 <meta name="description" content={props.description || props.blogDescription} />
                 <link rel="icon" href="/favicon.ico" />
@@ -133,6 +133,7 @@ Header.propTypes = {
     pageTitle: PropTypes.string.isRequired,
     keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
     description: PropTypes.string.isRequired,
+    authorName: PropTypes.string.isRequired,
 }
 
 export default Header
