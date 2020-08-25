@@ -12,8 +12,8 @@ const Post = (props) => {
     return (
         <Layout
             pageTitle={post.post_title || ''}
-            keywords={SITE_KEYWORDS}
-            description={SITE_DESCRIPTION}
+            keywords={[post.post_title]}
+            description={props.post.post_content.substr(0, 66)}
             blogInfo={props.blogInfo}
             categoryList={props.categoryList}
             months={props.months}

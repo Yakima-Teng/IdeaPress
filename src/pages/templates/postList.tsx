@@ -2,7 +2,7 @@ import React  from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
 import {
-    SITE_MAIN_TITLE, SITE_SUB_TITLE, SITE_SEPARATOR, SITE_KEYWORDS, SITE_DESCRIPTION,
+    SITE_SEPARATOR, SITE_KEYWORDS,
 } from '../../site.config'
 import { getString } from '../../scripts/utils'
 import { PageNavigation } from '../../components/PageNavigation'
@@ -14,9 +14,9 @@ const PostList = (props) => {
     return (
         <Layout
             hideSiteMainTitle={true}
-            pageTitle={`${'SITE_MAIN_TITLE'} ${'SITE_SEPARATOR'} ${'SITE_SUB_TITLE'}`}
-            keywords={['SITE_KEYWORDS']}
-            description={'SITE_DESCRIPTION'}
+            pageTitle={`${props.blogInfo.blogname} ${SITE_SEPARATOR} ${props.blogInfo.blogdescription}`}
+            keywords={[props.blogInfo.blogdescription]}
+            description={props.blogInfo.blogdescription}
             blogInfo={props.blogInfo}
             categoryList={props.categoryList}
             months={props.months}

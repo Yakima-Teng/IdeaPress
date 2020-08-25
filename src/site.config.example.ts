@@ -1,8 +1,6 @@
 /**
  * 网站基本信息、seo信息
  */
-export const SITE_MAIN_TITLE: string = 'IdeaPress' // 网站主标题
-export const SITE_SUB_TITLE: string = 'Just another IdeaPress site' // 网站副标题
 export const SITE_SEPARATOR: string = '|' // 分隔符
 export const SITE_KEYWORDS: string[] = ['关键词1', '关键词2'] // 关键词
 export const SITE_DESCRIPTION: string = '网站描述' // 网站描述
