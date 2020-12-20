@@ -2,7 +2,7 @@ import React  from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../../components/Layout'
 import {
-    SITE_KEYWORDS, SITE_DESCRIPTION,
+    SITE_KEYWORDS,
 } from '../../site.config'
 import { doGet } from '../../scripts/fetch'
 import { Siblings } from '../../components/post/Siblings'
@@ -12,9 +12,10 @@ const Post = (props) => {
     return (
         <Layout
             pageTitle={post.post_title || ''}
-            keywords={SITE_KEYWORDS}
-            description={SITE_DESCRIPTION}
+            keywords={[post.post_title]}
+            description={props.post.post_content.substr(0, 66)}
             blogInfo={props.blogInfo}
+            userInfo={props.userInfo}
             categoryList={props.categoryList}
             months={props.months}
             links={props.links}
@@ -75,6 +76,7 @@ const Post = (props) => {
 
 Post.propTypes = {
     blogInfo: PropTypes.object.isRequired,
+    userInfo: PropTypes.object.isRequired,
     categoryList: PropTypes.array.isRequired,
     months: PropTypes.array.isRequired,
     links: PropTypes.array.isRequired,
@@ -90,7 +92,7 @@ Post.getInitialProps = async ({ query }) => {
     const resForBasicInfo = await doGet('/api/v2/getBasicInfo')
     const dataForBasicInfo = await resForBasicInfo.json()
     const {
-        blogInfo, categoryList, months, links, randomPosts, randomComments,
+        blogInfo, userInfo, categoryList, months, links, randomPosts, randomComments,
     } = dataForBasicInfo.body
 
     const postName = query.postName
@@ -115,6 +117,7 @@ Post.getInitialProps = async ({ query }) => {
 
     return {
         blogInfo,
+        userInfo,
         categoryList,
         months,
         links,

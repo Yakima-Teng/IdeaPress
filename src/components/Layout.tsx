@@ -13,6 +13,7 @@ const Layout = (props) => (
             keywords={props.keywords}
             description={props.description}
             hideSiteMainTitle={props.hideSiteMainTitle}
+            authorName={props.userInfo.display_name}
         />
         <div className="container-fluid siteMain">
             <div className="row">
@@ -62,6 +63,7 @@ Layout.propTypes = {
     children: PropTypes.any.isRequired,
     description: PropTypes.string.isRequired,
     blogInfo: PropTypes.object.isRequired,
+    userInfo: PropTypes.object.isRequired,
     categoryList: PropTypes.array.isRequired,
     months: PropTypes.array.isRequired,
     links: PropTypes.array.isRequired,
