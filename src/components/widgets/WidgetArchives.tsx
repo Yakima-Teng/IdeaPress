@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import {POST_LIST_TYPE} from '../../scripts/data'
 
 export const WidgetArchives = (props) => (
     <div className="row sidebarWidget">
@@ -9,7 +10,10 @@ export const WidgetArchives = (props) => (
             {
                 props.months.map((item, idx) => (
                     <li className="archive" key={idx}>
-                        <Link href={`/${item.year}/${item.month}`}>
+                        <Link
+                            href={`/templates/postList?type=${POST_LIST_TYPE.ARCHIVE}&year=${item.year}&month=${item.month}&pageNum=1`}
+                            as={`/${item.year}/${item.month}`}
+                        >
                             <a>{item.year}年{item.month * 1}月({item.numOfPosts})</a>
                         </Link>
                     </li>
