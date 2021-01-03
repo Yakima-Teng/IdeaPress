@@ -10,9 +10,20 @@ NodeJS构建的博客，使用next.js9+，为同构项目，同时支持服务�
 
 node: >=10.13.0
 
+## 项目预览
+
+网站头部截图：
+![首页头部截图](./docs/ideapress-01.png)
+
+网站尾部截图：
+![网站尾部截图](./docs/ideapress-02.png)
+
+页面正文截图：
+![页面正文截图](./docs/ideapress-03.png)
+
 ## 项目表结构
 
-本项目用的是WordPress程序生成的数据库（如果你没有使用wordpress程序，可以通过执行项目根目录下的schema.sql文件来生成对应的库表）。不涉及视图、存储过程，涉及12张表：
+本项目用的是WordPress程序生成的数据库（如果你没有使用wordpress程序，可以通过执行项目根目录下的schema.sql文件来生成对应的库表，相关的说明见[DDL](./docs/DDL.md)）。不涉及视图、存储过程，涉及12张表：
 
 - wp_commentmeta
 - wp_comments
