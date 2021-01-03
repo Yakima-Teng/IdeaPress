@@ -1,9 +1,7 @@
 import React  from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import Layout from '../../components/Layout'
-import {
-    SITE_KEYWORDS,
-} from '../../site.config'
 import { doGet } from '../../scripts/fetch'
 import { Siblings } from '../../components/post/Siblings'
 
@@ -24,10 +22,12 @@ const Post = (props) => {
         >
             <div className="blog-post">
                 <h1 className="blog-post-title">
-                    <a
-                        className="h3"
-                        href={`/${props.postSlug}${props.isPost === true ? '.html' : ''}`}
-                    >{post.post_title}</a>
+                    <Link
+                        href={`/templates/post?postType=${props.query.postType}&postName=${props.query.postName}`}
+                        as={`/${props.postSlug}${props.isPost === true ? '.html' : ''}`}
+                    >
+                        <a className="h3">{post.post_title}</a>
+                    </Link>
                 </h1>
                 <p className="blog-post-meta">
                     发布时间：{post.post_date.replace(/T.*$/, '')}
@@ -86,6 +86,7 @@ Post.propTypes = {
     isPost: PropTypes.bool.isRequired,
     postSlug: PropTypes.string.isRequired,
     post: PropTypes.object.isRequired,
+    query: PropTypes.object.isRequired,
 }
 
 Post.getInitialProps = async ({ query }) => {
@@ -104,6 +105,8 @@ Post.getInitialProps = async ({ query }) => {
         postType,
     })
     const data = await res.json()
+    console.log(query) // eslint-disable-line
+    console.log(data) // eslint-disable-line
     const post = ((body) => ({
         cat_name: body.post.category.length > 0 ? body.post.category[0].name : '',
         cat_slug: body.post.category.length > 0 ? body.post.category[0].slug : '',
@@ -126,6 +129,7 @@ Post.getInitialProps = async ({ query }) => {
         isPost,
         postSlug: postName,
         post,
+        query,
     }
 }
 
