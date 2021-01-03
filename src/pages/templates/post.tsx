@@ -105,8 +105,6 @@ Post.getInitialProps = async ({ query }) => {
         postType,
     })
     const data = await res.json()
-    console.log(query) // eslint-disable-line
-    console.log(data) // eslint-disable-line
     const post = ((body) => ({
         cat_name: body.post.category.length > 0 ? body.post.category[0].name : '',
         cat_slug: body.post.category.length > 0 ? body.post.category[0].slug : '',

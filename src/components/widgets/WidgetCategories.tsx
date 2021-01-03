@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import {POST_LIST_TYPE} from '../../scripts/data'
 
 export const WidgetCategories = (props) => (
     <div className="row sidebarWidget">
@@ -8,13 +9,15 @@ export const WidgetCategories = (props) => (
         <ol className="list-unstyled">
             {
                 props.categoryList.filter((item) => {
-                    const sumOfChildsCount = (item.childs || []).reduce((preVal, curVal) => (preVal + curVal.count), 0)
-                    item.sumOfChildsCount = sumOfChildsCount
+                    item.sumOfChildsCount = (item.childs || []).reduce((preVal, curVal) => (preVal + curVal.count), 0)
                     return item.count + item.sumOfChildsCount > 0
                 }).map((item, idx) => (
                     <li key={idx}>
                         <header className="liHeader">
-                            <Link href={`/category/${item.slug}`}>
+                            <Link
+                                href={`/templates/postList?type=${POST_LIST_TYPE.CATEGORY}&cats=${item.slug}&pageNum=1`}
+                                as={`/category/${item.slug}`}
+                            >
                                 <a>{item.name} ({item.count}{item.sumOfChildsCount > 0 ? `+${item.sumOfChildsCount}` : ''})</a>
                             </Link>
                         </header>
@@ -25,7 +28,10 @@ export const WidgetCategories = (props) => (
                                         item.childs.filter((d) => d.count > 0).map((d, dIdx) => (
                                             <li key={dIdx}>
                                                 <header className="liHeader">
-                                                    <Link href={`/category/${item.slug}/${d.slug}`}>
+                                                    <Link
+                                                        href={`/templates/postList?type=${POST_LIST_TYPE.CATEGORY}&cats=${item.slug},${d.slug}&pageNum=1`}
+                                                        as={`/category/${item.slug}/${d.slug}`}
+                                                    >
                                                         <a>{d.name} ({d.count})</a>
                                                     </Link>
                                                 </header>

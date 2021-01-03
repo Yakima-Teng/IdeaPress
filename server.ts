@@ -68,7 +68,7 @@ app
                 app.render(req, res, '/templates/postList', {
                     ...query,
                     type: POST_LIST_TYPE.CATEGORY,
-                    cats,
+                    cats: cats.join(','),
                     pageNum,
                 })
                 return

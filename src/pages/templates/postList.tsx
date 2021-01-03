@@ -88,8 +88,17 @@ PostList.getInitialProps = async ({ query, asPath }) => {
         pageSize,
     }
     if (query.type === POST_LIST_TYPE.CATEGORY) {
-        const lastCatSlug = query.cats.reverse()[0]
-        const lastCat = categoryList.find((item) => item.slug === lastCatSlug)
+        const cats = (() => {
+            if (query.cats instanceof Array) {
+                return query.cats
+            }
+            if (query.cats.indexOf(',') === -1) {
+                return [query.cats]
+            }
+            return query.cats.split(',')
+        })()
+        const lastCatSlug = cats.reverse()[0]
+        const lastCat = categoryList.find((item) => item.slug === lastCatSlug || (item.childs || []).some((d) => d.slug === lastCatSlug))
         const lastCatId = getString(lastCat.term_id)
         const categoryIds = [lastCatId]
         if (lastCat.childs && lastCat.childs.length > 0) {
