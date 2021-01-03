@@ -15,7 +15,8 @@
     "restart": "next build src && pm2 restart IdeaPress",
     "delete": "pm2 delete IdeaPress",
     "getShellUsedToStartProjectAfterReboot": "pm2 startup",
-    "log": "pm2 log"
+    "log": "pm2 log",
+    "status": "pm2 status"
   },
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
