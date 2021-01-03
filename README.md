@@ -12,7 +12,7 @@ node: >=10.13.0
 
 ## 项目表结构
 
-本项目用的是WordPress程序生成的数据库。不涉及视图、存储过程，涉及12张表：
+本项目用的是WordPress程序生成的数据库（如果你没有使用wordpress程序，可以通过执行项目根目录下的schema.sql文件来生成对应的库表）。不涉及视图、存储过程，涉及12张表：
 
 - wp_commentmeta
 - wp_comments
