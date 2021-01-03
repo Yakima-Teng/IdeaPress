@@ -11,7 +11,7 @@ const pool = mysql.createPool({
     database: DB_SCHEME_NAME,
 })
 
-export const promiseQuery = (options) => new Promise((resolve, reject) => {
+export const promiseQuery = (options) => new Promise<any>((resolve, reject) => {
     const sql = typeof options === 'string' ? options : options.sql
     const params = typeof options === 'string' ? {} : (options.params || {})
     pool.getConnection((err, connection) => {
@@ -19,7 +19,7 @@ export const promiseQuery = (options) => new Promise((resolve, reject) => {
             reject(err)
             return
         }
-        connection.query({ sql, timeout: 40000 }, params, (err, result) => {
+        connection.query({ sql, timeout: 40000 }, params, (err, result: any) => {
             connection.release()
             if (err) {
                 reject(err)

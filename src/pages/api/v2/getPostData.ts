@@ -6,7 +6,7 @@ export default async (req, res) => {
     try {
         const postName = req.query.postName || ''
         const postType = req.query.postType || ''
-        const returnBody = {}
+        const returnBody: {[index: string]: any} = {}
         const post = await getPostDataByPostName({ postName, postType })
 
         returnBody.post = post

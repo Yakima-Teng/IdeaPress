@@ -9,7 +9,7 @@
   "scripts": {
     "eslint": "eslint --fix --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx src",
     "dev": "nodemon",
-    "devProduction": "next build src && cross-env NODE_ENV=production node server.js",
+    "devProduction": "next build src && cross-env NODE_ENV=production ts-node --project tsconfig.json server.ts",
     "start": "next build src && pm2 start ecosystem.config.js --env production",
     "stop": "pm2 stop IdeaPress",
     "restart": "next build src && pm2 restart IdeaPress",

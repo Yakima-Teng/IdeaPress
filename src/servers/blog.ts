@@ -1,6 +1,15 @@
 const mysql = require('mysql')
-const config = require('../../site.config')
-const pool = mysql.createPool(config.blogMysql)
+import {DB_HOST, DB_PASSWORD, DB_SCHEME_NAME, DB_USERNAME} from '../site.config'
+
+const blogDatabaseConfig = {
+    connectionLimit : 10,
+    host            : DB_HOST,
+    user            : DB_USERNAME,
+    password        : DB_PASSWORD,
+    database        : DB_SCHEME_NAME
+}
+
+const pool = mysql.createPool(blogDatabaseConfig)
 
 const async = require('async')
 

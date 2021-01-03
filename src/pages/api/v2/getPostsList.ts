@@ -9,7 +9,7 @@ export default async (req, res) => {
         const pageSize = req.query.pageSize * 1 || 10
         const type = req.query.type || POST_LIST_TYPE.GLOBAL
 
-        const paramsForGettingTotalNumOfPosts = { type }
+        const paramsForGettingTotalNumOfPosts: { [index: string]: any } = { type }
 
         if (type === POST_LIST_TYPE.CATEGORY) {
             paramsForGettingTotalNumOfPosts.categoryIds = req.query.categoryIds.split(',')
@@ -20,7 +20,7 @@ export default async (req, res) => {
         }
         const totalNumOfPosts = await getTotalNumOfPosts(paramsForGettingTotalNumOfPosts)
         const totalNumOfPages = Math.ceil(totalNumOfPosts / pageSize)
-        const params = {
+        const params: {[index: string]: any} = {
             type,
             offset: (pageNum - 1) * pageSize,
             limit: pageSize,

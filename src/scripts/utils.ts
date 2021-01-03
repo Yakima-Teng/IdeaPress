@@ -132,7 +132,7 @@ export const hasValue = val => (
     !/^\s+$/.test(val)
 )
 
-export const doAlert = ({ text, callback, okCaption }) => {
+export const doAlert = ({ text, callback, okCaption }: { text: string, callback?: any, okCaption?: string }): void => {
     (window as any).updateGlobalState && (window as any).updateGlobalState({
         isAlerting: true,
         alertText: text || '',
