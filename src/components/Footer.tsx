@@ -12,7 +12,8 @@ const Footer = (props) => (
                     props.links && props.links.length > 0 && (
                         <WidgetRandomComments
                             commentList={props.randomComments.map((item) => ({
-                                href: `/${encodeURIComponent(item.post_name)}.html#comment-${item.comment_ID}`,
+                                as: `/${encodeURIComponent(item.post_name)}.html#comment-${item.comment_ID}`,
+                                href: `/templates/post?postType=post&postName=${item.post_name}`,
                                 title: item.comment_date.replace(/T.+$/, ''),
                                 contentPrefix: `${item.comment_author} (${item.comment_date.replace(/T.+$/, '')}): `,
                                 contentDetail: item.comment_content,
