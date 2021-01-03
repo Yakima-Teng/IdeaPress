@@ -9,7 +9,7 @@ export const WidgetRandomPosts = (props) => (
             {
                 props.postList.map((item, idx) => (
                     <li className="linkWrapper" key={idx}>
-                        <Link href={item.href}>
+                        <Link href={item.href} as={item.as}>
                             <a
                                 title={item.title}
                                 target="_self">{item.name}</a>
@@ -36,6 +36,7 @@ export const WidgetRandomPosts = (props) => (
 WidgetRandomPosts.propTypes = {
     postList: PropTypes.arrayOf(PropTypes.shape({
         href: PropTypes.string.isRequired,
+        as: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     })).isRequired,

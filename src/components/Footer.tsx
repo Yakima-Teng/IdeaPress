@@ -26,7 +26,8 @@ const Footer = (props) => (
                     props.links && props.links.length > 0 && (
                         <WidgetRandomPosts
                             postList={props.randomPosts.map((item) => ({
-                                href: `/${encodeURIComponent(item.post_name)}.html`,
+                                as: `/${item.post_name}.html`,
+                                href: `/templates/post?postType=post&postName=${item.post_name}`,
                                 title: item.post_title,
                                 name: item.post_title,
                             }))}
