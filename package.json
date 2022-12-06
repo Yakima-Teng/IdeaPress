@@ -36,7 +36,7 @@
     "next": "^9.3.0",
     "null-loader": "^3.0.0",
     "prop-types": "^15.7.2",
-    "qs": "^6.8.0",
+    "qs": "^6.9.7",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-markdown": "^4.3.1",
