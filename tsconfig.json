@@ -1,11 +1,20 @@
 {
-    "extends": "./src/tsconfig.json",
-    "compilerOptions": {
-        "module": "commonjs",
-        "outDir": "dist",
-        "target": "es2017",
-        "isolatedModules": false,
-        "noEmit": false
-    },
-    "include": ["server.ts", "site.config.ts", "next.config.ts"]
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
