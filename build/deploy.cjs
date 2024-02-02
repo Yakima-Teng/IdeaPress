@@ -94,7 +94,7 @@ async function restart() {
     'node --version',
     'cd ./server',
     // 'npm install --save-exact --registry https://registry.npmmirror.com',
-    // 'npm install mysql2@3.6.5 --save-exact --registry https://registry.npmmirror.com',
+    'npm install mysql2@3.6.5 --save-exact --registry https://registry.npmmirror.com',
     // 'pm2 start ./index.mjs --name IdeaPress',
     'pm2 restart IdeaPress',
   ].join(' && ')
