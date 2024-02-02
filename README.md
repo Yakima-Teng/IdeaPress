@@ -12,6 +12,12 @@ IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管
 
 Node: v16.14.2
 
+## 使用说明
+
+首次启动程序后，访问 **/start** 页面，填写网站标题、管理员账号信息，提交后即可正常使用网站。
+
+![](./attachments/page-start.png)
+
 ## 项目预览
 
 ## 项目表结构
