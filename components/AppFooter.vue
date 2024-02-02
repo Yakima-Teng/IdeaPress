@@ -1,19 +1,19 @@
 <template>
   <div class="site-footer">
     <div class="name">
-      {{ siteTitle }}
+      {{ siteSetting.siteTitle }}
     </div>
     <div class="intro">
-      {{ siteDesc }}
+      {{ siteSetting.siteDesc }}
     </div>
     <div class="small">
-      {{ siteCopyright }}
+      {{ siteSetting.siteCopyright }}
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const { siteTitle, siteDesc, siteCopyright } = useRuntimeConfig().public
+const { siteSetting } = useSiteSettingStore()
 </script>
 
 <style lang="scss" scoped>

@@ -29,6 +29,9 @@ const layout = computed(() => {
   return 'default'
 })
 
+const siteSettingStore = useSiteSettingStore()
+callOnce(siteSettingStore.fetchSiteSetting)
+
 useHead({
   title: siteSubTitle ? `${siteTitle} | ${siteSubTitle}` : siteTitle,
   meta: [

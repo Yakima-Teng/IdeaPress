@@ -10,6 +10,7 @@ export default defineEventHandler(async () => {
     'siteKeywords',
     'siteSubTitle',
     'siteLogo',
+    'siteCopyright'
   ]
 
   const list = await Dictionary.findAll({

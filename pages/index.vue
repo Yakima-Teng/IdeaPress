@@ -1,8 +1,8 @@
 <template>
   <div class="page-index">
     <HeroBanner
-      :main-title="siteTitle"
-      :sub-title="siteSubTitle"
+      :main-title="siteSetting.siteTitle"
+      :sub-title="siteSetting.siteSubTitle"
       :button-list="list"
     >
       <div class="hero-note">
@@ -101,6 +101,8 @@ import { useRouter } from 'nuxt/app'
 import { Search } from '@element-plus/icons-vue'
 import ArticleList from '~/components/ArticleList.vue'
 import {timestampToShortString} from "utils-daily";
+
+const { siteSetting } = useSiteSettingStore()
 
 const { siteTitle, siteSubTitle, siteDesc } = useRuntimeConfig().public
 

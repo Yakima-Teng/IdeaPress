@@ -36,6 +36,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@pinia/nuxt": "0.5.1",
     "@wangeditor/editor": "5.1.23",
     "@wangeditor/editor-for-vue": "5.1.12",
     "axios": "1.6.2",
@@ -48,6 +49,7 @@
     "mysql2": "3.6.5",
     "node-ncbi": "0.7.3",
     "nodemailer": "6.9.7",
+    "pinia": "2.1.7",
     "sequelize": "6.35.1",
     "svg-captcha": "1.4.0",
     "utils-daily": "1.0.1",

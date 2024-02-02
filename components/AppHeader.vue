@@ -10,7 +10,7 @@
           alt=""
           class="icon"
         >
-        {{ siteTitle }}
+        {{ siteSetting.siteTitle }}
       </RouterLink>
     </div>
     <div class="header-right">
@@ -71,10 +71,11 @@
 </template>
 
 <script setup lang="ts">
+const { siteSetting } = useSiteSettingStore()
 const loginUser = ref<TS.TLoginUser>()
 const token = useCookie('token')
 
-const { siteTitle, apiBase } = useRuntimeConfig().public
+const { apiBase } = useRuntimeConfig().public
 
 // 退出登录后跳转到首页
 const toLogout = () => {

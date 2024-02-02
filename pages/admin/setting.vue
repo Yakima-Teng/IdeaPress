@@ -44,14 +44,14 @@
             </template>
           </el-input>
         </div>
-        <div class="line tags-wrapper">
+        <div class="line">
           <el-input
-            v-model="siteKeywords"
-            placeholder="请输入网站关键词（可选，多个关键词以英文逗号分隔）"
-            @change="onChangeSiteKeywords"
+            v-model="siteCopyright"
+            placeholder="请输入版权信息（可选）"
+            @change="onChangeSiteCopyright"
           >
             <template #prepend>
-              网站关键词（可选，多个关键词以英文逗号分隔）
+              版权信息（可选）
             </template>
           </el-input>
         </div>
@@ -76,6 +76,18 @@
       </div>
     </div>
 
+    <div class="line tags-wrapper">
+      <el-input
+        v-model="siteKeywords"
+        placeholder="请输入网站关键词（可选，多个关键词以英文逗号分隔）"
+        @change="onChangeSiteKeywords"
+      >
+        <template #prepend>
+          网站关键词（可选，多个关键词以英文逗号分隔）
+        </template>
+      </el-input>
+    </div>
+
     <div class="abstract-wrapper">
       <el-input
         v-model="siteDesc"
@@ -96,6 +108,7 @@ const siteSubTitle = ref('')
 const siteDesc = ref('')
 const siteKeywords = ref('')
 const siteBeian = ref('')
+const siteCopyright = ref('')
 const siteLogoRef = ref<InstanceType<typeof HTMLInputElement>>()
 const siteLogo = ref('')
 
@@ -105,6 +118,7 @@ const rawData = ref<TS.ISiteSetting>({
   siteDesc: '',
   siteKeywords: '',
   siteBeian: '',
+  siteCopyright: '',
   siteLogo: '',
 })
 
@@ -126,6 +140,7 @@ const querySetting = async () => {
   siteDesc.value = data.siteDesc
   siteKeywords.value = data.siteKeywords
   siteSubTitle.value = data.siteSubTitle
+  siteCopyright.value = data.siteCopyright
   siteLogo.value = data.siteLogo
 }
 
@@ -150,6 +165,27 @@ const onChangeSiteTitle = async (value: string) => {
   }
   ElMessage.success(message)
   siteTitle.value = data
+}
+
+const onChangeSiteCopyright = async (value: string) => {
+  if (!value) {
+    ElMessage.warning('版权信息不可为空')
+    siteCopyright.value = rawData.value.siteCopyright
+    return
+  }
+  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteCopyright', {
+    method: 'PUT',
+    body: {
+      value,
+    }
+  })
+  if (code !== 200) {
+    ElMessage.warning(message)
+    siteCopyright.value = rawData.value.siteCopyright
+    return
+  }
+  ElMessage.success(message)
+  siteCopyright.value = data
 }
 
 const onChangeSiteSubTitle = async (value: string) => {

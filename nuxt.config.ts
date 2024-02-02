@@ -40,6 +40,15 @@ export default defineNuxtConfig({
   modules: [
     '@element-plus/nuxt',
     ['@nuxtjs/eslint-module', { lintOnStart: false }],
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          // 自动引入 `defineStore()`
+          'defineStore',
+        ],
+      },
+    ],
   ],
   elementPlus: { /** Options */ },
   vite: {
