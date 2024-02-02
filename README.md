@@ -4,6 +4,12 @@
 
 IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管理系统（CMS）。包含用户/会员管理、文章管理、产品管理、支付/订单等模块。
 
+## 项目预览
+
+![homepage](./attachments/homepage.png)
+
+![edit post](./attachments/edit-post.png)
+
 ## 前端兼容性
 
 兼容到 IE 11。
@@ -18,15 +24,16 @@ Node: v16.14.2
 
 ![](./attachments/page-start.png)
 
-## 项目预览
+[//]: # (## 项目表结构)
 
-## 项目表结构
+[//]: # ()
+[//]: # (涉及？张表：)
 
-涉及？张表：
+[//]: # ()
+[//]: # (相关ER图（实体关系图，entity-relationship diagram）如下：)
 
-相关ER图（实体关系图，entity-relationship diagram）如下：
-
-略。
+[//]: # ()
+[//]: # (略。)
 
 ## 常用命令
 
