@@ -1,4 +1,13 @@
 declare namespace TS {
+  interface ISiteSetting {
+    siteTitle: string
+    siteSubTitle: string
+    siteDesc: string
+    siteKeywords: string
+    siteBeian: string
+    siteLogo: string
+  }
+
   interface IUser {
     id: number
     username: string

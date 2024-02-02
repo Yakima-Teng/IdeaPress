@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "ready": "npm install",
-    "dev": "cross-env NODE_ENV=development nuxt dev",
+    "dev": "cross-env NODE_ENV=development nuxt dev --dotenv .env",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "build": "nuxt build",
+    "build": "nuxt build --dotenv .env",
     "prestart": "cd ./.output/server && npm install",
     "start": "cross-env PORT=3000 HOST=0.0.0.0 node ./.output/server/index.mjs",
     "generate": "nuxt generate",

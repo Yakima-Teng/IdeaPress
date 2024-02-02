@@ -27,6 +27,12 @@
         >
           分类管理
         </NuxtLink>
+        <NuxtLink
+          class="right-link"
+          to="/admin/setting"
+        >
+          网站设置
+        </NuxtLink>
         <el-divider
           direction="vertical"
           border-style="dashed"
