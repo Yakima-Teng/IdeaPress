@@ -27,5 +27,11 @@ export default defineEventHandler(async () => {
     ]
   })
 
-  return replySuccess('查询主各分类下的近期文章成功', postCatGroups)
+  // 没有已发布文章的分类不需要显示
+  const finalPostCatGroups = postCatGroups.filter((cat) => {
+    // @ts-ignore
+    return cat.posts.length > 0
+  })
+
+  return replySuccess('查询主各分类下的近期文章成功', finalPostCatGroups)
 })
