@@ -44,6 +44,20 @@
           </template>
         </el-table-column>
         <el-table-column
+          prop="alias"
+          label="别名（建议使用英文或拼音）"
+          width="auto"
+          header-align="center"
+          align="left"
+        >
+          <template #default="{ row }">
+            <el-input
+              v-model="row.alias"
+              @change="onChangeRowAlias($event, row)"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column
           prop="position"
           label="显示位置"
           width="auto"
@@ -176,6 +190,23 @@ const onChangeRowName = async (value: string, row: TS.IPostCat) => {
     body: {
       id: row.id,
       name: value,
+    }
+  })
+  if (code !== 200) {
+    ElMessage.warning(message)
+    await getPostCatList()
+    return
+  }
+  ElMessage.success(message)
+  row.name = data.name
+}
+
+const onChangeRowAlias = async (value: string, row: TS.IPostCat) => {
+  const { code, message, data } = await $fetch<TS.IResponse<TS.IPostCat>>('/api/admin/postCatAlias', {
+    method: 'PUT',
+    body: {
+      id: row.id,
+      alias: value,
     }
   })
   if (code !== 200) {

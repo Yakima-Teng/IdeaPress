@@ -21,6 +21,9 @@ export default defineEventHandler(async (event) => {
 
   const postCat = await PostCat.create({
     name,
+    alias: name,
+    order: 0,
+    position: 'main',
   })
 
   return replySuccess('成功增加文章分类', postCat)
