@@ -10,9 +10,8 @@ export default defineEventHandler(async (event) => {
   const file = files[0]
   const { name, type, data } = file
   const filename = file.filename || `${Date.now()}`
-  const publicPath = useRuntimeConfig().publicPath
   // 保存图片的目录
-  const saveDirectory = path.join(publicPath, 'images')
+  const saveDirectory = path.join('public', 'uploads/images')
   // 如果目录不存在则新建目录
   if (!fs.existsSync(saveDirectory)) {
     fs.mkdirSync(saveDirectory)
@@ -23,6 +22,6 @@ export default defineEventHandler(async (event) => {
     name,
     type,
     filename,
-    url: `/images/${filename}`,
+    url: `/uploads/images/${filename}`,
   })
 })

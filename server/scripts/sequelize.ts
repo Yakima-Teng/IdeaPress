@@ -1,6 +1,4 @@
 import { Sequelize } from 'sequelize'
-// import { User } from '~/server/models/user'
-// import { saltPassword, encrypt } from '~/server/scripts/utils'
 
 export const sequelize = new Sequelize(
   useRuntimeConfig().mysql.database,

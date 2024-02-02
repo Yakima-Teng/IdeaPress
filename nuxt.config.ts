@@ -8,7 +8,6 @@ const {
   SITE_COPYRIGHT,
   SERVER_PORT,
   API_BASE,
-  PUBLIC_PATH,
   MYSQL_DATABASE,
   MYSQL_USERNAME,
   MYSQL_PASSWORD,
@@ -53,8 +52,6 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    // public目录对应的系统路径
-    publicPath: PUBLIC_PATH,
     // The private keys which are only available server-side
     apiSecret: API_SECRET,
     isDev,
