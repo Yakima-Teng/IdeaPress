@@ -2,7 +2,16 @@
 
 [官网](https://www.verysystems.com)
 
-IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管理系统（CMS）。包含用户/会员管理、文章管理、产品管理、支付/订单等模块。
+IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管理系统（CMS）。包含以下模块/功能：
+
+- [x] 登录/注册
+- [x] SEO设置
+- [x] 文章管理
+- [x] 文章分类管理
+- [ ] 用户/会员管理
+- [ ] 产品管理
+- [ ] 支付
+- [ ] 订单管理
 
 ## 项目预览
 
