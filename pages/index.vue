@@ -96,25 +96,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'nuxt/app'
 import { Search } from '@element-plus/icons-vue'
 import ArticleList from '~/components/ArticleList.vue'
 import {timestampToShortString} from "utils-daily";
 
-const { siteSetting } = useSiteSettingStore()
-
-const { siteTitle, siteSubTitle, siteDesc } = useRuntimeConfig().public
+const siteSettingStore = useSiteSettingStore()
+const { siteSetting } = storeToRefs(siteSettingStore)
 
 useHead({
-  title: siteSubTitle ? `${siteTitle} | ${siteSubTitle}` : siteTitle,
+  title: siteSetting.value?.siteSubTitle ? `${siteSetting.value?.siteTitle} | ${siteSetting.value?.siteSubTitle}` : siteSetting.value?.siteTitle,
   meta: [
-    { name: 'description', content: siteDesc }
-  ],
-  bodyAttrs: {
-    class: 'body'
-  },
-  script: [ { innerHTML: 'console.log(\'Hello world\')' } ]
+    siteSetting.value?.siteDesc && { name: 'description', content: siteSetting.value?.siteDesc }
+  ].filter(Boolean) as Array<{ name: string; content: string }>,
 })
 
 const updateTime = timestampToShortString(Date.now())

@@ -12,15 +12,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRoute } from "nuxt/app";
-
 const route = useRoute()
-
 const font = reactive({
   color: 'rgba(0, 0, 0, .15)',
 })
-const { siteTitle, siteSubTitle, siteDesc } = useRuntimeConfig().public
+const siteSettingStore = useSiteSettingStore()
+const { siteSetting } = storeToRefs(siteSettingStore)
+callOnce(siteSettingStore.fetchSiteSetting)
+
 const layout = computed(() => {
   const path = route.path
   if (['/login', '/register', '/start'].includes(path)) {
@@ -29,17 +28,17 @@ const layout = computed(() => {
   return 'default'
 })
 
-const siteSettingStore = useSiteSettingStore()
-callOnce(siteSettingStore.fetchSiteSetting)
+
 
 useHead({
-  title: siteSubTitle ? `${siteTitle} | ${siteSubTitle}` : siteTitle,
+  title: siteSetting.value?.siteSubTitle ? `${siteSetting.value?.siteTitle} | ${siteSetting.value?.siteSubTitle}` : siteSetting.value?.siteTitle,
   meta: [
-    { name: 'description', content: siteDesc }
-  ],
+    siteSetting.value?.siteKeywords && { name: 'keywords', content: siteSetting.value?.siteKeywords },
+    siteSetting.value?.siteDesc && { name: 'description', content: siteSetting.value?.siteDesc }
+  ].filter(Boolean) as Array<{ name: string; content: string }>,
   bodyAttrs: {
     class: 'body'
   },
-  script: [ { innerHTML: 'console.log(\'Hello world\')' } ]
+  script: [ { innerHTML: 'console.log(\'欢迎使用IdeaPress，详情见：https://www.verysystems.com/\')' } ]
 })
 </script>

@@ -8,6 +8,15 @@
     </div>
     <div class="small">
       {{ siteSetting.siteCopyright }}
+      <a
+        v-if="siteSetting.siteBeian"
+        href="https://beian.miit.gov.cn/"
+        target="_blank"
+        rel="nofollow noreferrer noopener"
+        style="text-decoration:none;color:inherit;margin-left:8px;"
+      >
+        {{ siteSetting.siteBeian }}
+      </a>
     </div>
   </div>
 </template>
@@ -38,6 +47,16 @@ const { siteSetting } = storeToRefs(siteSettingStore)
     white-space: nowrap;
     color: #d2d3d4;
     margin: 15px 0;
+  }
+  .small {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 12px;
+    white-space: nowrap;
+    color: #d2d3d4;
+    margin: 15px 0;
+    text-decoration: none;
   }
 }
 </style>
