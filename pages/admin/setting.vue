@@ -23,7 +23,7 @@
               <el-input
                 v-model="editingSetting.siteTitle"
                 placeholder="请输入网站标题"
-                @change="onChangeSiteTitle"
+                @change="onChangeField('siteTitle', $event)"
               >
                 <template #prepend>
                   网站标题（必填）
@@ -113,16 +113,31 @@
           :closable="false"
           style="margin-bottom:20px;"
         />
-        <div class="line tags-wrapper">
-          <el-input
-            v-model="editingSetting.siteKeywords"
-            placeholder="请输入网站关键词（可选，多个关键词以英文逗号分隔）"
-            @change="onChangeField('siteKeywords', $event)"
-          >
-            <template #prepend>
-              网站关键词（可选，多个关键词以英文逗号分隔）
-            </template>
-          </el-input>
+        <div class="page-header">
+          <div class="header-left">
+            <div class="line">
+              <el-input
+                v-model="editingSetting.siteTitleSeparator"
+                placeholder="请输入网站标题间隔符"
+                @change="onChangeField('siteTitleSeparator', $event)"
+              >
+                <template #prepend>
+                  网站标题（必填）
+                </template>
+              </el-input>
+            </div>
+            <div class="line tags-wrapper">
+              <el-input
+                v-model="editingSetting.siteKeywords"
+                placeholder="请输入网站关键词（可选，多个关键词以英文逗号分隔）"
+                @change="onChangeField('siteKeywords', $event)"
+              >
+                <template #prepend>
+                  网站关键词（可选，多个关键词以英文逗号分隔）
+                </template>
+              </el-input>
+            </div>
+          </div>
         </div>
       </el-tab-pane>
       <el-tab-pane
@@ -177,6 +192,7 @@ const editingSetting = ref<TS.ISiteSetting>({
   siteBeian: '',
   siteCopyright: '',
   siteLogo: '',
+  siteTitleSeparator: '',
 })
 
 const siteSettingStore = useSiteSettingStore()
@@ -210,14 +226,6 @@ const onChangeField = async (fieldName: keyof TS.ISiteSetting, value: string) =>
   ElMessage.success(message)
   editingSetting.value[fieldName] = data
   await siteSettingStore.fetchSiteSetting()
-}
-const onChangeSiteTitle = async (value: string) => {
-  if (!value) {
-    ElMessage.warning('网站标题不可为空')
-    siteTitle.value = siteSetting.value.siteTitle
-    return
-  }
-  await onChangeField('siteTitle', value)
 }
 
 const uploadSiteLogo = async (e: any): Promise<string> => {

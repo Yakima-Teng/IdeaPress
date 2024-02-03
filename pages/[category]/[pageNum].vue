@@ -32,7 +32,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
 // @ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import ArticleList from '~/components/ArticleList.vue'
@@ -51,7 +50,6 @@ const getPostCat = async () => {
     },
   })
   const rawData = data.value
-  console.log(rawData)
   if (rawData?.code !== 200) {
     postCat.value = null
   } else {
@@ -59,6 +57,9 @@ const getPostCat = async () => {
   }
 }
 await getPostCat()
+useHead({
+  title: postCat.value?.name || ''
+})
 
 const sidebarGroups = ref<Array<TS.IPostCat & { posts: TS.IPost[] }>>([])
 const getSidebarGroups = async () => {

@@ -29,7 +29,13 @@ const layout = computed(() => {
 })
 
 useHead({
-  title: siteSetting.value?.siteSubTitle ? `${siteSetting.value?.siteTitle} | ${siteSetting.value?.siteSubTitle}` : siteSetting.value?.siteTitle,
+  title: siteSetting.value?.siteTitle || '',
+  titleTemplate: (title?: string) => {
+    if (title === siteSetting.value?.siteTitle) {
+      return title || ''
+    }
+    return `${title} ${siteSetting.value?.siteTitleSeparator || '-'} ${siteSetting.value?.siteTitle}`
+  },
   meta: [
     siteSetting.value?.siteKeywords && { name: 'keywords', content: siteSetting.value?.siteKeywords },
     siteSetting.value?.siteDesc && { name: 'description', content: siteSetting.value?.siteDesc }

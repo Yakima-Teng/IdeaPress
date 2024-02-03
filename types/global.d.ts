@@ -6,8 +6,10 @@ declare namespace TS {
     siteKeywords: string
     siteBeian: string
     siteLogo: string
-
     siteCopyright: string
+
+    // 标题分隔符
+    siteTitleSeparator: string
   }
 
   interface IUser {
