@@ -2,7 +2,7 @@
   <div>
     <el-watermark
       :font="font"
-      :content="[siteTitle]"
+      :content="[siteSetting.siteTitle]"
     >
       <NuxtLayout :name="layout">
         <NuxtPage />
