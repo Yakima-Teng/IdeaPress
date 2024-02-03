@@ -6,9 +6,11 @@ IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管
 
 ## 项目预览
 
-![homepage](./attachments/homepage.png)
+![homepage](./attachments/page-home.png)
 
-![edit post](./attachments/edit-post.png)
+![edit post](./attachments/page-edit-post.png)
+
+![setting](./attachments/page-setting.png)
 
 ## 前端兼容性
 
