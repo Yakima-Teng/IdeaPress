@@ -5,6 +5,7 @@
 IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管理系统（CMS）。包含以下模块/功能：
 
 - [x] 登录/注册
+- [x] 路由权限校验
 - [x] SEO设置
 - [x] 文章管理
 - [x] 文章分类管理

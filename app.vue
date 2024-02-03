@@ -28,8 +28,6 @@ const layout = computed(() => {
   return 'default'
 })
 
-
-
 useHead({
   title: siteSetting.value?.siteSubTitle ? `${siteSetting.value?.siteTitle} | ${siteSetting.value?.siteSubTitle}` : siteSetting.value?.siteTitle,
   meta: [
