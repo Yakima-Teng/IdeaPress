@@ -10,7 +10,6 @@ IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管
 - [x] 网站设置（站点标题、ICP备案信息、版权信息等）
 - [x] 文章管理
 - [x] 文章分类管理
-- [x] Markdown文档渲染
 - [ ] 用户/会员管理
 - [ ] 产品管理
 - [ ] 支付

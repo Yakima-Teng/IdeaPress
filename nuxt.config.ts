@@ -50,6 +50,7 @@ export default defineNuxtConfig({
         ],
       },
     ],
+    '@nuxt/content',
   ],
   elementPlus: { /** Options */ },
   vite: {
