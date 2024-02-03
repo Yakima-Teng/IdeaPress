@@ -10,6 +10,10 @@ declare namespace TS {
 
     // 标题分隔符
     siteTitleSeparator: string
+
+    homeTitle: string
+    homeKeywords: string
+    homeDesc: string
   }
 
   interface IUser {

@@ -86,13 +86,9 @@
         </div>
 
         <div class="abstract-wrapper">
-          <el-alert
-            title="网站描述（可选）"
-            type="info"
-            effect="dark"
-            :closable="false"
-            style="margin-bottom:20px;"
-          />
+          <el-divider content-position="left">
+            <el-tag>网站描述（可选）</el-tag>
+          </el-divider>
           <el-input
             v-model="editingSetting.siteDesc"
             :rows="2"
@@ -107,7 +103,7 @@
         name="seo"
       >
         <el-alert
-          title="SEO设置"
+          title="整站SEO设置"
           type="info"
           effect="dark"
           :closable="false"
@@ -126,7 +122,7 @@
                 </template>
               </el-input>
             </div>
-            <div class="line tags-wrapper">
+            <div class="line">
               <el-input
                 v-model="editingSetting.siteKeywords"
                 placeholder="请输入网站关键词（可选，多个关键词以英文逗号分隔）"
@@ -136,6 +132,51 @@
                   网站关键词（可选，多个关键词以英文逗号分隔）
                 </template>
               </el-input>
+            </div>
+          </div>
+        </div>
+        <el-alert
+          title="首页SEO设置"
+          type="info"
+          effect="dark"
+          :closable="false"
+          style="margin:20px 0;"
+        />
+        <div class="page-header">
+          <div class="header-left">
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeTitle"
+                placeholder="请输入首页标题"
+                @change="onChangeField('homeTitle', $event)"
+              >
+                <template #prepend>
+                  首页标题（选填）
+                </template>
+              </el-input>
+            </div>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeKeywords"
+                placeholder="请输入首页关键词（可选，多个关键词以英文逗号分隔）"
+                @change="onChangeField('homeKeywords', $event)"
+              >
+                <template #prepend>
+                  首页关键词（可选，多个关键词以英文逗号分隔）
+                </template>
+              </el-input>
+            </div>
+            <el-divider content-position="left">
+              <el-tag>首页描述（可选）</el-tag>
+            </el-divider>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeDesc"
+                :rows="2"
+                type="textarea"
+                placeholder="请输入首页描述（选填）"
+                @change="onChangeField('homeDesc', $event)"
+              />
             </div>
           </div>
         </div>
@@ -267,6 +308,10 @@ const onChangeSiteLogo = async (e: any) => {
   display: block;
   max-width: 1200px;
   margin: 20px auto;
+  :deep(.el-tabs__content) {
+    background-color: #ffffff;
+    padding: 15px;
+  }
   .page-header {
     display: flex;
     align-items: flex-start;
@@ -331,12 +376,6 @@ const onChangeSiteLogo = async (e: any) => {
   .abstract-wrapper {
     display: block;
     margin-top: 15px;
-  }
-  .editor-wrapper {
-    z-index: 10;
-    display: block;
-    margin-top: 15px;
-    border: 1px solid #cccccc;
   }
 }
 </style>

@@ -106,10 +106,16 @@ const { siteSetting } = storeToRefs(siteSettingStore)
 useHead({
   title: siteSetting.value?.siteSubTitle ? `${siteSetting.value?.siteTitle} ${siteSetting.value?.siteTitleSeparator || '-'} ${siteSetting.value?.siteSubTitle}` : siteSetting.value?.siteTitle,
   titleTemplate: (title?: string) => {
+    if (siteSetting.value?.homeTitle) {
+      return siteSetting.value?.homeTitle
+    }
     return title || ''
   },
   meta: [
-    siteSetting.value?.siteDesc && { name: 'description', content: siteSetting.value?.siteDesc }
+    siteSetting.value?.homeKeywords && { name: 'keywords', content: siteSetting.value?.homeKeywords },
+    siteSetting.value?.siteKeywords && !siteSetting.value?.homeKeywords && { name: 'keywords', content: siteSetting.value?.siteKeywords },
+    siteSetting.value?.homeDesc && { name: 'description', content: siteSetting.value?.homeDesc },
+    siteSetting.value?.siteDesc && !siteSetting.value?.homeDesc && { name: 'description', content: siteSetting.value?.siteDesc }
   ].filter(Boolean) as Array<{ name: string; content: string }>,
 })
 

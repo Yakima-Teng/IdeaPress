@@ -12,6 +12,9 @@ export default defineEventHandler(async () => {
     'siteLogo',
     'siteCopyright',
     'siteTitleSeparator',
+    'homeTitle',
+    'homeDesc',
+    'homeKeywords',
   ]
 
   const list = await Dictionary.findAll({
