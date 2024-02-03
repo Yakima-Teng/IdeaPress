@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts" setup>
-const { siteSetting } = useSiteSettingStore()
+const siteSettingStore = useSiteSettingStore()
+const { siteSetting } = storeToRefs(siteSettingStore)
 </script>
 
 <style lang="scss" scoped>

@@ -46,6 +46,7 @@ export default defineNuxtConfig({
         autoImports: [
           // 自动引入 `defineStore()`
           'defineStore',
+          'storeToRefs',
         ],
       },
     ],

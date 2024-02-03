@@ -6,7 +6,7 @@
         to="/"
       >
         <img
-          src="/favicon.ico"
+          :src="siteSetting.siteLogo"
           alt=""
           class="icon"
         >
@@ -71,7 +71,8 @@
 </template>
 
 <script setup lang="ts">
-const { siteSetting } = useSiteSettingStore()
+const siteSettingStore = useSiteSettingStore()
+const { siteSetting } = storeToRefs(siteSettingStore)
 const loginUser = ref<TS.TLoginUser>()
 const token = useCookie('token')
 

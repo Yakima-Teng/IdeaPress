@@ -1,118 +1,175 @@
 <template>
   <div class="page-setting">
-    <el-alert
-      title="网站设置"
-      type="info"
-      effect="dark"
-      :closable="false"
-      style="margin-bottom:30px;"
-    />
-
-    <div class="page-header">
-      <div class="header-left">
-        <div class="line">
-          <el-input
-            v-model="siteTitle"
-            placeholder="请输入网站标题"
-            @change="onChangeSiteTitle"
-          >
-            <template #prepend>
-              网站标题（必填）
-            </template>
-          </el-input>
-        </div>
-
-        <div class="line">
-          <el-input
-            v-model="siteSubTitle"
-            placeholder="请输入网站副标题（可选）"
-            @change="onChangeSiteSubTitle"
-          >
-            <template #prepend>
-              网站副标题（可选）
-            </template>
-          </el-input>
-        </div>
-        <div class="line">
-          <el-input
-            v-model="siteBeian"
-            placeholder="请输入备案信息（可选）"
-            @change="onChangeSiteBeian"
-          >
-            <template #prepend>
-              备案信息（可选）
-            </template>
-          </el-input>
-        </div>
-        <div class="line">
-          <el-input
-            v-model="siteCopyright"
-            placeholder="请输入版权信息（可选）"
-            @change="onChangeSiteCopyright"
-          >
-            <template #prepend>
-              版权信息（可选）
-            </template>
-          </el-input>
-        </div>
-      </div>
-      <div class="avatar-wrapper">
-        <span
-          v-if="!siteLogo"
-          class="note"
-        >点击上传网站图标</span>
-        <div
-          v-if="siteLogo"
-          class="image-preview"
-          :style="{ backgroundImage: `url('${siteLogo}')` }"
-        />
-        <input
-          ref="siteLogoRef"
-          type="file"
-          class="field-file"
-          accept="image/*"
-          @change="onChangeSiteLogo"
-        >
-      </div>
-    </div>
-
-    <div class="line tags-wrapper">
-      <el-input
-        v-model="siteKeywords"
-        placeholder="请输入网站关键词（可选，多个关键词以英文逗号分隔）"
-        @change="onChangeSiteKeywords"
+    <el-tabs
+      v-model="activeTabName"
+      tab-position="left"
+      style="height: auto;"
+    >
+      <el-tab-pane
+        label="全局设置"
+        name="global"
       >
-        <template #prepend>
-          网站关键词（可选，多个关键词以英文逗号分隔）
-        </template>
-      </el-input>
-    </div>
+        <el-alert
+          title="全局设置"
+          type="info"
+          effect="dark"
+          :closable="false"
+          style="margin-bottom:20px;"
+        />
 
-    <div class="abstract-wrapper">
-      <el-input
-        v-model="siteDesc"
-        :rows="2"
-        type="textarea"
-        placeholder="请输入网站描述（选填）"
-        @change="onChangeSiteDesc"
-      />
-    </div>
+        <div class="page-header">
+          <div class="header-left">
+            <div class="line">
+              <el-input
+                v-model="editingSetting.siteTitle"
+                placeholder="请输入网站标题"
+                @change="onChangeSiteTitle"
+              >
+                <template #prepend>
+                  网站标题（必填）
+                </template>
+              </el-input>
+            </div>
+
+            <div class="line">
+              <el-input
+                v-model="editingSetting.siteSubTitle"
+                placeholder="请输入网站副标题（可选）"
+                @change="onChangeField('siteSubTitle', $event)"
+              >
+                <template #prepend>
+                  网站副标题（可选）
+                </template>
+              </el-input>
+            </div>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.siteBeian"
+                placeholder="请输入备案信息（可选）"
+                @change="onChangeField('siteBeian', $event)"
+              >
+                <template #prepend>
+                  备案信息（可选）
+                </template>
+              </el-input>
+            </div>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.siteCopyright"
+                placeholder="请输入版权信息（可选）"
+                @change="onChangeField('siteCopyright', $event)"
+              >
+                <template #prepend>
+                  版权信息（可选）
+                </template>
+              </el-input>
+            </div>
+          </div>
+          <div class="avatar-wrapper">
+            <span
+              v-if="!editingSetting.siteLogo"
+              class="note"
+            >点击上传网站图标</span>
+            <div
+              v-if="editingSetting.siteLogo"
+              class="image-preview"
+              :style="{ backgroundImage: `url('${editingSetting.siteLogo}')` }"
+            />
+            <input
+              ref="siteLogoRef"
+              type="file"
+              class="field-file"
+              accept="image/*"
+              @change="onChangeSiteLogo"
+            >
+          </div>
+        </div>
+
+        <div class="abstract-wrapper">
+          <el-alert
+            title="网站描述（可选）"
+            type="info"
+            effect="dark"
+            :closable="false"
+            style="margin-bottom:20px;"
+          />
+          <el-input
+            v-model="editingSetting.siteDesc"
+            :rows="2"
+            type="textarea"
+            placeholder="请输入网站描述（选填）"
+            @change="onChangeField('siteDesc', $event)"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane
+        label="SEO设置"
+        name="seo"
+      >
+        <el-alert
+          title="SEO设置"
+          type="info"
+          effect="dark"
+          :closable="false"
+          style="margin-bottom:20px;"
+        />
+        <div class="line tags-wrapper">
+          <el-input
+            v-model="editingSetting.siteKeywords"
+            placeholder="请输入网站关键词（可选，多个关键词以英文逗号分隔）"
+            @change="onChangeField('siteKeywords', $event)"
+          >
+            <template #prepend>
+              网站关键词（可选，多个关键词以英文逗号分隔）
+            </template>
+          </el-input>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane
+        label="菜单设置"
+        name="menu"
+      >
+        <el-alert
+          title="SEO设置"
+          type="info"
+          effect="dark"
+          :closable="false"
+          style="margin-bottom:20px;"
+        />
+      </el-tab-pane>
+      <el-tab-pane
+        label="首页设置"
+        name="homepage"
+      >
+        <el-alert
+          title="首页设置"
+          type="info"
+          effect="dark"
+          :closable="false"
+          style="margin-bottom:20px;"
+        />
+      </el-tab-pane>
+      <el-tab-pane
+        label="文章设置"
+        name="post"
+      >
+        <el-alert
+          title="文章设置"
+          type="info"
+          effect="dark"
+          :closable="false"
+          style="margin-bottom:20px;"
+        />
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const siteTitle = ref('')
-const siteSubTitle = ref('')
-const siteDesc = ref('')
-const siteKeywords = ref('')
-const siteBeian = ref('')
-const siteCopyright = ref('')
+const activeTabName = ref('global')
 const siteLogoRef = ref<InstanceType<typeof HTMLInputElement>>()
-const siteLogo = ref('')
 
-const rawData = ref<TS.ISiteSetting>({
+const editingSetting = ref<TS.ISiteSetting>({
   siteTitle: '',
   siteSubTitle: '',
   siteDesc: '',
@@ -122,134 +179,45 @@ const rawData = ref<TS.ISiteSetting>({
   siteLogo: '',
 })
 
-const querySetting = async () => {
-  const { data: resp } = await useFetch<TS.IResponse<TS.ISiteSetting>>('/api/admin/siteSetting/query', {
-    method: 'GET',
-  })
-  if (!resp.value) {
-    return
+const siteSettingStore = useSiteSettingStore()
+const { siteSetting } = storeToRefs(siteSettingStore)
+
+watch(
+  () => siteSetting.value,
+  () => {
+    const keys = Object.keys(siteSetting.value) as Array<keyof TS.ISiteSetting>
+    keys.forEach((key) => {
+      editingSetting.value[key] = siteSetting.value[key]
+    })
+  },
+  {
+    immediate: true, deep: true
   }
-  const { code, message, data } = resp.value
+)
+
+const onChangeField = async (fieldName: keyof TS.ISiteSetting, value: string) => {
+  const { code, message, data } = await $fetch<TS.IResponse<string>>(`/api/admin/siteSetting/${fieldName}`, {
+    method: 'PUT',
+    body: {
+      value,
+    }
+  })
   if (code !== 200) {
     ElMessage.warning(message)
+    editingSetting.value[fieldName] = siteSetting.value[fieldName]
     return
   }
-  rawData.value = data
-  siteTitle.value = data.siteTitle
-  siteBeian.value = data.siteBeian
-  siteDesc.value = data.siteDesc
-  siteKeywords.value = data.siteKeywords
-  siteSubTitle.value = data.siteSubTitle
-  siteCopyright.value = data.siteCopyright
-  siteLogo.value = data.siteLogo
+  ElMessage.success(message)
+  editingSetting.value[fieldName] = data
+  await siteSettingStore.fetchSiteSetting()
 }
-
-await querySetting()
-
 const onChangeSiteTitle = async (value: string) => {
   if (!value) {
     ElMessage.warning('网站标题不可为空')
-    siteTitle.value = rawData.value.siteTitle
+    siteTitle.value = siteSetting.value.siteTitle
     return
   }
-  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteTitle', {
-    method: 'PUT',
-    body: {
-      value,
-    }
-  })
-  if (code !== 200) {
-    ElMessage.warning(message)
-    siteTitle.value = rawData.value.siteTitle
-    return
-  }
-  ElMessage.success(message)
-  siteTitle.value = data
-}
-
-const onChangeSiteCopyright = async (value: string) => {
-  if (!value) {
-    ElMessage.warning('版权信息不可为空')
-    siteCopyright.value = rawData.value.siteCopyright
-    return
-  }
-  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteCopyright', {
-    method: 'PUT',
-    body: {
-      value,
-    }
-  })
-  if (code !== 200) {
-    ElMessage.warning(message)
-    siteCopyright.value = rawData.value.siteCopyright
-    return
-  }
-  ElMessage.success(message)
-  siteCopyright.value = data
-}
-
-const onChangeSiteSubTitle = async (value: string) => {
-  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteSubTitle', {
-    method: 'PUT',
-    body: {
-      value,
-    }
-  })
-  if (code !== 200) {
-    ElMessage.warning(message)
-    siteSubTitle.value = rawData.value.siteSubTitle
-    return
-  }
-  ElMessage.success(message)
-  siteSubTitle.value = data
-}
-
-const onChangeSiteBeian = async (value: string) => {
-  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteBeian', {
-    method: 'PUT',
-    body: {
-      value,
-    }
-  })
-  if (code !== 200) {
-    ElMessage.warning(message)
-    siteBeian.value = rawData.value.siteBeian
-    return
-  }
-  ElMessage.success(message)
-  siteBeian.value = data
-}
-
-const onChangeSiteKeywords = async (value: string) => {
-  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteKeywords', {
-    method: 'PUT',
-    body: {
-      value,
-    }
-  })
-  if (code !== 200) {
-    ElMessage.warning(message)
-    siteKeywords.value = rawData.value.siteKeywords
-    return
-  }
-  ElMessage.success(message)
-  siteKeywords.value = data
-}
-
-const onChangeSiteDesc = async (value: string) => {
-  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteDesc', {
-    method: 'PUT',
-    body: {
-      value,
-    }
-  })
-  if (code !== 200) {
-    ElMessage.warning(message)
-    siteDesc.value = rawData.value.siteDesc
-    return
-  }
-  ElMessage.success(message)
-  siteDesc.value = data
+  await onChangeField('siteTitle', value)
 }
 
 const uploadSiteLogo = async (e: any): Promise<string> => {
@@ -282,19 +250,7 @@ const onChangeSiteLogo = async (e: any) => {
   if (!url) {
     return
   }
-  const { code, message, data } = await $fetch<TS.IResponse<string>>('/api/admin/siteSetting/siteLogo', {
-    method: 'PUT',
-    body: {
-      value: url,
-    }
-  })
-  if (code !== 200) {
-    ElMessage.warning(message)
-    siteLogo.value = rawData.value.siteLogo
-    return
-  }
-  ElMessage.success(message)
-  siteLogo.value = data
+  await onChangeField('siteLogo', url)
 }
 </script>
 
