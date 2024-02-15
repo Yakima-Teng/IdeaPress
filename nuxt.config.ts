@@ -2,10 +2,6 @@
 
 const {
   NODE_ENV,
-  SITE_TITLE,
-  SITE_SUB_TITLE,
-  SITE_DESC,
-  SITE_COPYRIGHT,
   SERVER_PORT,
   API_BASE,
   MYSQL_DATABASE,
@@ -74,10 +70,6 @@ export default defineNuxtConfig({
     // Keys within public are also exposed client-side
     public: {
       apiBase: API_BASE,
-      siteTitle: SITE_TITLE,
-      siteSubTitle: SITE_SUB_TITLE,
-      siteDesc: SITE_DESC,
-      siteCopyright: SITE_COPYRIGHT,
     },
     mysql: {
       database: MYSQL_DATABASE,
