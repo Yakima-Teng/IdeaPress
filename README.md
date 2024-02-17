@@ -40,18 +40,7 @@ Node: v16.14.2
 
 首次启动程序后，访问 **/start** 页面，填写网站标题、管理员账号信息，提交后即可正常使用网站。
 
-![](./attachments/page-start.png)
-
-[//]: # (## 项目表结构)
-
-[//]: # ()
-[//]: # (涉及？张表：)
-
-[//]: # ()
-[//]: # (相关ER图（实体关系图，entity-relationship diagram）如下：)
-
-[//]: # ()
-[//]: # (略。)
+![](https://www.verysystems.com/images/page-start.png)
 
 ## 常用命令
 
