@@ -22,7 +22,7 @@ IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管
 
 ## 项目预览
 
-![homepage](https://www.verysystems.com/images/page-home.png)
+![homepage](https://www.verysystems.com/images/page-home.png?t=1)
 
 ![edit post](https://www.verysystems.com/images/page-edit-post.png)
 
