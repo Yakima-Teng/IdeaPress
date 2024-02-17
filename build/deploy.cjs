@@ -92,10 +92,12 @@ async function restart() {
     // 'nvm install v18.18.0',
     'nvm use v16.14.2',
     'node --version',
-    'cd ./server',
+    // 'cd ./server',
     // 'npm install --save-exact --registry https://registry.npmmirror.com',
     // 'npm install mysql2@3.6.5 --save-exact --registry https://registry.npmmirror.com',
     // 'pm2 start ./index.mjs --name IdeaPress',
+    // 'cd ../',
+
     'pm2 restart IdeaPress',
   ].join(' && ')
   await ssh.execCommand(execCommand, {

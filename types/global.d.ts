@@ -1,4 +1,21 @@
 declare namespace TS {
+
+  interface ICarousel {
+    id: number
+    img: string
+    link: string
+    name: string
+    order: number
+    position: string
+  }
+  interface IMenu {
+    id: number
+    name: string
+    link: string
+    order: number
+    position: string
+  }
+
   interface ISiteSetting {
     siteTitle: string
     siteSubTitle: string
@@ -14,6 +31,16 @@ declare namespace TS {
     homeTitle: string
     homeKeywords: string
     homeDesc: string
+    homeBigBannerTitle: string
+    homeBigBannerDesc: string
+    homeBigBannerBtn1Label: string
+    homeBigBannerBtn1Link: string
+    homeBigBannerBtn2Label: string
+    homeBigBannerBtn2Link: string
+    homeTopAdImageLink: string
+    homeTopAdJumpLink: string
+    menus: IMenu[]
+    carousels: ICarousel[]
   }
 
   interface IUser {

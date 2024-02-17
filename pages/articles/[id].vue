@@ -201,8 +201,11 @@ if (postData.value) {
       font-weight: normal;
       line-height: 1.8;
       padding: 15px 20px;
-      p {
+      :deep(p) {
         margin: 15px 0;
+      }
+      :deep(img) {
+        max-width: 100%;
       }
     }
   }

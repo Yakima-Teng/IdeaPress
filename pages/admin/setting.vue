@@ -182,40 +182,144 @@
         </div>
       </el-tab-pane>
       <el-tab-pane
-        label="菜单设置"
-        name="menu"
-      >
-        <el-alert
-          title="SEO设置"
-          type="info"
-          effect="dark"
-          :closable="false"
-          style="margin-bottom:20px;"
-        />
-      </el-tab-pane>
-      <el-tab-pane
         label="首页设置"
         name="homepage"
       >
         <el-alert
-          title="首页设置"
+          title="首页顶部大Banner设置"
           type="info"
           effect="dark"
           :closable="false"
           style="margin-bottom:20px;"
         />
-      </el-tab-pane>
-      <el-tab-pane
-        label="文章设置"
-        name="post"
-      >
+        <div class="page-header">
+          <div class="header-left">
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeBigBannerTitle"
+                placeholder="请输入标题"
+                @change="onChangeField('homeBigBannerTitle', $event)"
+              >
+                <template #prepend>
+                  标题
+                </template>
+              </el-input>
+            </div>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeBigBannerDesc"
+                placeholder="请输入描述文案"
+                @change="onChangeField('homeBigBannerDesc', $event)"
+              >
+                <template #prepend>
+                  描述
+                </template>
+              </el-input>
+            </div>
+            <el-divider content-position="left">
+              <el-tag>按钮1</el-tag>
+            </el-divider>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeBigBannerBtn1Label"
+                placeholder="请输入按钮1文案"
+                @change="onChangeField('homeBigBannerBtn1Label', $event)"
+              >
+                <template #prepend>
+                  按钮1文案
+                </template>
+              </el-input>
+            </div>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeBigBannerBtn1Link"
+                placeholder="请输入按钮1链接"
+                @change="onChangeField('homeBigBannerBtn1Link', $event)"
+              >
+                <template #prepend>
+                  按钮1链接
+                </template>
+              </el-input>
+            </div>
+            <el-divider content-position="left">
+              <el-tag>按钮2</el-tag>
+            </el-divider>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeBigBannerBtn2Label"
+                placeholder="请输入按钮2文案"
+                @change="onChangeField('homeBigBannerBtn2Label', $event)"
+              >
+                <template #prepend>
+                  按钮2文案
+                </template>
+              </el-input>
+            </div>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeBigBannerBtn2Link"
+                placeholder="请输入按钮2链接"
+                @change="onChangeField('homeBigBannerBtn2Link', $event)"
+              >
+                <template #prepend>
+                  按钮2链接
+                </template>
+              </el-input>
+            </div>
+          </div>
+        </div>
+
         <el-alert
-          title="文章设置"
+          title="首页搜索框下方广告位设置"
           type="info"
           effect="dark"
           :closable="false"
-          style="margin-bottom:20px;"
+          style="margin-bottom:20px;margin-top:20px;"
         />
+        <div class="page-header">
+          <div class="header-left">
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeTopAdImageLink"
+                placeholder="请输入图片链接"
+                @change="onChangeField('homeTopAdImageLink', $event)"
+              >
+                <template #prepend>
+                  图片链接
+                </template>
+              </el-input>
+            </div>
+            <div class="line">
+              <el-input
+                v-model="editingSetting.homeTopAdJumpLink"
+                placeholder="请输入跳转链接"
+                @change="onChangeField('homeTopAdJumpLink', $event)"
+              >
+                <template #prepend>
+                  跳转链接
+                </template>
+              </el-input>
+            </div>
+          </div>
+          <div class="avatar-wrapper">
+            <span
+              v-if="!editingSetting.homeTopAdImageLink"
+              class="note"
+            >点击上传图片</span>
+            <div
+              v-if="editingSetting.homeTopAdImageLink"
+              class="image-preview"
+              :style="{ backgroundImage: `url('${editingSetting.homeTopAdImageLink}')` }"
+            />
+            <input
+              ref="siteLogoRef"
+              type="file"
+              class="field-file"
+              accept="image/*"
+              @change="onChangeHomeTopAdImageLink"
+            >
+          </div>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -226,6 +330,9 @@ const activeTabName = ref('global')
 const siteLogoRef = ref<InstanceType<typeof HTMLInputElement>>()
 
 const editingSetting = ref<TS.ISiteSetting>({
+  homeTitle: '',
+  homeKeywords: '',
+  homeDesc: '',
   siteTitle: '',
   siteSubTitle: '',
   siteDesc: '',
@@ -234,6 +341,14 @@ const editingSetting = ref<TS.ISiteSetting>({
   siteCopyright: '',
   siteLogo: '',
   siteTitleSeparator: '',
+  homeBigBannerTitle: '',
+  homeBigBannerDesc: '',
+  homeBigBannerBtn1Label: '',
+  homeBigBannerBtn1Link: '',
+  homeBigBannerBtn2Label: '',
+  homeBigBannerBtn2Link: '',
+  homeTopAdImageLink: '',
+  homeTopAdJumpLink: ''
 })
 
 const siteSettingStore = useSiteSettingStore()
@@ -269,7 +384,7 @@ const onChangeField = async (fieldName: keyof TS.ISiteSetting, value: string) =>
   await siteSettingStore.fetchSiteSetting()
 }
 
-const uploadSiteLogo = async (e: any): Promise<string> => {
+const uploadImage = async (e: any): Promise<string> => {
   const fieldFile = siteLogoRef.value
   if (!fieldFile) {
     return ''
@@ -295,11 +410,18 @@ const uploadSiteLogo = async (e: any): Promise<string> => {
 }
 
 const onChangeSiteLogo = async (e: any) => {
-  const url = await uploadSiteLogo(e)
+  const url = await uploadImage(e)
   if (!url) {
     return
   }
   await onChangeField('siteLogo', url)
+}
+const onChangeHomeTopAdImageLink = async (e: any) => {
+  const url = await uploadImage(e)
+  if (!url) {
+    return
+  }
+  await onChangeField('homeTopAdImageLink', url)
 }
 </script>
 
@@ -341,7 +463,7 @@ const onChangeSiteLogo = async (e: any) => {
       margin-left: 20px;
       .note {
         position: absolute;
-        z-index: -1;
+        z-index: 1;
         top: 0;
         left: 0;
         width: 100%;

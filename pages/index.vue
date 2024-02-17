@@ -1,19 +1,11 @@
 <template>
   <div class="page-index">
     <HeroBanner
-      :main-title="siteSetting.siteTitle"
-      :sub-title="siteSetting.siteSubTitle"
+      v-if="siteSetting.homeBigBannerTitle"
+      :main-title="siteSetting.homeBigBannerTitle"
+      :sub-title="siteSetting.homeBigBannerDesc"
       :button-list="list"
-    >
-      <div class="hero-note">
-        更新日志：{{ updateTime }}，
-        最新版本
-        <VersionNumber
-          left="version"
-          right="1.1.12"
-        />
-      </div>
-    </HeroBanner>
+    />
 
     <div class="page-inner">
       <div class="header-wrapper">
@@ -78,6 +70,25 @@
         </div>
       </div>
 
+      <a
+        v-if="siteSetting.homeTopAdImageLink && siteSetting.homeTopAdJumpLink"
+        :href="siteSetting.homeTopAdJumpLink"
+        class="top-ad"
+        target="_blank"
+        rel="noopenner noreferrer"
+      >
+        <img
+          :src="siteSetting.homeTopAdImageLink"
+          alt=""
+          class="top-ad-image"
+        >
+      </a>
+
+      <CarouselList
+        v-if="siteSetting.carousels.length > 0"
+        :carousels="siteSetting.carousels"
+      />
+
       <div class="page-main">
         <div class="articles-wrapper">
           <ArticleList
@@ -98,7 +109,6 @@
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
 import ArticleList from '~/components/ArticleList.vue'
-import {timestampToShortString} from "utils-daily";
 
 const siteSettingStore = useSiteSettingStore()
 const { siteSetting } = storeToRefs(siteSettingStore)
@@ -119,18 +129,28 @@ useHead({
   ].filter(Boolean) as Array<{ name: string; content: string }>,
 })
 
-const updateTime = timestampToShortString(Date.now())
-const list = [
-  { label: '获取源码', link: 'https://github.com/Yakima-Teng/IdeaPress/archive/refs/heads/master.zip' },
-  { label: '访问仓库', link: 'https://github.com/Yakima-Teng/IdeaPress' },
-]
+const list = computed(() => {
+  const setting = siteSetting.value
+  const btn1Link = setting.homeBigBannerBtn1Link
+  const btn1Label = setting.homeBigBannerBtn1Label
+  const btn2Link = setting.homeBigBannerBtn2Link
+  const btn2Label = setting.homeBigBannerBtn2Label
+  const returnArr: Array<{ label: string; link: string }> = []
+  if (btn1Link && btn1Label) {
+    returnArr.push({ label: btn1Label, link: btn1Link })
+  }
+  if (btn2Link && btn2Label) {
+    returnArr.push({ label: btn2Label, link: btn2Link })
+  }
+  return returnArr
+})
 
 const router = useRouter()
 const tabList = [
   { label: '文章', value: 'posts' },
   { label: '产品', value: 'products' },
 ]
-const activeTabValue = ref(tabList[0].value)
+const activeTabValue = ref(tabList[0]?.value || '')
 const keyword = ref('')
 const range = ref('1')
 
@@ -268,6 +288,17 @@ const onSearch = () => {
         background-color: #07aea0;
         color: #ffffff;
       }
+    }
+  }
+  .top-ad {
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    height: auto;
+    .top-ad-image {
+      display: block;
+      width: 100%;
+      height: auto;
     }
   }
   .page-main {

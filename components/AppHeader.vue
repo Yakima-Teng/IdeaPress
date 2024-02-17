@@ -1,7 +1,7 @@
 <template>
   <div class="site-header">
     <div class="header-left">
-      <RouterLink
+      <NuxtLink
         class="site-title"
         to="/"
       >
@@ -11,9 +11,21 @@
           class="icon"
         >
         {{ siteSetting.siteTitle }}
-      </RouterLink>
+      </NuxtLink>
     </div>
     <div class="header-right">
+      <template v-if="siteSetting.menus.length > 0">
+        <NuxtLink
+          v-for="item in siteSetting.menus"
+          :key="item.id"
+          class="right-link"
+          :to="item.link"
+          target="_blank"
+        >
+          {{ item.name }}
+        </NuxtLink>
+      </template>
+
       <template v-if="loginUser">
         <NuxtLink
           class="right-link"
@@ -29,9 +41,21 @@
         </NuxtLink>
         <NuxtLink
           class="right-link"
+          to="/admin/menus"
+        >
+          菜单管理
+        </NuxtLink>
+        <NuxtLink
+          class="right-link"
+          to="/admin/carousel"
+        >
+          轮播图管理
+        </NuxtLink>
+        <NuxtLink
+          class="right-link"
           to="/admin/setting"
         >
-          网站设置
+          通用设置
         </NuxtLink>
         <el-divider
           direction="vertical"
