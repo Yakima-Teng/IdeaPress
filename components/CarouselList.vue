@@ -40,12 +40,14 @@ defineProps<IProps>()
 
     .img {
       display: block;
-      opacity: 0.75;
+      opacity: 1;
       width: 100%;
       height: 100%;
       margin: 0;
       background: transparent scroll no-repeat center center;
       background-size: cover;
+      box-sizing: border-box;
+      border: 1px solid rgba(200, 200, 200, 1);
     }
   }
 }
