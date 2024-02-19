@@ -150,6 +150,11 @@ if (data.value) {
     font-weight: bold;
     text-decoration: none;
     gap: 10px;
+    .icon {
+      display: block;
+      width: auto;
+      max-height: 46px;
+    }
   }
 }
 .header-right {
