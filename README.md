@@ -34,7 +34,7 @@ IdeaPress是一个由 Node（Nuxt3） + MySQL （Sequelize） 构建的内容管
 
 ## 服务端环境
 
-Node: v16.14.2
+Node: v18.18.0
 
 ## 使用说明
 
