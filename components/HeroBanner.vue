@@ -46,7 +46,7 @@ defineProps<IProps>()
   box-sizing: border-box;
   padding-top: 20px;
   background-color: #7b4397;
-  background-image: url('../assets/images/bg-pattern.png'), linear-gradient(20deg, #48c274, #247cdc);
+  background-image: url('https://cdn.orzzone.com/verybugs/bg-pattern.png'), linear-gradient(20deg, #48c274, #247cdc);
   color: #ffffff;
   .slogan {
     display: flex;
