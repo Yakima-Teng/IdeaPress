@@ -1,6 +1,6 @@
 {
   "name": "idea-press",
-  "private": true,
+  "private": false,
   "type": "module",
   "scripts": {
     "ready": "npm install",
