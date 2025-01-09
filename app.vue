@@ -43,6 +43,6 @@ useHead({
   bodyAttrs: {
     class: 'body'
   },
-  script: [ { innerHTML: 'console.log(\'欢迎使用IdeaPress，详情见：https://www.verysystems.com/\')' } ]
+  script: [ { innerHTML: 'console.log(\'欢迎使用IdeaPress\')' } ]
 })
 </script>
